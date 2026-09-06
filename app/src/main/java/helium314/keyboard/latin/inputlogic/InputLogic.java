@@ -2724,9 +2724,15 @@ public final class InputLogic {
         } else {
             selectionStart = 0;
             selectionEnd = 0;
-            final CharSequence before = mConnection.getTextBeforeCursor(Integer.MAX_VALUE, 0);
-            final CharSequence after = mConnection.getTextAfterCursor(Integer.MAX_VALUE, 0);
+            final CharSequence before = mConnection.getTextBeforeCursor(100000, 0);
+            final CharSequence after = mConnection.getTextAfterCursor(100000, 0);
             text = (before == null ? "" : before.toString()) + (after == null ? "" : after.toString());
+        }
+
+        if (text.trim().isEmpty()) {
+            KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(
+                    proofread ? R.string.proofread_no_text : R.string.translate_no_text), true);
+            return;
         }
 
         KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(

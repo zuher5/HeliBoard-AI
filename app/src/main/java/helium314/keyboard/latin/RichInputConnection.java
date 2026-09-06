@@ -476,7 +476,13 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return null;
         }
         final long startTime = SystemClock.uptimeMillis();
-        final CharSequence result = mIC.getTextBeforeCursor(n, flags);
+        final CharSequence result;
+        try {
+            result = mIC.getTextBeforeCursor(Math.min(n, 100000), flags);
+        } catch (Throwable t) {
+            Log.w(TAG, "Exception in getTextBeforeCursor", t);
+            return null;
+        }
         detectLaggyConnection(operation, timeout, startTime);
 
         // only do the consistency check if we actually have text (i.e. we're not coming from some reload / reset)
@@ -544,7 +550,13 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return null;
         }
         final long startTime = SystemClock.uptimeMillis();
-        final CharSequence result = mIC.getTextAfterCursor(n, flags);
+        final CharSequence result;
+        try {
+            result = mIC.getTextAfterCursor(Math.min(n, 100000), flags);
+        } catch (Throwable t) {
+            Log.w(TAG, "Exception in getTextAfterCursor", t);
+            return null;
+        }
         detectLaggyConnection(operation, timeout, startTime);
         return result;
     }
