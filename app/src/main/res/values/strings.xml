@@ -1332,6 +1332,7 @@ New dictionary:
     <string name="ai_openai_endpoint_summary">OpenAI-compatible base URL, e.g. https://api.openai.com/v1</string>
     <string name="translation_target_language">Target language for translation</string>
     <string name="translation_settings">Translation settings</string>
+    <string name="close_translate_language_selector">Close language selector</string>
 
     <string name="ai_no_api_key">No AI API key configured. Open Settings &gt; AI Integration to add one.</string>
     <string name="ai_request_failed">AI request failed: %1$s\n%2$s</string>

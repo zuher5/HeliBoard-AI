@@ -134,8 +134,7 @@ dependencies {
     // kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 
-    // AI translate & proofread (cloud)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    // AI translate (cloud)
     implementation("androidx.security:security-crypto:1.1.0-alpha06") // encrypted API key storage
 
     // compose

@@ -60,6 +60,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
 import kotlin.math.min
 import androidx.core.view.isGone
+import android.view.Gravity
+import helium314.keyboard.latin.utils.TranslationUtils
 import helium314.keyboard.latin.utils.onClickToolbarKey
 import helium314.keyboard.latin.utils.onLongClickToolbarKey
 import kotlinx.coroutines.Dispatchers
@@ -124,6 +126,15 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
     private var direction = 1 // 1 if LTR, -1 if RTL
+
+    // Translate language selector views
+    private val translateLanguageContainer: View = findViewById(R.id.translate_language_container)
+    private val translateLanguageCloseButton: ImageButton by lazy {
+        findViewById(R.id.translate_language_close_button)
+    }
+    var isTranslateLanguageSelectorVisible = false
+        private set
+    private var wasToolbarVisibleBeforeTranslate = false
 
     private val toolbarKeyLayoutParams = LinearLayout.LayoutParams(
         resources.getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
@@ -242,6 +253,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {
+        if (isTranslateLanguageSelectorVisible) return
         clear()
         setRtl(isRtlLanguage)
         suggestedWords = suggestions
@@ -253,6 +265,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     fun setExternalSuggestionView(view: View?, addCloseButton: Boolean) {
+        if (isTranslateLanguageSelectorVisible) hideTranslateLanguageSelector()
         clear()
         isExternalSuggestionVisible = true
 
@@ -481,6 +494,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     private fun clear() {
+        if (isTranslateLanguageSelectorVisible) hideTranslateLanguageSelector()
         suggestionsStrip.removeAllViews()
         if (DEBUG_SUGGESTIONS) removeAllDebugInfoViews()
         if (!toolbarContainer.isVisible)
@@ -546,6 +560,109 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         (view.layoutParams as LinearLayout.LayoutParams).weight = 1f
         colors.setColor(view, ColorType.TOOL_BAR_KEY)
         colors.setBackground(view, ColorType.STRIP_BACKGROUND)
+    }
+
+    fun showTranslateLanguageSelector() {
+        // Hide other views
+        suggestionsStrip.isVisible = false
+        wasToolbarVisibleBeforeTranslate = toolbarContainer.isVisible
+        toolbarContainer.isVisible = false
+        pinnedKeys.isVisible = false
+        toolbarExpandKey.isVisible = false
+
+        // Populate language buttons
+        val languageList = findViewById<LinearLayout>(R.id.translate_language_list)
+        languageList.removeAllViews()
+
+        val languageNames = resources.getStringArray(R.array.translate_language_names)
+        val languageCodes = resources.getStringArray(R.array.translate_language_codes)
+        val prefs = context.prefs()
+
+        val defaultList = languageNames.zip(languageCodes).toMutableList()
+        val currentLanguageCode = prefs.getString(Settings.PREF_TRANSLATION_TARGET_LANGUAGE, Defaults.PREF_TRANSLATION_TARGET_LANGUAGE) ?: "en"
+        val codeIndex = languageCodes.indexOfFirst { it.equals(currentLanguageCode, ignoreCase = true) }
+        val currentLanguageName = if (codeIndex in languageNames.indices) languageNames[codeIndex] else currentLanguageCode
+
+        val history = TranslationUtils.getLanguageHistory(prefs).toMutableList()
+        if (currentLanguageCode.isNotEmpty() && currentLanguageCode != "auto") {
+            val currentPair = currentLanguageName to currentLanguageCode
+            if (history.none { TranslationUtils.isSameLanguage(it, currentPair) }) {
+                history.add(0, currentPair)
+            }
+        }
+
+        val list = mutableListOf<Pair<String, String>>()
+        for (item in history) {
+            if (list.none { TranslationUtils.isSameLanguage(it, item) }) {
+                list.add(item)
+            }
+        }
+        for (item in defaultList) {
+            if (list.none { TranslationUtils.isSameLanguage(it, item) }) {
+                list.add(item)
+            }
+        }
+
+        val removed = TranslationUtils.getRemovedLanguages(prefs)
+        val filteredList = list.filter {
+            it.first.lowercase() !in removed && it.second.lowercase() !in removed
+        }
+
+        val colors = Settings.getValues().mColors
+        val pad8 = (8 * resources.displayMetrics.density).toInt()
+        val minWidth100 = (100 * resources.displayMetrics.density).toInt()
+
+        for ((languageName, languageCode) in filteredList) {
+            val button = TextView(context, null, R.attr.suggestionWordStyle).apply {
+                text = languageName
+                gravity = Gravity.CENTER
+                setPadding(pad8, 0, pad8, 0)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
+                setSingleLine()
+                ellipsize = TextUtils.TruncateAt.END
+                minimumWidth = minWidth100
+            }
+            button.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            ).apply { gravity = Gravity.CENTER_VERTICAL }
+
+            button.setOnClickListener {
+                prefs.edit().putString(Settings.PREF_TRANSLATION_TARGET_LANGUAGE, languageCode).apply()
+                TranslationUtils.saveLanguageHistory(prefs, languageName, languageCode)
+                hideTranslateLanguageSelector()
+                listener.onCodeInput(KeyCode.TRANSLATE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false)
+            }
+
+            button.setBackgroundResource(R.drawable.toolbar_key_background)
+            colors.setColor(button.background, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND)
+            button.setTextColor(colors.get(ColorType.KEY_TEXT))
+            languageList.addView(button)
+        }
+
+        // Setup close button
+        translateLanguageCloseButton.setBackgroundResource(R.drawable.toolbar_key_background)
+        val closePadding = (9 * resources.displayMetrics.density).toInt()
+        translateLanguageCloseButton.setPadding(closePadding, closePadding, closePadding, closePadding)
+        translateLanguageCloseButton.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.CLOSE_HISTORY.name, context))
+        colors.setColor(translateLanguageCloseButton, ColorType.TOOL_BAR_EXPAND_KEY)
+        colors.setColor(translateLanguageCloseButton.background, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND)
+        translateLanguageCloseButton.setOnClickListener {
+            hideTranslateLanguageSelector()
+        }
+
+        translateLanguageContainer.isVisible = true
+        isTranslateLanguageSelectorVisible = true
+    }
+
+    fun hideTranslateLanguageSelector() {
+        if (!isTranslateLanguageSelectorVisible) return
+        translateLanguageContainer.isVisible = false
+        isTranslateLanguageSelectorVisible = false
+
+        val settingsValues = Settings.getValues()
+        toolbarExpandKey.isVisible = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
+        setToolbarVisibility(wasToolbarVisibleBeforeTranslate)
     }
 
     companion object {

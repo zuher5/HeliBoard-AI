@@ -812,6 +812,9 @@ public final class InputLogic {
                 performAiTextOperation(false);
                 inputTransaction.setDidAffectContents();
                 break;
+            case KeyCode.SHOW_TRANSLATE_LANGUAGES:
+                mLatinIME.showTranslateLanguageSelector();
+                break;
             case KeyCode.PROOFREAD:
                 performAiTextOperation(true);
                 inputTransaction.setDidAffectContents();
