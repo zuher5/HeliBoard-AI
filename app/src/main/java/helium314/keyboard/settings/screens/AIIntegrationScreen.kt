@@ -74,6 +74,7 @@ fun AIIntegrationScreen(
         if (provider == ProofreadService.AiProvider.OPENAI) KEY_AI_ENDPOINT else null,
         Settings.PREF_CLOUD_AI_MAX_TOKENS,
         SettingsWithoutKey.AI_TRANSLATION_SETTINGS,
+        SettingsWithoutKey.CUSTOM_AI_KEYS,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -153,6 +154,13 @@ fun createAISettings(context: Context) = listOf(
         Preference(
             name = stringResource(R.string.translation_settings),
             onClick = { SettingsDestination.navigateTo(SettingsDestination.TranslationSettings) },
+        ) { NextScreenIcon() }
+    },
+    Setting(context, SettingsWithoutKey.CUSTOM_AI_KEYS, R.string.custom_ai_keys_title, R.string.custom_ai_keys_summary) {
+        Preference(
+            name = stringResource(R.string.custom_ai_keys_title),
+            description = stringResource(R.string.custom_ai_keys_summary),
+            onClick = { SettingsDestination.navigateTo(SettingsDestination.CustomAIKeys) },
         ) { NextScreenIcon() }
     },
 )

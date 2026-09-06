@@ -21,6 +21,8 @@ import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AIIntegrationScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
 import helium314.keyboard.settings.screens.ColorsScreen
+import helium314.keyboard.settings.screens.ConfigCustomAIKeyScreen
+import helium314.keyboard.settings.screens.CustomAIKeysScreen
 import helium314.keyboard.settings.screens.DebugScreen
 import helium314.keyboard.settings.screens.DictionaryScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
@@ -99,6 +101,21 @@ fun SettingsNavHost(
         composable(SettingsDestination.AI) {
             AIIntegrationScreen(onClickBack = ::goBack)
         }
+        composable(SettingsDestination.CustomAIKeys) {
+            CustomAIKeysScreen(
+                onClickBack = ::goBack,
+                onNavigateToConfig = { index ->
+                    navController.navigate(SettingsDestination.CustomAIKeyConfig + index)
+                }
+            )
+        }
+        composable(SettingsDestination.CustomAIKeyConfig + "{index}") {
+            val index = it.arguments?.getString("index")?.toIntOrNull() ?: 1
+            ConfigCustomAIKeyScreen(
+                index = index,
+                onClickBack = ::goBack
+            )
+        }
         composable(SettingsDestination.TranslationSettings) {
             TranslationSettingsScreen(onClickBack = ::goBack)
         }
@@ -160,6 +177,8 @@ object SettingsDestination {
     const val Preferences = "preferences"
     const val Toolbar = "toolbar"
     const val AI = "ai"
+    const val CustomAIKeys = "custom_ai_keys"
+    const val CustomAIKeyConfig = "custom_ai_key_config/"
     const val TranslationSettings = "translation_settings"
     const val GestureTyping = "gesture_typing"
     const val DataGathering = "data_gathering" // remove when data gathering phase is done (end of 2026 latest)

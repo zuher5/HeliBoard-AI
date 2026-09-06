@@ -819,6 +819,46 @@ public final class InputLogic {
                 performAiTextOperation(true);
                 inputTransaction.setDidAffectContents();
                 break;
+            case KeyCode.CUSTOM_AI_1:
+                handleCustomAIKey(1);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_2:
+                handleCustomAIKey(2);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_3:
+                handleCustomAIKey(3);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_4:
+                handleCustomAIKey(4);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_5:
+                handleCustomAIKey(5);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_6:
+                handleCustomAIKey(6);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_7:
+                handleCustomAIKey(7);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_8:
+                handleCustomAIKey(8);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_9:
+                handleCustomAIKey(9);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.CUSTOM_AI_10:
+                handleCustomAIKey(10);
+                inputTransaction.setDidAffectContents();
+                break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
                     mConnection.copyText(true);
@@ -2760,6 +2800,117 @@ public final class InputLogic {
             ProofreadHelper.proofreadAsync(mLatinIME, text, callback);
         else
             ProofreadHelper.translateAsync(mLatinIME, text, callback);
+    }
+
+    private void handleCustomAIKey(int index) {
+        final android.content.SharedPreferences prefs = helium314.keyboard.latin.utils.DeviceProtectedUtils
+                .getSharedPreferences(mLatinIME);
+        String prompt = prefs.getString("pref_custom_ai_prompt_" + index, "");
+        StringBuilder systemInstructionBuilder = new StringBuilder();
+        boolean shouldAppend = false;
+
+        // Keyword parsing for system instructions / personas
+        if (prompt.contains("#editor")) {
+            systemInstructionBuilder.append(" You are a text editor tool. Output ONLY the edited text. Do not add any conversational filler.");
+            prompt = prompt.replace("#editor", "").trim();
+        }
+        if (prompt.contains("#outputonly")) {
+            systemInstructionBuilder.append(" Output ONLY the result. Do not add introductions or explanations.");
+            prompt = prompt.replace("#outputonly", "").trim();
+        }
+        if (prompt.contains("#proofread")) {
+            systemInstructionBuilder.append(" You are a proofreader. Fix grammar and spelling errors. Output ONLY the fixed text.");
+            prompt = prompt.replace("#proofread", "").trim();
+        }
+        if (prompt.contains("#paraphrase")) {
+            systemInstructionBuilder.append(" You are a paraphrasing tool. Rewrite the text using different words while keeping the meaning. Output ONLY the result.");
+            prompt = prompt.replace("#paraphrase", "").trim();
+        }
+        if (prompt.contains("#summarize")) {
+            systemInstructionBuilder.append(" You are a summarizer. Provide a concise summary of the text. Output ONLY the summary.");
+            prompt = prompt.replace("#summarize", "").trim();
+        }
+        if (prompt.contains("#expand")) {
+            systemInstructionBuilder.append(" You are a creative writing assistant. Expand on the text with more details. Output ONLY the result.");
+            prompt = prompt.replace("#expand", "").trim();
+        }
+        if (prompt.contains("#toneshift")) {
+            systemInstructionBuilder.append(" You are a tone modifier. Adjust the tone as requested. Output ONLY the result.");
+            prompt = prompt.replace("#toneshift", "").trim();
+        }
+        if (prompt.contains("#generate")) {
+            systemInstructionBuilder.append(" You are a creative content generator. Output ONLY the generated content.");
+            prompt = prompt.replace("#generate", "").trim();
+        }
+        String systemInstruction = systemInstructionBuilder.toString();
+
+        if (prompt.contains("#append")) {
+            shouldAppend = true;
+            prompt = prompt.replace("#append", "").trim();
+        }
+
+        if (prompt.contains("#showthought")) {
+            prompt = prompt.replace("#showthought", "").trim();
+        }
+
+        if (android.text.TextUtils.isEmpty(prompt)) {
+            KeyboardSwitcher.getInstance().showToast("Custom AI key is not set. Configure in Settings.", true);
+            return;
+        }
+
+        prompt = prompt + systemInstruction;
+
+        final String selected = mConnection.getSelectedText(0) == null ? null : mConnection.getSelectedText(0).toString();
+        final boolean hasSelection = selected != null && !selected.isEmpty();
+        final String textToProcess;
+        final int selectionStart = mConnection.getExpectedSelectionStart();
+        final int selectionEnd = mConnection.getExpectedSelectionEnd();
+
+        if (hasSelection) {
+            textToProcess = selected;
+            if (shouldAppend) {
+                mConnection.setSelection(selectionEnd, selectionEnd);
+            }
+        } else {
+            final CharSequence before = mConnection.getTextBeforeCursor(100000, 0);
+            final CharSequence after = mConnection.getTextAfterCursor(100000, 0);
+            final String beforeStr = before != null ? before.toString() : "";
+            final String afterStr = after != null ? after.toString() : "";
+            textToProcess = beforeStr + afterStr;
+
+            if (shouldAppend) {
+                if (afterStr.length() > 0 && selectionEnd >= 0) {
+                    int newPos = selectionEnd + afterStr.length();
+                    mConnection.setSelection(newPos, newPos);
+                }
+            }
+        }
+
+        final boolean finalShouldAppend = shouldAppend;
+        KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(R.string.proofread_in_progress), false);
+
+        ProofreadHelper.AiCallback callback = new ProofreadHelper.AiCallback() {
+            @Override
+            public void onSuccess(String result) {
+                if (result == null || result.isEmpty())
+                    return;
+                if (finalShouldAppend) {
+                    mConnection.commitText(result, 1);
+                } else if (hasSelection) {
+                    mConnection.setSelection(selectionStart, selectionEnd);
+                    mConnection.commitText(result, 1);
+                } else {
+                    mConnection.selectAll();
+                    mConnection.commitText(result, 1);
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+            }
+        };
+
+        ProofreadHelper.customAsync(mLatinIME, textToProcess, prompt, callback);
     }
 
     private void enterInlineEmojiSearchIfNeeded(int codePoint, SettingsValues settingsValues) {

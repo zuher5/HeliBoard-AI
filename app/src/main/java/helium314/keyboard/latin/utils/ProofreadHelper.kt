@@ -100,6 +100,19 @@ object ProofreadHelper {
         )
     }
 
+    @JvmStatic
+    fun customAsync(context: Context, text: String, prompt: String, callback: AiCallback) {
+        performAsyncOperation(
+            context = context,
+            text = text,
+            noTextErrorResId = R.string.proofread_no_text,
+            allowEmptyInput = true,
+            apiCall = { it.proofread(text, overridePrompt = prompt) },
+            onSuccess = { callback.onSuccess(it) },
+            onError = { callback.onError(it) }
+        )
+    }
+
     /** cancel the current operation, if any */
     @JvmStatic
     fun cancelCurrentOperation() {

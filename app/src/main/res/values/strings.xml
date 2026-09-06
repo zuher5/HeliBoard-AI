@@ -9,11 +9,11 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
     tools:ignore="MissingTranslation">
     <!-- Name of Android spell checker service. The app name should not be translated. -->
-    <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
+    <string name="spell_checker_service_name">ZeeBoard Spell Checker</string>
     <!-- Title for IME settings screen. The app name should not be translated. -->
-    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="ime_settings">ZeeBoard Settings</string>
     <!-- Title for the spell checking service settings screen. The app name should not be translated. -->
-    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
+    <string name="android_spell_checker_settings">ZeeBoard Spell Checker Settings</string>
     <!-- Option to provide vibrate/haptic feedback on keypress -->
     <string name="vibrate_on_keypress">Vibrate on keypress</string>
     <!-- Option to provide vibrate/haptic feedback on keypress even in do not disturb mode -->
@@ -1391,4 +1391,28 @@ New dictionary:
         <item>Persian</item>
         <item>Hindi</item>
     </string-array>
+
+    <!-- Custom AI Keys -->
+    <string name="custom_ai_keys_title">Custom AI Keys</string>
+    <string name="custom_ai_keys_summary">Customize numbered toolbar keys with your own prompts</string>
+    <string name="custom_ai_keys_what_are_keywords">What are Keywords?</string>
+    <string name="custom_ai_keys_keywords_description">Keywords (like #proofread or #summarize) act as quick instructions for the AI. Select them when configuring a key to define its behavior. You must also add your own custom prompt to create the key.</string>
+    <string name="custom_ai_keys_show_tags_title">Show tags on keyboard</string>
+    <string name="custom_ai_keys_show_tags_summary">When enabled, custom tags will show as themed capsules on the keyboard toolbar instead of the default AI icon.</string>
+    <string name="custom_ai_keys_not_configured">Not configured</string>
+    <string name="custom_ai_keys_configure_title">Configure Key %1$d</string>
+    <string name="custom_ai_keys_config_instruction">Select keywords to define behavior, and combine them with your custom instructions.\n\nExample: Choose #editor and type "Translate to French" to create a specialized translation key.\n\nNote: You must provide both a custom prompt and select at least one keyword to save.</string>
+    <string name="custom_ai_keys_prompt_label">Custom Prompt for Key %1$d</string>
+    <string name="custom_ai_keys_tag_label">Tag / Label (e.g. \'French\', \'Grammar\', \'Rewrite\')</string>
+    <string name="custom_ai_keys_selected_functions">Selected Keyword Functions:</string>
+    <string name="custom_ai_1">Custom AI 1</string>
+    <string name="custom_ai_2">Custom AI 2</string>
+    <string name="custom_ai_3">Custom AI 3</string>
+    <string name="custom_ai_4">Custom AI 4</string>
+    <string name="custom_ai_5">Custom AI 5</string>
+    <string name="custom_ai_6">Custom AI 6</string>
+    <string name="custom_ai_7">Custom AI 7</string>
+    <string name="custom_ai_8">Custom AI 8</string>
+    <string name="custom_ai_9">Custom AI 9</string>
+    <string name="custom_ai_10">Custom AI 10</string>
 </resources>

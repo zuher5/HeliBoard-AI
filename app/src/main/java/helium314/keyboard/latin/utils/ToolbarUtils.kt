@@ -3,6 +3,16 @@ package helium314.keyboard.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
@@ -31,8 +41,95 @@ fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
     button.tag = key
     button.contentDescription = key.name.lowercase().getStringResourceOrName("", context)
     setToolbarButtonActivatedState(button)
-    button.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
+
+    val index = if (key.name.startsWith("CUSTOM_AI_")) {
+        key.name.removePrefix("CUSTOM_AI_").toIntOrNull()
+    } else null
+    val showTags = context.prefs().getBoolean("pref_custom_ai_show_tags_on_toolbar", false)
+    val tag = if (index != null) {
+        context.prefs().getString("pref_custom_ai_tag_$index", "") ?: ""
+    } else ""
+
+    val rawDrawable = if (showTags && tag.isNotBlank()) {
+        TagDrawable(tag.take(3).uppercase(Locale.US))
+    } else {
+        KeyboardIconsSet.instance.getNewDrawable(key.name, context)
+    }
+    button.setImageDrawable(rawDrawable)
     return button
+}
+
+class TagDrawable(private val text: String) : Drawable() {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.WHITE
+        textAlign = Paint.Align.CENTER
+        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+    }
+
+    private var tintList: ColorStateList? = null
+    private var tintMode: PorterDuff.Mode = PorterDuff.Mode.MULTIPLY
+    private var tintFilter: ColorFilter? = null
+    private var internalColorFilter: ColorFilter? = null
+
+    override fun setTintList(tint: ColorStateList?) {
+        tintList = tint
+        updateTintFilter()
+        invalidateSelf()
+    }
+
+    override fun setTintMode(tintMode: PorterDuff.Mode?) {
+        this.tintMode = tintMode ?: PorterDuff.Mode.MULTIPLY
+        updateTintFilter()
+        invalidateSelf()
+    }
+
+    override fun setColorFilter(colorFilter: ColorFilter?) {
+        internalColorFilter = colorFilter
+        updateTintFilter()
+        invalidateSelf()
+    }
+
+    override fun onStateChange(state: IntArray): Boolean {
+        if (tintList != null) {
+            updateTintFilter()
+            invalidateSelf()
+            return true
+        }
+        return super.onStateChange(state)
+    }
+
+    override fun isStateful(): Boolean {
+        return tintList?.isStateful == true || super.isStateful()
+    }
+
+    private fun updateTintFilter() {
+        val colors = tintList
+        if (colors != null) {
+            val color = colors.getColorForState(state, Color.WHITE)
+            tintFilter = PorterDuffColorFilter(color, tintMode)
+        } else {
+            tintFilter = null
+        }
+    }
+
+    override fun draw(canvas: Canvas) {
+        val bounds = bounds
+        val cx = bounds.exactCenterX()
+        val cy = bounds.exactCenterY()
+
+        val activeFilter = tintFilter ?: internalColorFilter
+        paint.colorFilter = activeFilter
+        paint.textSize = bounds.height() * 0.37f
+        val textHeight = paint.descent() - paint.ascent()
+        val textOffset = textHeight / 2 - paint.descent()
+        canvas.drawText(text, cx, cy + textOffset, paint)
+    }
+
+    override fun setAlpha(alpha: Int) {
+        paint.alpha = alpha
+    }
+
+    override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
 }
 
 fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: String?) {
@@ -97,6 +194,16 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     BACKGROUND_GATHERING -> KeyCode.BACKGROUND_GATHERING
     TRANSLATE -> KeyCode.TRANSLATE
     PROOFREAD -> KeyCode.PROOFREAD
+    CUSTOM_AI_1 -> KeyCode.CUSTOM_AI_1
+    CUSTOM_AI_2 -> KeyCode.CUSTOM_AI_2
+    CUSTOM_AI_3 -> KeyCode.CUSTOM_AI_3
+    CUSTOM_AI_4 -> KeyCode.CUSTOM_AI_4
+    CUSTOM_AI_5 -> KeyCode.CUSTOM_AI_5
+    CUSTOM_AI_6 -> KeyCode.CUSTOM_AI_6
+    CUSTOM_AI_7 -> KeyCode.CUSTOM_AI_7
+    CUSTOM_AI_8 -> KeyCode.CUSTOM_AI_8
+    CUSTOM_AI_9 -> KeyCode.CUSTOM_AI_9
+    CUSTOM_AI_10 -> KeyCode.CUSTOM_AI_10
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getCustomToolbarLongpressCode(key) ?: when (key) {
@@ -125,7 +232,9 @@ enum class ToolbarKey {
     VOICE, CLIPBOARD, NUMPAD, DPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED, FLOATING, SPLIT,
     INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
     PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END, BACKGROUND_GATHERING,
-    TRANSLATE, PROOFREAD
+    TRANSLATE, PROOFREAD,
+    CUSTOM_AI_1, CUSTOM_AI_2, CUSTOM_AI_3, CUSTOM_AI_4, CUSTOM_AI_5,
+    CUSTOM_AI_6, CUSTOM_AI_7, CUSTOM_AI_8, CUSTOM_AI_9, CUSTOM_AI_10
 }
 
 enum class ToolbarMode {

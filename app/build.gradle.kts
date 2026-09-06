@@ -1,5 +1,12 @@
 import com.android.build.api.variant.ApplicationVariant
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
 
 plugins {
     id("com.android.application")
@@ -24,18 +31,42 @@ android {
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
 
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = false
             isDebuggable = false
             isJniDebuggable = false
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
         create("nouserlib") { // same as release, but does not allow the user to provide a library
             isMinifyEnabled = true
             isShrinkResources = false
             isDebuggable = false
             isJniDebuggable = false
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
         debug {
             // "normal" debug has minify for smaller APK to fit the GitHub 25 MB limit when zipped
@@ -67,7 +98,7 @@ android {
             }
             variant.outputs.forEach { output ->
                 if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
-                    output.outputFileName = "HeliBoard_${defaultConfig.versionName}-${variant.buildType}.apk"
+                    output.outputFileName = "ZeeBoard_${defaultConfig.versionName}-${variant.buildType}.apk"
                 }
             }
         }

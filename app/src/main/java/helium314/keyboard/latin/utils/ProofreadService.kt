@@ -204,7 +204,11 @@ class ProofreadService(private val context: Context) {
             return@withContext Result.failure(AiException(context.getString(R.string.proofread_no_text)))
         }
         val provider = getProvider()
-        val prompt = overridePrompt ?: getProofreadPrompt(text)
+        val prompt = if (overridePrompt != null) {
+            if (text.isNotBlank()) "$overridePrompt\n\n$text" else overridePrompt
+        } else {
+            getProofreadPrompt(text)
+        }
         val result = chatRequest(prompt, provider = provider, model = getModelName(provider), temperature = 0.1f)
         if (overridePrompt != null) result
         else result.mapCatching { cleanProofreadOutput(text, it) }
