@@ -210,7 +210,7 @@ class ProofreadService(private val context: Context) {
             getProofreadPrompt(text)
         }
         val result = chatRequest(prompt, provider = provider, model = getModelName(provider), temperature = 0.1f)
-        if (overridePrompt != null) result
+        if (overridePrompt != null) result.mapCatching { cleanCustomAiOutput(it) }
         else result.mapCatching { cleanProofreadOutput(text, it) }
     }
 
@@ -370,6 +370,16 @@ class ProofreadService(private val context: Context) {
     }
 
     // ----------------------------------------------------------------------------------------- cleanup
+
+    private fun cleanCustomAiOutput(outputText: String): String {
+        var cleaned = outputText.trim()
+        if ((cleaned.startsWith("\"") && cleaned.endsWith("\"")) || (cleaned.startsWith("'") && cleaned.endsWith("'"))) {
+            if (cleaned.length >= 2) {
+                cleaned = cleaned.substring(1, cleaned.length - 1).trim()
+            }
+        }
+        return cleaned
+    }
 
     private fun cleanProofreadOutput(inputText: String, outputText: String): String {
         var cleaned = outputText.trim()

@@ -14,6 +14,7 @@
 -dontobfuscate
 
 # Tink / androidx.security.crypto annotations
+-dontwarn com.google.crypto.tink.**
 -dontwarn com.google.errorprone.annotations.**
 -dontwarn javax.annotation.**
 -dontwarn org.conscrypt.**
