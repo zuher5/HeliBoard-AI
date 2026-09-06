@@ -269,7 +269,7 @@ class ProofreadService(private val context: Context) {
         }
         val url = URL(chatUrl(provider))
         val connection = url.openConnection() as HttpURLConnection
-        try {
+        return try {
             connection.requestMethod = "POST"
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Authorization", "Bearer $apiKey")
