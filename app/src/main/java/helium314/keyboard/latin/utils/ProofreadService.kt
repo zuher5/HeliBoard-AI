@@ -39,7 +39,7 @@ class ProofreadService(private val context: Context) {
 
     enum class AiProvider { GEMINI, MISTRAL, OPENAI }
 
-    private val securePrefs: SharedPreferences by lazy {
+    private val encryptedPrefs: SharedPreferences by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 val masterKey = MasterKey.Builder(context)
@@ -64,7 +64,7 @@ class ProofreadService(private val context: Context) {
     fun getPrefs(): SharedPreferences = context.prefs()
 
     /** prefs holding secrets (API keys etc.); read-only access for settings UI */
-    fun getSecurePrefs(): SharedPreferences = securePrefs
+    fun getSecurePrefs(): SharedPreferences = encryptedPrefs
 
     // ---------------------------------------------------------------------------------- provider
 
@@ -90,10 +90,10 @@ class ProofreadService(private val context: Context) {
     }
 
     fun getApiKey(provider: AiProvider = getProvider()): String? =
-        securePrefs.getString(keyPref(provider), null)?.takeIf { it.isNotBlank() }
+        encryptedPrefs.getString(keyPref(provider), null)?.takeIf { it.isNotBlank() }
 
     fun setApiKey(provider: AiProvider, key: String?) {
-        securePrefs.edit().apply {
+        encryptedPrefs.edit().apply {
             if (key.isNullOrBlank()) remove(keyPref(provider))
             else putString(keyPref(provider), key.trim())
             apply()
@@ -105,10 +105,10 @@ class ProofreadService(private val context: Context) {
     // ----------------------------------------------------------------------------------------- model
 
     fun getModelName(provider: AiProvider = getProvider()): String =
-        securePrefs.getString(KEY_MODEL_NAME, null)?.takeIf { it.isNotBlank() } ?: defaultModel(provider)
+        encryptedPrefs.getString(KEY_MODEL_NAME, null)?.takeIf { it.isNotBlank() } ?: defaultModel(provider)
 
     fun setModelName(modelName: String) {
-        securePrefs.edit().apply {
+        encryptedPrefs.edit().apply {
             if (modelName.isBlank()) remove(KEY_MODEL_NAME)
             else putString(KEY_MODEL_NAME, modelName.trim())
             apply()
@@ -116,10 +116,10 @@ class ProofreadService(private val context: Context) {
     }
 
     /** optional per-provider translation model override; blank means "use the proofread model" */
-    fun getTranslateModelName(): String = securePrefs.getString(KEY_TRANSLATE_MODEL_NAME, "") ?: ""
+    fun getTranslateModelName(): String = encryptedPrefs.getString(KEY_TRANSLATE_MODEL_NAME, "") ?: ""
 
     fun setTranslateModelName(modelName: String) {
-        securePrefs.edit().apply {
+        encryptedPrefs.edit().apply {
             if (modelName.isBlank()) remove(KEY_TRANSLATE_MODEL_NAME)
             else putString(KEY_TRANSLATE_MODEL_NAME, modelName.trim())
             apply()
@@ -130,10 +130,10 @@ class ProofreadService(private val context: Context) {
 
     /** base URL used by the OpenAI-compatible provider (scheme + host + `/v1` for OpenAI-style APIs) */
     fun getOpenAiEndpoint(): String =
-        securePrefs.getString(KEY_OPENAI_ENDPOINT, null)?.takeIf { it.isNotBlank() } ?: OPENAI_DEFAULT_ENDPOINT
+        encryptedPrefs.getString(KEY_OPENAI_ENDPOINT, null)?.takeIf { it.isNotBlank() } ?: OPENAI_DEFAULT_ENDPOINT
 
     fun setOpenAiEndpoint(endpoint: String) {
-        securePrefs.edit().apply {
+        encryptedPrefs.edit().apply {
             if (endpoint.isBlank()) remove(KEY_OPENAI_ENDPOINT)
             else putString(KEY_OPENAI_ENDPOINT, endpoint.trim())
             apply()
