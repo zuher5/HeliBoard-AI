@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+SPDX-License-Identifier: GPL-3.0-only
+Allows cleartext (http://) traffic so users can point the OpenAI-compatible
+provider at local servers (e.g. an Ollama instance in the local network).
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

@@ -197,6 +197,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPELLCHECK_SUGGEST = "spellcheck_suggest";
     public static final String PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD = "only_toolbar_with_hw_keyboard";
 
+    // AI translate & proofread
+    public static final String PREF_AI_PROVIDER = "ai_provider";
+    public static final String PREF_CLOUD_AI_MAX_TOKENS = "cloud_ai_max_tokens";
+    public static final String PREF_TRANSLATION_TARGET_LANGUAGE = "translation_target_language";
+
     // Emoji
     public static final String PREF_EMOJI_MAX_SDK = "emoji_max_sdk";
     public static final String PREF_RECENT_EMOJIS = "recent_emojis";
@@ -222,7 +227,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private static boolean reloadOnChanged(String key) {
         return switch (key) {
             case PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, PREF_RECENT_EMOJIS,
-                 PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, PREF_SELECTED_SUBTYPE -> false;
+                 PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, PREF_SELECTED_SUBTYPE, PREF_AI_PROVIDER,
+                 PREF_CLOUD_AI_MAX_TOKENS, PREF_TRANSLATION_TARGET_LANGUAGE -> false;
             default -> !key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX) && !key.startsWith("floating_pos");
         };
     }

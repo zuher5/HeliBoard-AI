@@ -361,6 +361,8 @@
     <string name="full_right" tools:keep="@string/full_right">Full right</string>
     <string name="page_start" tools:keep="@string/page_start">Page start</string>
     <string name="page_end" tools:keep="@string/page_end">Page end</string>
+    <string name="translate" tools:keep="@string/translate">Translate</string>
+    <string name="proofread" tools:keep="@string/proofread">Proofread</string>
     <string name="left" tools:keep="@string/left">Left</string>
     <string name="right" tools:keep="@string/right">Right</string>
     <string name="up" tools:keep="@string/up">Up</string>
@@ -1307,4 +1309,85 @@ New dictionary:
     <string name="gesture_data_swipe_o_scope">Tool for visualizing gesture data: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
+
+    <!-- AI translate & proofread -->
+    <string name="ai_integration">AI Integration</string>
+    <string name="ai_integration_settings">AI Integration</string>
+    <string name="ai_integration_summary">Configure cloud AI provider, model and API key</string>
+    <string name="ai_provider">AI provider</string>
+    <string name="ai_provider_gemini">Gemini (Google)</string>
+    <string name="ai_provider_mistral">Mistral AI</string>
+    <string name="ai_provider_openai">OpenAI-compatible</string>
+    <string name="api_key_label">API key</string>
+    <string name="ai_key_not_set">Not set</string>
+    <string name="ai_key_set">Set (ends in %1$s)</string>
+    <string name="ai_model_name">Model</string>
+    <string name="ai_model_default">Default: %1$s</string>
+    <string name="ai_translate_model_name">Translation model (optional)</string>
+    <string name="ai_translate_model_name_summary">Leave empty to use the AI model above</string>
+    <string name="ai_translate_model_auto">Auto (use AI model)</string>
+    <string name="ai_cloud_max_tokens">Maximum output tokens</string>
+    <string name="ai_cloud_max_tokens_summary">Maximum number of tokens the AI may output per request</string>
+    <string name="ai_openai_endpoint">API endpoint (base URL)</string>
+    <string name="ai_openai_endpoint_summary">OpenAI-compatible base URL, e.g. https://api.openai.com/v1</string>
+    <string name="translation_target_language">Target language for translation</string>
+    <string name="translation_settings">Translation settings</string>
+
+    <string name="ai_no_api_key">No AI API key configured. Open Settings &gt; AI Integration to add one.</string>
+    <string name="ai_request_failed">AI request failed: %1$s\n%2$s</string>
+    <string name="ai_output_truncated">AI output was truncated. Increase the maximum token limit.</string>
+    <string name="ai_operation_in_progress">Another AI operation is still running.</string>
+    <string name="translate_in_progress">Translating…</string>
+    <string name="proofread_in_progress">Proofreading…</string>
+    <string name="translate_no_text">No text to translate.</string>
+    <string name="proofread_no_text">No text to proofread.</string>
+
+    <string-array name="translate_language_codes">
+        <item>auto</item>
+        <item>en</item>
+        <item>de</item>
+        <item>es</item>
+        <item>fr</item>
+        <item>it</item>
+        <item>pt</item>
+        <item>nl</item>
+        <item>ru</item>
+        <item>uk</item>
+        <item>pl</item>
+        <item>tr</item>
+        <item>id</item>
+        <item>ms</item>
+        <item>vi</item>
+        <item>th</item>
+        <item>zh</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>ar</item>
+        <item>fa</item>
+        <item>hi</item>
+    </string-array>
+    <string-array name="translate_language_names">
+        <item>Auto-detected</item>
+        <item>English</item>
+        <item>German</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>Portuguese</item>
+        <item>Dutch</item>
+        <item>Russian</item>
+        <item>Ukrainian</item>
+        <item>Polish</item>
+        <item>Turkish</item>
+        <item>Indonesian</item>
+        <item>Malay</item>
+        <item>Vietnamese</item>
+        <item>Thai</item>
+        <item>Chinese (Simplified)</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Arabic</item>
+        <item>Persian</item>
+        <item>Hindi</item>
+    </string-array>
 </resources>

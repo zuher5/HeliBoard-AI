@@ -192,4 +192,8 @@ object Defaults {
     const val PREF_SAVE_SUBTYPE_PER_APP = false
     const val PREF_SPELLCHECK_SUGGEST = true
     const val PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD = false
+
+    // AI translate & proofread
+    const val PREF_CLOUD_AI_MAX_TOKENS = 2048
+    const val PREF_TRANSLATION_TARGET_LANGUAGE = "en"
 }

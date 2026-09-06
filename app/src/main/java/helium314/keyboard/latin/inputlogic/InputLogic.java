@@ -40,6 +40,7 @@ import helium314.keyboard.latin.dictionary.DictionaryFactory;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.NgramContext;
+import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputConnection;
 import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.Suggest;
@@ -63,6 +64,7 @@ import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.ProofreadHelper;
 import helium314.keyboard.latin.utils.BackgroundGatheringCache;
 import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
@@ -805,6 +807,14 @@ public final class InputLogic {
                 break;
             case KeyCode.CLIPBOARD_CLEAR_HISTORY:
                 mLatinIME.getClipboardHistoryManager().clearHistory();
+                break;
+            case KeyCode.TRANSLATE:
+                performAiTextOperation(false);
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.PROOFREAD:
+                performAiTextOperation(true);
+                inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
@@ -2691,6 +2701,56 @@ public final class InputLogic {
         if (AppWorkarounds.INSTANCE.doesntCareAboutKeycodePaste(packageName) || Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
             sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
         else sendDownUpKeyEvent(KeyEvent.KEYCODE_PASTE);
+    }
+
+    /**
+     * Runs an AI operation (translate or proofread) on the current editor content.
+     * If text is selected, only the selection is processed and replaced,
+     * otherwise the whole field content is processed.
+     */
+    private void performAiTextOperation(final boolean proofread) {
+        final String selected = mConnection.getSelectedText(0) == null ? null : mConnection.getSelectedText(0).toString();
+        final boolean hasSelection = selected != null && !selected.isEmpty();
+        final String text;
+        final int selectionStart;
+        final int selectionEnd;
+        if (hasSelection) {
+            text = selected;
+            selectionStart = mConnection.getExpectedSelectionStart();
+            selectionEnd = mConnection.getExpectedSelectionEnd();
+        } else {
+            selectionStart = 0;
+            selectionEnd = 0;
+            final CharSequence before = mConnection.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+            final CharSequence after = mConnection.getTextAfterCursor(Integer.MAX_VALUE, 0);
+            text = (before == null ? "" : before.toString()) + (after == null ? "" : after.toString());
+        }
+
+        KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(
+                proofread ? R.string.proofread_in_progress : R.string.translate_in_progress), false);
+
+        ProofreadHelper.AiCallback callback = new ProofreadHelper.AiCallback() {
+            @Override
+            public void onSuccess(String result) {
+                if (result == null || result.isEmpty())
+                    return;
+                if (hasSelection)
+                    mConnection.setSelection(selectionStart, selectionEnd);
+                else
+                    mConnection.selectAll();
+                mConnection.commitText(result, 1);
+            }
+
+            @Override
+            public void onError(String message) {
+                // ProofreadHelper already shows a toast with the error message
+            }
+        };
+
+        if (proofread)
+            ProofreadHelper.proofreadAsync(mLatinIME, text, callback);
+        else
+            ProofreadHelper.translateAsync(mLatinIME, text, callback);
     }
 
     private void enterInlineEmojiSearchIfNeeded(int codePoint, SettingsValues settingsValues) {

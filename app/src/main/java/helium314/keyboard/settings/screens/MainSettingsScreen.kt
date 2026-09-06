@@ -42,6 +42,7 @@ fun MainSettingsScreen(
     onClickLanguage: () -> Unit,
     onClickLayouts: () -> Unit,
     onClickDictionaries: () -> Unit,
+    onClickAI: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     SearchSettingsScreen(
@@ -113,6 +114,11 @@ fun MainSettingsScreen(
                     onClick = onClickAbout,
                     icon = R.drawable.ic_settings_about
                 ) { NextScreenIcon() }
+                Preference(
+                    name = stringResource(R.string.ai_integration),
+                    onClick = onClickAI,
+                    icon = R.drawable.ic_translate
+                ) { NextScreenIcon() }
             }
         }
     }
@@ -124,7 +130,7 @@ private fun PreviewScreen() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }

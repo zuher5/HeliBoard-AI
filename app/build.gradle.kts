@@ -12,7 +12,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "helium314.keyboard"
+        applicationId = "io.github.zuher5.heliboard"
         minSdk = 21
         targetSdk = 36
         versionCode = 4101
@@ -133,6 +133,10 @@ dependencies {
 
     // kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
+
+    // AI translate & proofread (cloud)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06") // encrypted API key storage
 
     // compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
