@@ -104,7 +104,7 @@
     <string name="label_search_key">Caută</string>
     <string name="label_pause_key">"Pauză"</string>
     <string name="label_wait_key">Așteaptă</string>
-    <string name="ime_settings">Setări HeliBoard</string>
+    <string name="ime_settings">Setări ZeeBoard</string>
     <string name="settings_category_additional_keys">Chei suplimentare</string>
     <string name="settings_category_correction">Corectări</string>
     <string name="settings_category_suggestions">Sugestii</string>

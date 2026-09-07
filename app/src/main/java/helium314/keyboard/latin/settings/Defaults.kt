@@ -44,6 +44,9 @@ object Defaults {
     }
 
     private const val DEFAULT_SIZE_SCALE = 1.0f // 100%
+    const val PREF_APP_THEME = "default"
+    const val APP_THEME_DEFAULT = "default"
+    const val APP_THEME_CATPPUCCIN = "catppuccin"
     const val PREF_THEME_STYLE = KeyboardTheme.STYLE_MATERIAL
     fun PREF_ICON_STYLE(prefs: SharedPreferences) = prefs.getString(Settings.PREF_THEME_STYLE, PREF_THEME_STYLE)!!
     const val PREF_THEME_COLORS = KeyboardTheme.THEME_LIGHT

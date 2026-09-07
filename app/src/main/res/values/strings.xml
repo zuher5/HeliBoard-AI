@@ -1414,4 +1414,9 @@ New dictionary:
     <string name="custom_ai_8">Custom AI 8</string>
     <string name="custom_ai_9">Custom AI 9</string>
     <string name="custom_ai_10">Custom AI 10</string>
+
+    <!-- App theme -->
+    <string name="app_theme">App theme</string>
+    <string name="app_theme_default">Default</string>
+    <string name="app_theme_catppuccin">Catppuccin</string>
 </resources>

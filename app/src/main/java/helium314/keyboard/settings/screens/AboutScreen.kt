@@ -27,6 +27,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.getActivity
@@ -34,6 +35,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
@@ -52,6 +54,7 @@ fun AboutScreen(
 ) {
     val items = listOf(
         SettingsWithoutKey.APP,
+        Settings.PREF_APP_THEME,
         SettingsWithoutKey.VERSION,
         SettingsWithoutKey.LICENSE,
         SettingsWithoutKey.HIDDEN_FEATURES,
@@ -74,6 +77,17 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = { },
             icon = R.mipmap.ic_launcher_round
+        )
+    },
+    Setting(context, Settings.PREF_APP_THEME, R.string.app_theme) { setting ->
+        val items = listOf(
+            stringResource(R.string.app_theme_default) to Defaults.APP_THEME_DEFAULT,
+            stringResource(R.string.app_theme_catppuccin) to Defaults.APP_THEME_CATPPUCCIN
+        )
+        ListPreference(
+            setting = setting,
+            items = items,
+            default = Defaults.PREF_APP_THEME
         )
     },
     Setting(context, SettingsWithoutKey.VERSION, R.string.version) {

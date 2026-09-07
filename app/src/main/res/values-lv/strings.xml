@@ -104,7 +104,7 @@
     <string name="label_pause_key">"Pauze"</string>
     <string name="label_wait_key">"Gaidīt"</string>
     <string name="spell_checker_service_name">HeliBoard pareizrakstības pārbaudītājs</string>
-    <string name="ime_settings">HeliBoard iestatījumi</string>
+    <string name="ime_settings">ZeeBoard iestatījumi</string>
     <string name="android_spell_checker_settings">HeliBoard pareizrakstības pārbaudītāja iestatījumi</string>
     <string name="settings_category_suggestions">Ieteikumi</string>
     <string name="settings_category_input">Ievade</string>
