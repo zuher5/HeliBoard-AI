@@ -13,7 +13,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- required for AI translate & proofread -->
+    <!-- required for AI translate & custom AI -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:label="@string/english_ime_name"

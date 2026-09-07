@@ -89,25 +89,13 @@ object ProofreadHelper {
     }
 
     @JvmStatic
-    fun proofreadAsync(context: Context, text: String, callback: AiCallback) {
-        performAsyncOperation(
-            context = context,
-            text = text,
-            noTextErrorResId = R.string.proofread_no_text,
-            apiCall = { it.proofread(text) },
-            onSuccess = { callback.onSuccess(it) },
-            onError = { callback.onError(it) }
-        )
-    }
-
-    @JvmStatic
     fun customAsync(context: Context, text: String, prompt: String, callback: AiCallback) {
         performAsyncOperation(
             context = context,
             text = text,
-            noTextErrorResId = R.string.proofread_no_text,
+            noTextErrorResId = R.string.translate_no_text,
             allowEmptyInput = true,
-            apiCall = { it.proofread(text, overridePrompt = prompt) },
+            apiCall = { it.customAi(text, prompt) },
             onSuccess = { callback.onSuccess(it) },
             onError = { callback.onError(it) }
         )

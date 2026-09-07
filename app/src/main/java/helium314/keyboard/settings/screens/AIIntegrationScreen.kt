@@ -125,8 +125,8 @@ fun createAISettings(context: Context) = listOf(
             description = service.getModelName(provider).takeIf { it.isNotBlank() }
                 ?: stringResource(R.string.ai_model_default, ProofreadService.defaultModel(provider)),
             onGet = { service.getModelName(provider) },
-            onSet = { service.setModelName(it) },
-            onReset = { service.setModelName("") },
+            onSet = { service.setModelName(provider, it) },
+            onReset = { service.setModelName(provider, "") },
         )
     },
     Setting(context, KEY_AI_ENDPOINT, R.string.ai_openai_endpoint, R.string.ai_openai_endpoint_summary) { setting ->

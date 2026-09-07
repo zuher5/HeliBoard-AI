@@ -362,7 +362,6 @@
     <string name="page_start" tools:keep="@string/page_start">Page start</string>
     <string name="page_end" tools:keep="@string/page_end">Page end</string>
     <string name="translate" tools:keep="@string/translate">Translate</string>
-    <string name="proofread" tools:keep="@string/proofread">Proofread</string>
     <string name="left" tools:keep="@string/left">Left</string>
     <string name="right" tools:keep="@string/right">Right</string>
     <string name="up" tools:keep="@string/up">Up</string>

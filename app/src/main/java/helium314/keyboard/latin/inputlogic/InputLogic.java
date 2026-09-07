@@ -809,15 +809,11 @@ public final class InputLogic {
                 mLatinIME.getClipboardHistoryManager().clearHistory();
                 break;
             case KeyCode.TRANSLATE:
-                performAiTextOperation(false);
+                performTranslateOperation();
                 inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.SHOW_TRANSLATE_LANGUAGES:
                 mLatinIME.showTranslateLanguageSelector();
-                break;
-            case KeyCode.PROOFREAD:
-                performAiTextOperation(true);
-                inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.CUSTOM_AI_1:
                 handleCustomAIKey(1);
@@ -2747,11 +2743,11 @@ public final class InputLogic {
     }
 
     /**
-     * Runs an AI operation (translate or proofread) on the current editor content.
+     * Runs an AI translate operation on the current editor content.
      * If text is selected, only the selection is processed and replaced,
      * otherwise the whole field content is processed.
      */
-    private void performAiTextOperation(final boolean proofread) {
+    private void performTranslateOperation() {
         final String selected = mConnection.getSelectedText(0) == null ? null : mConnection.getSelectedText(0).toString();
         final boolean hasSelection = selected != null && !selected.isEmpty();
         final String text;
@@ -2770,13 +2766,11 @@ public final class InputLogic {
         }
 
         if (text.trim().isEmpty()) {
-            KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(
-                    proofread ? R.string.proofread_no_text : R.string.translate_no_text), true);
+            KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(R.string.translate_no_text), true);
             return;
         }
 
-        KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(
-                proofread ? R.string.proofread_in_progress : R.string.translate_in_progress), false);
+        KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(R.string.translate_in_progress), false);
 
         ProofreadHelper.AiCallback callback = new ProofreadHelper.AiCallback() {
             @Override
@@ -2796,10 +2790,7 @@ public final class InputLogic {
             }
         };
 
-        if (proofread)
-            ProofreadHelper.proofreadAsync(mLatinIME, text, callback);
-        else
-            ProofreadHelper.translateAsync(mLatinIME, text, callback);
+        ProofreadHelper.translateAsync(mLatinIME, text, callback);
     }
 
     private void handleCustomAIKey(int index) {
@@ -2887,7 +2878,7 @@ public final class InputLogic {
         }
 
         final boolean finalShouldAppend = shouldAppend;
-        KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(R.string.proofread_in_progress), false);
+        KeyboardSwitcher.getInstance().showToast(mLatinIME.getString(R.string.translate_in_progress), false);
 
         ProofreadHelper.AiCallback callback = new ProofreadHelper.AiCallback() {
             @Override

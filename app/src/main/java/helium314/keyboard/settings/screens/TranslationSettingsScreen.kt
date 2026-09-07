@@ -68,13 +68,14 @@ fun createTranslationSettings(context: Context) = listOf(
     },
     Setting(context, KEY_AI_TRANSLATE_MODEL, R.string.ai_translate_model_name, R.string.ai_translate_model_name_summary) { setting ->
         val service = remember { ProofreadService(context) }
+        val provider = service.getProvider()
         SecureTextInputPreference(
             title = setting.title,
-            description = service.getTranslateModelName().takeIf { it.isNotBlank() }
+            description = service.getTranslateModelName(provider).takeIf { it.isNotBlank() }
                 ?: stringResource(R.string.ai_translate_model_auto),
-            onGet = { service.getTranslateModelName() },
-            onSet = { service.setTranslateModelName(it) },
-            onReset = { service.setTranslateModelName("") },
+            onGet = { service.getTranslateModelName(provider) },
+            onSet = { service.setTranslateModelName(provider, it) },
+            onReset = { service.setTranslateModelName(provider, "") },
         )
     },
 )
