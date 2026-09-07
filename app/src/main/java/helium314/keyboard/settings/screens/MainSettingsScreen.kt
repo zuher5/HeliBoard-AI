@@ -67,6 +67,11 @@ fun MainSettingsScreen(
                     icon = R.drawable.ic_settings_preferences
                 ) { NextScreenIcon() }
                 Preference(
+                    name = stringResource(R.string.ai_integration),
+                    onClick = onClickAI,
+                    icon = R.drawable.ic_translate
+                ) { NextScreenIcon() }
+                Preference(
                     name = stringResource(R.string.settings_screen_appearance),
                     onClick = onClickAppearance,
                     icon = R.drawable.ic_settings_appearance
@@ -113,11 +118,6 @@ fun MainSettingsScreen(
                     name = stringResource(R.string.settings_screen_about),
                     onClick = onClickAbout,
                     icon = R.drawable.ic_settings_about
-                ) { NextScreenIcon() }
-                Preference(
-                    name = stringResource(R.string.ai_integration),
-                    onClick = onClickAI,
-                    icon = R.drawable.ic_translate
                 ) { NextScreenIcon() }
             }
         }

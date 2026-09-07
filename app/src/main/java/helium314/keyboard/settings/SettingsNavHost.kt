@@ -35,7 +35,6 @@ import helium314.keyboard.settings.screens.SecondaryLayoutScreen
 import helium314.keyboard.settings.screens.SubtypeScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import helium314.keyboard.settings.screens.ToolbarScreen
-import helium314.keyboard.settings.screens.TranslationSettingsScreen
 import helium314.keyboard.settings.screens.gesturedata.GestureDataScreen
 import helium314.keyboard.settings.screens.gesturedata.ReviewScreen
 import kotlinx.coroutines.CoroutineScope
@@ -116,9 +115,6 @@ fun SettingsNavHost(
                 onClickBack = ::goBack
             )
         }
-        composable(SettingsDestination.TranslationSettings) {
-            TranslationSettingsScreen(onClickBack = ::goBack)
-        }
         composable(SettingsDestination.GestureTyping) {
             GestureTypingScreen(onClickBack = ::goBack)
         }
@@ -179,7 +175,6 @@ object SettingsDestination {
     const val AI = "ai"
     const val CustomAIKeys = "custom_ai_keys"
     const val CustomAIKeyConfig = "custom_ai_key_config/"
-    const val TranslationSettings = "translation_settings"
     const val GestureTyping = "gesture_typing"
     const val DataGathering = "data_gathering" // remove when data gathering phase is done (end of 2026 latest)
     const val DataReview = "data_review" // remove when data gathering phase is done (end of 2026 latest)
