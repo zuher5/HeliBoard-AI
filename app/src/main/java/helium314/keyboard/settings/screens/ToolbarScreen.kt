@@ -25,6 +25,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.initPreview
@@ -58,7 +59,8 @@ fun ToolbarScreen(
             else -> null
         },
         if (clipboardToolbarVisible) Settings.PREF_CLIPBOARD_TOOLBAR_KEYS else null,
-        if (clipboardToolbarVisible) Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES else null,
+        if (toolbarMode != ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES else null,
+        if (toolbarMode != ToolbarMode.HIDDEN) SettingsWithoutKey.CUSTOM_AI_KEYS else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_QUICK_PIN_TOOLBAR_KEYS else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_SHOW_TOOLBAR else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_HIDE_TOOLBAR else null,
