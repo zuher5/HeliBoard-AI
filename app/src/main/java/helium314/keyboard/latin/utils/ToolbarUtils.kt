@@ -25,6 +25,7 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -37,10 +38,13 @@ import java.util.Locale
 
 fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
-    button.scaleType = ImageView.ScaleType.CENTER
+    button.scaleType = ImageView.ScaleType.CENTER_INSIDE
+    val padding = 7.dpToPx(context.resources)
+    button.setPadding(padding, padding, padding, padding)
     button.tag = key
     button.contentDescription = key.name.lowercase().getStringResourceOrName("", context)
-    setToolbarButtonActivatedState(button)
+    button.setBackgroundResource(R.drawable.toolbar_key_background)
+    button.elevation = 2.dpToPx(context.resources).toFloat()
 
     val index = if (key.name.startsWith("CUSTOM_AI_")) {
         key.name.removePrefix("CUSTOM_AI_").toIntOrNull()
@@ -56,6 +60,7 @@ fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
         KeyboardIconsSet.instance.getNewDrawable(key.name, context)
     }
     button.setImageDrawable(rawDrawable)
+    setToolbarButtonActivatedState(button)
     return button
 }
 
@@ -147,14 +152,29 @@ fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: St
     }
 }
 
-private fun setToolbarButtonActivatedState(button: ImageButton) {
-    button.isActivated = when (button.tag) {
+fun setToolbarButtonActivatedState(button: ImageButton) {
+    val activated = when (button.tag) {
         INCOGNITO -> button.context.prefs().getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
         ONE_HANDED -> Settings.getValues().mOneHandedModeEnabled
         SPLIT -> Settings.getValues().mIsSplitKeyboardEnabled
         AUTOCORRECT -> Settings.getValues().mAutoCorrectionEnabledPerUserSettings
         BACKGROUND_GATHERING -> useBackgroundGathering
         else -> true
+    }
+    button.isActivated = activated
+    val colors = Settings.getValues().mColors
+    if (button.background != null) {
+        if (activated && button.tag in listOf(INCOGNITO, ONE_HANDED, SPLIT, AUTOCORRECT, BACKGROUND_GATHERING)) {
+            colors.setColor(button.background, ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND)
+            if (button.drawable != null) {
+                colors.setColor(button, ColorType.ACTION_KEY_ICON)
+            }
+        } else {
+            colors.setColor(button.background, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND)
+            if (button.drawable != null) {
+                colors.setColor(button, ColorType.TOOL_BAR_KEY)
+            }
+        }
     }
 }
 

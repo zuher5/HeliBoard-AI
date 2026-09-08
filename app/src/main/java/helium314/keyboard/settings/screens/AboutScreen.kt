@@ -87,7 +87,8 @@ fun createAboutSettings(context: Context) = listOf(
         ListPreference(
             setting = setting,
             items = items,
-            default = Defaults.PREF_APP_THEME
+            default = Defaults.PREF_APP_THEME,
+            icon = R.drawable.ic_app_theme
         )
     },
     Setting(context, SettingsWithoutKey.VERSION, R.string.version) {

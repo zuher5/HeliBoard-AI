@@ -351,7 +351,7 @@
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Penggabung lebar nol</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Non-joiner lebar nol</string>
     <string name="auto_hide_toolbar_summary">Sembunyikan bilah alat saat saran tersedia</string>
-    <string name="customize_icons">Sesuaikan ikon</string>
+    <string name="customize_icons">Sesuaikan ikon bilah alat</string>
     <string name="var_toolbar_direction_summary">Membalikkan arah saat subtipe papan ketik kanan-ke-kiri dipilih</string>
     <string name="auto_hide_toolbar">Sembunyikan bilah alat secara otomatis</string>
     <string name="after_symbol_and_space">Menekan enter atau spasi setelah tombol lain dalam tampilan simbol</string>

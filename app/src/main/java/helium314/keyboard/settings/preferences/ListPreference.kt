@@ -1,6 +1,7 @@
 package helium314.keyboard.settings.preferences
 
 import android.content.SharedPreferences
+import androidx.annotation.DrawableRes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,6 +20,7 @@ fun <T: Any> ListPreference(
     setting: Setting,
     items: List<Pair<String, T>>,
     default: T,
+    @DrawableRes icon: Int? = null,
     onDefault: (() -> Unit)? = null,
     onChanged: (T) -> Unit = { }
 ) {
@@ -28,6 +30,7 @@ fun <T: Any> ListPreference(
     Preference(
         name = setting.title,
         description = selected?.first,
+        icon = icon,
         onClick = { showDialog = true }
     )
     if (showDialog) {

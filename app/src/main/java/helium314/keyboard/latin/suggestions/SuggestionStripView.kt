@@ -150,6 +150,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val toolbarHeight = min(toolbarExpandKey.layoutParams.height, resources.getDimension(R.dimen.config_suggestions_strip_height).toInt())
         toolbarExpandKey.layoutParams.height = toolbarHeight
         toolbarExpandKey.layoutParams.width = toolbarHeight // we want it square
+        toolbarExpandKey.elevation = 2.dpToPx(resources).toFloat()
         colors.setBackground(toolbarExpandKey, ColorType.STRIP_BACKGROUND) // necessary because background is re-used for defaultToolbarBackground
         colors.setColor(toolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY)
         colors.setColor(toolbarExpandKey.background, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND)
@@ -390,7 +391,11 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
                 addPinnedKey(context.prefs(), tag)
             } else {
                 removePinnedKey(context.prefs(), tag)
-                toolbar.findViewWithTag<View>(tag).background = defaultToolbarBackground.constantState?.newDrawable(resources)
+                val toolBtn = toolbar.findViewWithTag<ImageButton>(tag)
+                if (toolBtn != null) {
+                    toolBtn.setBackgroundResource(R.drawable.toolbar_key_background)
+                    setToolbarButtonActivatedState(toolBtn)
+                }
                 pinnedKeys.removeView(pinnedKeyView)
             }
         }
@@ -558,8 +563,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         view.setOnClickListener(this)
         view.setOnLongClickListener(this)
         (view.layoutParams as LinearLayout.LayoutParams).weight = 1f
-        colors.setColor(view, ColorType.TOOL_BAR_KEY)
-        colors.setBackground(view, ColorType.STRIP_BACKGROUND)
+        setToolbarButtonActivatedState(view)
     }
 
     fun showTranslateLanguageSelector() {
