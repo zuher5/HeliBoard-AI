@@ -55,6 +55,7 @@ import helium314.keyboard.latin.utils.getPinnedToolbarKeys
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
+import helium314.keyboard.latin.utils.setToolbarButtonActivatedState
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs

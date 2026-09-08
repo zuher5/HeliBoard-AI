@@ -20,9 +20,9 @@ fun <T: Any> ListPreference(
     setting: Setting,
     items: List<Pair<String, T>>,
     default: T,
-    @DrawableRes icon: Int? = null,
     onDefault: (() -> Unit)? = null,
-    onChanged: (T) -> Unit = { }
+    onChanged: (T) -> Unit = { },
+    @DrawableRes icon: Int? = null
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val prefs = LocalContext.current.prefs()
