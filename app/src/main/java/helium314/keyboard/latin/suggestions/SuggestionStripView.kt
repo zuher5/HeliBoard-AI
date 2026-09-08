@@ -556,6 +556,9 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         copy.setImageDrawable(original.drawable)
         copy.layoutParams = original.layoutParams
         copy.isActivated = original.isActivated
+        copy.setBackgroundResource(R.drawable.toolbar_key_background)
+        copy.elevation = original.elevation
+        copy.setPadding(original.paddingLeft, original.paddingTop, original.paddingRight, original.paddingBottom)
         setupKey(copy, Settings.getValues().mColors)
         pinnedKeys.addView(copy)
     }

@@ -21,8 +21,24 @@ fun <T: Any> ListPreference(
     items: List<Pair<String, T>>,
     default: T,
     onDefault: (() -> Unit)? = null,
-    onChanged: (T) -> Unit = { },
-    @DrawableRes icon: Int? = null
+    onChanged: (T) -> Unit = { }
+) = ListPreference(
+    setting = setting,
+    items = items,
+    default = default,
+    icon = null,
+    onDefault = onDefault,
+    onChanged = onChanged
+)
+
+@Composable
+fun <T: Any> ListPreference(
+    setting: Setting,
+    items: List<Pair<String, T>>,
+    default: T,
+    @DrawableRes icon: Int?,
+    onDefault: (() -> Unit)? = null,
+    onChanged: (T) -> Unit = { }
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val prefs = LocalContext.current.prefs()
