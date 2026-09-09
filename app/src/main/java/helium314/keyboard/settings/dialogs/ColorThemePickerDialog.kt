@@ -120,7 +120,7 @@ fun ColorThemePickerDialog(
                         if (item == "") {
                             AddColorRow(onDismissRequest, userColors, targetScreen, setting.key)
                         } else {
-                            ColorItemRow(onDismissRequest, item, item == selectedColor, item in userColors, targetScreen, setting.key)
+                            ColorItemRow(onDismissRequest, item, item == selectedColor, item in userColors, targetScreen, setting.key, isNight)
                         }
                     }
                 }
@@ -199,7 +199,7 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
 }
 
 @Composable
-private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String) {
+private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String, isNight: Boolean) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     Row(
@@ -249,6 +249,18 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
                         KeyboardSwitcher.getInstance().setThemeNeedsReload()
                     }
                 )
+        } else {
+            EditButton {
+                onDismissRequest()
+                val baseName = item.getStringResourceOrName("theme_name_", ctx)
+                val newName = KeyboardTheme.getUnusedThemeName(baseName, prefs)
+                val colorSettings = KeyboardTheme.getPresetColorSettings(item, isNight, ctx)
+                KeyboardTheme.writeUserColors(prefs, newName, colorSettings)
+                KeyboardTheme.writeUserMoreColors(prefs, newName, Defaults.PREF_USER_MORE_COLORS)
+                prefs.edit { putString(prefKey, newName) }
+                SettingsDestination.navigateTo(targetScreen + newName)
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
+            }
         }
     }
 }

@@ -49,6 +49,9 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         const val STYLE_ROUNDED = "Rounded"
 
         // new themes that are just colors
+        const val THEME_GBOARD = "gboard"
+        const val THEME_GBOARD_DARK = "gboard_dark"
+        const val THEME_GBOARD_DYNAMIC = "gboard_dynamic"
         const val THEME_LIGHT = "light"
         const val THEME_HOLO_WHITE = "holo_white"
         const val THEME_DARK = "dark"
@@ -66,6 +69,9 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         const val THEME_SAND = "sand"
         const val THEME_VIOLETTE = "violette"
         fun getAvailableDefaultColors(prefs: SharedPreferences, isNight: Boolean) = listOfNotNull(
+            if (!isNight) THEME_GBOARD else null,
+            THEME_GBOARD_DARK,
+            THEME_GBOARD_DYNAMIC,
             if (!isNight) THEME_LIGHT else null, THEME_DARK,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) THEME_DYNAMIC else null,
             if (prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE) == STYLE_HOLO) THEME_HOLO_WHITE else null,
@@ -148,6 +154,14 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
             val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
             return when (themeName) {
+                THEME_GBOARD -> if (isNight) getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
+                    else getGboardLightColors(themeStyle, hasBorders, backgroundImage)
+                THEME_GBOARD_DARK -> getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
+                THEME_GBOARD_DYNAMIC -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
+                    else if (isNight) getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
+                    else getGboardLightColors(themeStyle, hasBorders, backgroundImage)
+                }
                 THEME_DYNAMIC -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
                     else getThemeColors(THEME_LIGHT, themeStyle, context, prefs, isNight)
@@ -346,6 +360,94 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     }
                 }
             }
+        }
+
+        fun getGboardLightColors(themeStyle: String, hasBorders: Boolean, backgroundImage: Drawable? = null) = DefaultColors(
+            themeStyle = themeStyle,
+            hasKeyBorders = hasBorders,
+            accent = "#AECBFA".toColorInt(),
+            background = "#F7F7F7".toColorInt(),
+            keyBackground = "#FFFFFF".toColorInt(),
+            functionalKey = "#E9E9E9".toColorInt(),
+            spaceBar = "#FFFFFF".toColorInt(),
+            keyText = "#202124".toColorInt(),
+            keyHintText = "#5F6368".toColorInt(),
+            suggestionText = "#202124".toColorInt(),
+            spaceBarText = "#5F6368".toColorInt(),
+            gesture = "#1A73E8".toColorInt(),
+            keyboardBackground = backgroundImage,
+            actionKeyIcon = "#202124".toColorInt(),
+        )
+
+        fun getGboardDarkColors(themeStyle: String, hasBorders: Boolean, backgroundImage: Drawable? = null) = DefaultColors(
+            themeStyle = themeStyle,
+            hasKeyBorders = hasBorders,
+            accent = "#8AB4F8".toColorInt(),
+            background = "#202124".toColorInt(),
+            keyBackground = "#303134".toColorInt(),
+            functionalKey = "#3C4043".toColorInt(),
+            spaceBar = "#303134".toColorInt(),
+            keyText = "#E8EAED".toColorInt(),
+            keyHintText = "#9AA0A6".toColorInt(),
+            suggestionText = "#E8EAED".toColorInt(),
+            spaceBarText = "#9AA0A6".toColorInt(),
+            gesture = "#8AB4F8".toColorInt(),
+            keyboardBackground = backgroundImage,
+            actionKeyIcon = "#202124".toColorInt(),
+        )
+
+        fun getPresetColorSettings(presetName: String, isNight: Boolean, context: Context): List<ColorSetting> {
+            val isDark = when (presetName) {
+                THEME_GBOARD -> isNight
+                THEME_GBOARD_DARK -> true
+                THEME_GBOARD_DYNAMIC -> isNight
+                THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_OCEAN, THEME_VIOLETTE -> true
+                else -> isNight
+            }
+            val isGboard = presetName in listOf(THEME_GBOARD, THEME_GBOARD_DARK, THEME_GBOARD_DYNAMIC)
+            val accent = if (isGboard) {
+                if (isDark) "#8AB4F8".toColorInt() else "#AECBFA".toColorInt()
+            } else ContextCompat.getColor(Settings.getDayNightContext(context, isDark), R.color.accent)
+            val background = if (isGboard) {
+                if (isDark) "#202124".toColorInt() else "#F7F7F7".toColorInt()
+            } else ContextCompat.getColor(Settings.getDayNightContext(context, isDark), R.color.keyboard_background)
+            val keys = if (isGboard) {
+                if (isDark) "#303134".toColorInt() else "#FFFFFF".toColorInt()
+            } else null
+            val functionalKeys = if (isGboard) {
+                if (isDark) "#3C4043".toColorInt() else "#E9E9E9".toColorInt()
+            } else null
+            val spacebar = if (isGboard) {
+                if (isDark) "#303134".toColorInt() else "#FFFFFF".toColorInt()
+            } else null
+            val text = if (isGboard) {
+                if (isDark) "#E8EAED".toColorInt() else "#202124".toColorInt()
+            } else null
+            val hintText = if (isGboard) {
+                if (isDark) "#9AA0A6".toColorInt() else "#5F6368".toColorInt()
+            } else null
+            val suggestionText = if (isGboard) {
+                if (isDark) "#E8EAED".toColorInt() else "#202124".toColorInt()
+            } else null
+            val spacebarText = if (isGboard) {
+                if (isDark) "#9AA0A6".toColorInt() else "#5F6368".toColorInt()
+            } else null
+            val gesture = if (isGboard) {
+                if (isDark) "#8AB4F8".toColorInt() else "#1A73E8".toColorInt()
+            } else null
+
+            return listOf(
+                ColorSetting(COLOR_ACCENT, false, accent),
+                ColorSetting(COLOR_BACKGROUND, false, background),
+                ColorSetting(COLOR_KEYS, keys == null, keys),
+                ColorSetting(COLOR_FUNCTIONAL_KEYS, functionalKeys == null, functionalKeys),
+                ColorSetting(COLOR_SPACEBAR, spacebar == null, spacebar),
+                ColorSetting(COLOR_TEXT, text == null, text),
+                ColorSetting(COLOR_HINT_TEXT, hintText == null, hintText),
+                ColorSetting(COLOR_SUGGESTION_TEXT, suggestionText == null, suggestionText),
+                ColorSetting(COLOR_SPACEBAR_TEXT, spacebarText == null, spacebarText),
+                ColorSetting(COLOR_GESTURE, gesture == null, gesture)
+            )
         }
 
         fun readUserColorTheme(themeStyle: String, hasBorders: Boolean, colorSettings: List<ColorSetting>, context: Context, isNight: Boolean, backgroundImage: Drawable?): Colors {

@@ -375,6 +375,7 @@ class DefaultColors (
     private val spaceBarText: Int = keyHintText,
     private val gesture: Int = accent,
     private var keyboardBackground: Drawable? = null,
+    private val actionKeyIcon: Int? = null,
 ) : Colors {
     private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
@@ -462,6 +463,7 @@ class DefaultColors (
         }
         keyTextFilter = colorFilter(keyText)
         actionKeyIconColorFilter = when {
+            actionKeyIcon != null -> colorFilter(actionKeyIcon)
             themeStyle == STYLE_HOLO -> keyTextFilter
             // the white icon may not have enough contrast, and can't be adjusted by the user
             isBrightColor(accent) -> colorFilter(Color.DKGRAY)
@@ -489,7 +491,7 @@ class DefaultColors (
         NAVIGATION_BAR -> navBar
         SUGGESTION_AUTO_CORRECT, EMOJI_CATEGORY, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY, ONE_HANDED_MODE_BUTTON -> suggestionText
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedSuggestionText
-        ACTION_KEY_ICON -> Color.WHITE
+        ACTION_KEY_ICON -> actionKeyIcon ?: Color.WHITE
     }
 
     override fun setColor(drawable: Drawable, color: ColorType) {

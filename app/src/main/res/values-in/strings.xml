@@ -232,6 +232,9 @@
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Bulat</string>
     <string name="theme_colors_night">Warna (mode malam)</string>
     <string name="theme_navbar">Bilah navigasi warna</string>
+    <string name="theme_name_gboard" tools:keep="@string/theme_name_gboard">Gboard</string>
+    <string name="theme_name_gboard_dark" tools:keep="@string/theme_name_gboard_dark">Gboard Gelap</string>
+    <string name="theme_name_gboard_dynamic" tools:keep="@string/theme_name_gboard_dynamic">Gboard Dinamis</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Gelap gulita</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Warna dinamis</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Biru Abu-abu</string>
