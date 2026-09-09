@@ -378,7 +378,7 @@ class DefaultColors (
     private val actionKeyIcon: Int? = null,
     private val keepFunctionalKeyWithoutBorders: Boolean = false,
 ) : Colors {
-    private val effectiveActionKeyIcon = actionKeyIcon ?: if (isBrightColor(accent)) {
+    private val effectiveActionKeyIcon = actionKeyIcon ?: if (ColorUtils.calculateContrast(Color.WHITE, accent) < ColorUtils.calculateContrast("#202124".toColorInt(), accent)) {
         if (themeStyle == STYLE_HOLO) keyText else Color.DKGRAY
     } else Color.WHITE
     private val navBar: Int

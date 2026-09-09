@@ -32,6 +32,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 import androidx.core.graphics.toColorInt
+import androidx.core.graphics.ColorUtils
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -418,7 +419,9 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             val accent = determineUserColor(colorSettings, context, COLOR_ACCENT, isNight)
             val functionalKey = determineUserColor(colorSettings, context, COLOR_FUNCTIONAL_KEYS, isNight)
             val hasCustomFunctionalKey = colorSettings.any { it.name == COLOR_FUNCTIONAL_KEYS && it.auto == false && it.color != null }
-            val actionKeyIcon = if (isBrightColor(accent)) "#202124".toColorInt() else Color.WHITE
+            val actionKeyIcon = if (ColorUtils.calculateContrast(Color.WHITE, accent) < ColorUtils.calculateContrast("#202124".toColorInt(), accent)) {
+                "#202124".toColorInt()
+            } else Color.WHITE
             return DefaultColors(
                 themeStyle = themeStyle,
                 hasKeyBorders = hasBorders,
