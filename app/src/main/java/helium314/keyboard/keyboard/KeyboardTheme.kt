@@ -417,7 +417,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         fun readUserColorTheme(themeStyle: String, hasBorders: Boolean, colorSettings: List<ColorSetting>, context: Context, isNight: Boolean, backgroundImage: Drawable?): Colors {
             val accent = determineUserColor(colorSettings, context, COLOR_ACCENT, isNight)
             val functionalKey = determineUserColor(colorSettings, context, COLOR_FUNCTIONAL_KEYS, isNight)
-            val hasCustomFunctionalKey = colorSettings.any { it.name == COLOR_FUNCTIONAL_KEYS && !it.auto && it.color != null }
+            val hasCustomFunctionalKey = colorSettings.any { it.name == COLOR_FUNCTIONAL_KEYS && it.auto == false && it.color != null }
             val actionKeyIcon = if (isBrightColor(accent)) "#202124".toColorInt() else Color.WHITE
             return DefaultColors(
                 themeStyle = themeStyle,

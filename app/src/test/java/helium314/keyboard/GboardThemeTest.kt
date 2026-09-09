@@ -115,14 +115,14 @@ class GboardThemeTest {
         val gboardSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_GBOARD, false, context)
         assertTrue(gboardSettings.isNotEmpty())
         gboardSettings.forEach {
-            assertTrue(!it.auto, "Setting ${it.name} should not be auto")
+            assertTrue(it.auto == false, "Setting ${it.name} should not be auto")
             assertTrue(it.color != null, "Setting ${it.name} color should not be null")
         }
 
         val lightSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_LIGHT, false, context)
         assertTrue(lightSettings.isNotEmpty())
         lightSettings.forEach {
-            assertTrue(!it.auto, "Setting ${it.name} should not be auto")
+            assertTrue(it.auto == false, "Setting ${it.name} should not be auto")
             assertTrue(it.color != null, "Setting ${it.name} color should not be null")
         }
     }
