@@ -10,11 +10,13 @@ import androidx.test.core.app.ApplicationProvider
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import org.robolectric.annotation.Config
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34])
 class GboardThemeTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val prefs: SharedPreferences = context.getSharedPreferences("test_prefs", Context.MODE_PRIVATE)
