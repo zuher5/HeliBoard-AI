@@ -202,25 +202,27 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
 private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String, isNight: Boolean) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
+    val selectTheme = {
+        onDismissRequest()
+        prefs.edit {
+            putString(prefKey, item)
+            if (prefKey == Settings.PREF_THEME_COLORS && item in listOf(KeyboardTheme.THEME_GBOARD, KeyboardTheme.THEME_GBOARD_DYNAMIC, KeyboardTheme.THEME_DYNAMIC)) {
+                putString(Settings.PREF_THEME_COLORS_NIGHT, item)
+            }
+        }
+        KeyboardSwitcher.getInstance().setThemeNeedsReload()
+    }
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .clickable {
-                onDismissRequest()
-                prefs.edit {putString(prefKey, item)}
-                KeyboardSwitcher.getInstance().setThemeNeedsReload()
-            }
+            .clickable { selectTheme() }
             .padding(start = 6.dp)
             .heightIn(min = 40.dp)
     ) {
         RadioButton(
             selected = isSelected,
-            onClick = {
-                onDismissRequest()
-                prefs.edit { putString(prefKey, item) }
-                KeyboardSwitcher.getInstance().setThemeNeedsReload()
-            }
+            onClick = { selectTheme() }
         )
         Text(
             text = item.getStringResourceOrName("theme_name_", ctx),

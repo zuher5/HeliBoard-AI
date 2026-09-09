@@ -38,7 +38,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APKs
-        run: ./gradlew assembleRelease assembleNouserlib
+        run: ./gradlew testDebugUnitTest --tests "helium314.keyboard.GboardThemeTest" assembleRelease assembleNouserlib
 
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4

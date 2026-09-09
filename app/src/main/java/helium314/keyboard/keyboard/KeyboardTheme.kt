@@ -377,6 +377,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             gesture = "#1A73E8".toColorInt(),
             keyboardBackground = backgroundImage,
             actionKeyIcon = "#202124".toColorInt(),
+            keepFunctionalKeyWithoutBorders = true,
         )
 
         fun getGboardDarkColors(themeStyle: String, hasBorders: Boolean, backgroundImage: Drawable? = null) = DefaultColors(
@@ -394,77 +395,46 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             gesture = "#8AB4F8".toColorInt(),
             keyboardBackground = backgroundImage,
             actionKeyIcon = "#202124".toColorInt(),
+            keepFunctionalKeyWithoutBorders = true,
         )
 
         fun getPresetColorSettings(presetName: String, isNight: Boolean, context: Context): List<ColorSetting> {
-            val isDark = when (presetName) {
-                THEME_GBOARD -> isNight
-                THEME_GBOARD_DARK -> true
-                THEME_GBOARD_DYNAMIC -> isNight
-                THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_OCEAN, THEME_VIOLETTE -> true
-                else -> isNight
-            }
-            val isGboard = presetName in listOf(THEME_GBOARD, THEME_GBOARD_DARK, THEME_GBOARD_DYNAMIC)
-            val accent = if (isGboard) {
-                if (isDark) "#8AB4F8".toColorInt() else "#AECBFA".toColorInt()
-            } else ContextCompat.getColor(Settings.getDayNightContext(context, isDark), R.color.accent)
-            val background = if (isGboard) {
-                if (isDark) "#202124".toColorInt() else "#F7F7F7".toColorInt()
-            } else ContextCompat.getColor(Settings.getDayNightContext(context, isDark), R.color.keyboard_background)
-            val keys = if (isGboard) {
-                if (isDark) "#303134".toColorInt() else "#FFFFFF".toColorInt()
-            } else null
-            val functionalKeys = if (isGboard) {
-                if (isDark) "#3C4043".toColorInt() else "#E9E9E9".toColorInt()
-            } else null
-            val spacebar = if (isGboard) {
-                if (isDark) "#303134".toColorInt() else "#FFFFFF".toColorInt()
-            } else null
-            val text = if (isGboard) {
-                if (isDark) "#E8EAED".toColorInt() else "#202124".toColorInt()
-            } else null
-            val hintText = if (isGboard) {
-                if (isDark) "#9AA0A6".toColorInt() else "#5F6368".toColorInt()
-            } else null
-            val suggestionText = if (isGboard) {
-                if (isDark) "#E8EAED".toColorInt() else "#202124".toColorInt()
-            } else null
-            val spacebarText = if (isGboard) {
-                if (isDark) "#9AA0A6".toColorInt() else "#5F6368".toColorInt()
-            } else null
-            val gesture = if (isGboard) {
-                if (isDark) "#8AB4F8".toColorInt() else "#1A73E8".toColorInt()
-            } else null
-
+            val colors = getThemeColors(presetName, STYLE_MATERIAL, context, context.prefs(), isNight)
             return listOf(
-                ColorSetting(COLOR_ACCENT, false, accent),
-                ColorSetting(COLOR_BACKGROUND, false, background),
-                ColorSetting(COLOR_KEYS, keys == null, keys),
-                ColorSetting(COLOR_FUNCTIONAL_KEYS, functionalKeys == null, functionalKeys),
-                ColorSetting(COLOR_SPACEBAR, spacebar == null, spacebar),
-                ColorSetting(COLOR_TEXT, text == null, text),
-                ColorSetting(COLOR_HINT_TEXT, hintText == null, hintText),
-                ColorSetting(COLOR_SUGGESTION_TEXT, suggestionText == null, suggestionText),
-                ColorSetting(COLOR_SPACEBAR_TEXT, spacebarText == null, spacebarText),
-                ColorSetting(COLOR_GESTURE, gesture == null, gesture)
+                ColorSetting(COLOR_ACCENT, false, colors.get(ColorType.ACTION_KEY_BACKGROUND)),
+                ColorSetting(COLOR_BACKGROUND, false, colors.get(ColorType.MAIN_BACKGROUND)),
+                ColorSetting(COLOR_KEYS, false, colors.get(ColorType.KEY_BACKGROUND)),
+                ColorSetting(COLOR_FUNCTIONAL_KEYS, false, colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
+                ColorSetting(COLOR_SPACEBAR, false, colors.get(ColorType.SPACE_BAR_BACKGROUND)),
+                ColorSetting(COLOR_TEXT, false, colors.get(ColorType.KEY_TEXT)),
+                ColorSetting(COLOR_HINT_TEXT, false, colors.get(ColorType.KEY_HINT_TEXT)),
+                ColorSetting(COLOR_SUGGESTION_TEXT, false, colors.get(ColorType.SUGGESTION_AUTO_CORRECT)),
+                ColorSetting(COLOR_SPACEBAR_TEXT, false, colors.get(ColorType.SPACE_BAR_TEXT)),
+                ColorSetting(COLOR_GESTURE, false, colors.get(ColorType.GESTURE_TRAIL))
             )
         }
 
         fun readUserColorTheme(themeStyle: String, hasBorders: Boolean, colorSettings: List<ColorSetting>, context: Context, isNight: Boolean, backgroundImage: Drawable?): Colors {
+            val accent = determineUserColor(colorSettings, context, COLOR_ACCENT, isNight)
+            val functionalKey = determineUserColor(colorSettings, context, COLOR_FUNCTIONAL_KEYS, isNight)
+            val hasCustomFunctionalKey = colorSettings.any { it.name == COLOR_FUNCTIONAL_KEYS && !it.auto && it.color != null }
+            val actionKeyIcon = if (isBrightColor(accent)) "#202124".toColorInt() else Color.WHITE
             return DefaultColors(
-                themeStyle,
-                hasBorders,
-                determineUserColor(colorSettings, context, COLOR_ACCENT, isNight),
-                determineUserColor(colorSettings, context, COLOR_BACKGROUND, isNight),
-                determineUserColor(colorSettings, context, COLOR_KEYS, isNight),
-                determineUserColor(colorSettings, context, COLOR_FUNCTIONAL_KEYS, isNight),
-                determineUserColor(colorSettings, context, COLOR_SPACEBAR, isNight),
-                determineUserColor(colorSettings, context, COLOR_TEXT, isNight),
-                determineUserColor(colorSettings, context, COLOR_HINT_TEXT, isNight),
-                determineUserColor(colorSettings, context, COLOR_SUGGESTION_TEXT, isNight),
-                determineUserColor(colorSettings, context, COLOR_SPACEBAR_TEXT, isNight),
-                determineUserColor(colorSettings, context, COLOR_GESTURE, isNight),
-                backgroundImage,
+                themeStyle = themeStyle,
+                hasKeyBorders = hasBorders,
+                accent = accent,
+                background = determineUserColor(colorSettings, context, COLOR_BACKGROUND, isNight),
+                keyBackground = determineUserColor(colorSettings, context, COLOR_KEYS, isNight),
+                functionalKey = functionalKey,
+                spaceBar = determineUserColor(colorSettings, context, COLOR_SPACEBAR, isNight),
+                keyText = determineUserColor(colorSettings, context, COLOR_TEXT, isNight),
+                keyHintText = determineUserColor(colorSettings, context, COLOR_HINT_TEXT, isNight),
+                suggestionText = determineUserColor(colorSettings, context, COLOR_SUGGESTION_TEXT, isNight),
+                spaceBarText = determineUserColor(colorSettings, context, COLOR_SPACEBAR_TEXT, isNight),
+                gesture = determineUserColor(colorSettings, context, COLOR_GESTURE, isNight),
+                keyboardBackground = backgroundImage,
+                actionKeyIcon = actionKeyIcon,
+                keepFunctionalKeyWithoutBorders = hasCustomFunctionalKey,
             )
         }
 

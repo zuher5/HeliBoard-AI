@@ -376,7 +376,11 @@ class DefaultColors (
     private val gesture: Int = accent,
     private var keyboardBackground: Drawable? = null,
     private val actionKeyIcon: Int? = null,
+    private val keepFunctionalKeyWithoutBorders: Boolean = false,
 ) : Colors {
+    private val effectiveActionKeyIcon = actionKeyIcon ?: if (isBrightColor(accent)) {
+        if (themeStyle == STYLE_HOLO) keyText else Color.DKGRAY
+    } else Color.WHITE
     private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
      *  bad contrast, e.g. popup keys popup or no border space bar */
@@ -456,19 +460,17 @@ class DefaultColors (
             // need to set color to background if key borders are disabled, or there will be ugly keys
             backgroundStateList = pressedStateList(brightenOrDarken(background, true), background)
             keyStateList = pressedStateList(keyBackground, Color.TRANSPARENT)
-            functionalKeyStateList = keyStateList
+            functionalKeyStateList = if (keepFunctionalKeyWithoutBorders) {
+                pressedStateList(brightenOrDarken(functionalKey, true), functionalKey)
+            } else {
+                keyStateList
+            }
             actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
                 else pressedStateList(brightenOrDarken(accent, true), accent)
             spaceBarStateList = pressedStateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
-        actionKeyIconColorFilter = when {
-            actionKeyIcon != null -> colorFilter(actionKeyIcon)
-            themeStyle == STYLE_HOLO -> keyTextFilter
-            // the white icon may not have enough contrast, and can't be adjusted by the user
-            isBrightColor(accent) -> colorFilter(Color.DKGRAY)
-            else -> null
-        }
+        actionKeyIconColorFilter = colorFilter(effectiveActionKeyIcon)
     }
 
     override fun get(color: ColorType): Int = when (color) {
@@ -491,7 +493,7 @@ class DefaultColors (
         NAVIGATION_BAR -> navBar
         SUGGESTION_AUTO_CORRECT, EMOJI_CATEGORY, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY, ONE_HANDED_MODE_BUTTON -> suggestionText
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedSuggestionText
-        ACTION_KEY_ICON -> actionKeyIcon ?: Color.WHITE
+        ACTION_KEY_ICON -> effectiveActionKeyIcon
     }
 
     override fun setColor(drawable: Drawable, color: ColorType) {

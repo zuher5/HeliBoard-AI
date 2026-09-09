@@ -22,8 +22,8 @@ android {
         applicationId = "io.github.zuher5.heliboard"
         minSdk = 21
         targetSdk = 36
-        versionCode = 4107
-        versionName = "4.1.6"
+        versionCode = 4108
+        versionName = "4.1.7"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))

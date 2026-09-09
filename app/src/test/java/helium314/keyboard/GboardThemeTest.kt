@@ -109,4 +109,37 @@ class GboardThemeTest {
         assertTrue(contrast(dark.get(ColorType.KEY_TEXT), dark.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)) >= 4.5)
         assertTrue(contrast(dark.get(ColorType.ACTION_KEY_ICON), dark.get(ColorType.ACTION_KEY_BACKGROUND)) >= 3.0)
     }
+
+    @Test
+    fun getPresetColorSettingsComplete() {
+        val gboardSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_GBOARD, false, context)
+        assertTrue(gboardSettings.isNotEmpty())
+        gboardSettings.forEach {
+            assertTrue(!it.auto, "Setting ${it.name} should not be auto")
+            assertTrue(it.color != null, "Setting ${it.name} color should not be null")
+        }
+
+        val lightSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_LIGHT, false, context)
+        assertTrue(lightSettings.isNotEmpty())
+        lightSettings.forEach {
+            assertTrue(!it.auto, "Setting ${it.name} should not be auto")
+            assertTrue(it.color != null, "Setting ${it.name} color should not be null")
+        }
+    }
+
+    @Test
+    fun readUserColorThemeWithCustomFunctionalKeys() {
+        val presetSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_GBOARD, false, context)
+        val colors = KeyboardTheme.readUserColorTheme(
+            themeStyle = KeyboardTheme.STYLE_ROUNDED,
+            hasBorders = false,
+            colorSettings = presetSettings,
+            context = context,
+            isNight = false,
+            backgroundImage = null
+        )
+        assertEquals("#AECBFA".toColorInt(), colors.get(ColorType.ACTION_KEY_BACKGROUND))
+        assertEquals("#202124".toColorInt(), colors.get(ColorType.ACTION_KEY_ICON))
+        assertEquals("#E9E9E9".toColorInt(), colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND))
+    }
 }
