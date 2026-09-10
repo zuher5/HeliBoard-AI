@@ -40,6 +40,7 @@ fun TextInputDialog(
     confirmButtonText: String = stringResource(android.R.string.ok),
     initialText: String = "",
     textInputLabel: @Composable (TextFieldLabelScope.() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
     properties: DialogProperties = DialogProperties(),
@@ -47,12 +48,14 @@ fun TextInputDialog(
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
     val state = rememberTextFieldState(initialText, TextRange(if (singleLine) initialText.length else 0))
+    // Read state.text in composable scope so recomposition triggers immediately on every keystroke
+    val isOkEnabled = checkTextValid(state.text.toString())
 
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = { onConfirmed(state.text.toString()) },
         confirmButtonText = confirmButtonText,
-        checkOk = { checkTextValid(state.text.toString()) },
+        checkOk = { isOkEnabled },
         neutralButtonText = neutralButtonText,
         onNeutral = { onDismissRequest(); onNeutral() },
         modifier = modifier,
@@ -70,6 +73,7 @@ fun TextInputDialog(
                         .fillMaxWidth()
                         .focusRequester(focusRequester),
                     label = textInputLabel,
+                    placeholder = placeholder,
                     keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
                     lineLimits = if (singleLine) TextFieldLineLimits.SingleLine else TextFieldLineLimits.MultiLine(),
                     textStyle = contentTextDirectionStyle,

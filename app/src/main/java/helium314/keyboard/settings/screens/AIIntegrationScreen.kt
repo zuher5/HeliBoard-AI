@@ -185,7 +185,9 @@ fun SecureTextInputPreference(
             },
             initialText = onGet() ?: "",
             title = { androidx.compose.material3.Text(title) },
-            description = if (info == null) null else { { androidx.compose.material3.Text(info) } },
+            textInputLabel = { androidx.compose.material3.Text(title) },
+            placeholder = if (info == null) null else { { androidx.compose.material3.Text(info) } },
+            singleLine = true,
             onNeutral = { onReset(); showDialog = false },
             neutralButtonText = stringResource(R.string.button_default),
         )

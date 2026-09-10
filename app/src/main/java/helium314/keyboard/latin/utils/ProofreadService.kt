@@ -22,6 +22,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 
 /**
@@ -101,13 +102,10 @@ class ProofreadService(private val context: Context) {
 
     fun hasApiKey(provider: AiProvider = getProvider()): Boolean {
         if (provider == AiProvider.OPENAI && isLocalEndpoint()) return true
-        return getApiKey(provider) != null
+        return !getApiKey(provider).isNullOrBlank()
     }
 
-    private fun isLocalEndpoint(): Boolean {
-        val ep = getEndpoint().lowercase()
-        return ep.contains("localhost") || ep.contains("127.0.0.1") || ep.contains("192.168.") || ep.contains("10.0.")
-    }
+    fun isLocalEndpoint(): Boolean = Companion.isLocalEndpoint(getEndpoint())
 
     // ----------------------------------------------------------------------------------------- model
 
@@ -147,15 +145,11 @@ class ProofreadService(private val context: Context) {
 
     // ------------------------------------------------------------------------------------- urls
 
-    private fun chatUrl(provider: AiProvider = getProvider()): String = when (provider) {
-        AiProvider.GEMINI -> GEMINI_CHAT_URL
-        AiProvider.OPENAI -> "${getEndpoint()}/chat/completions"
-    }
+    private fun chatUrl(provider: AiProvider = getProvider()): String =
+        buildChatUrl(provider, getEndpoint(), getApiKey(provider))
 
-    private fun modelsUrl(provider: AiProvider = getProvider()): String = when (provider) {
-        AiProvider.GEMINI -> "https://generativelanguage.googleapis.com/v1beta/models?key=${getApiKey(provider)}"
-        AiProvider.OPENAI -> "${getEndpoint()}/models"
-    }
+    private fun modelsUrl(provider: AiProvider = getProvider()): String =
+        buildModelsUrl(provider, getEndpoint(), getApiKey(provider))
 
     // ------------------------------------------------------------------------------------ language
 
@@ -214,9 +208,10 @@ class ProofreadService(private val context: Context) {
     // ---------------------------------------------------------------------------------- model fetching
 
     suspend fun fetchAvailableModels(provider: AiProvider = getProvider()): List<String> = withContext(Dispatchers.IO) {
-        val apiKey = getApiKey(provider) ?: if (provider == AiProvider.OPENAI && isLocalEndpoint()) "local" else null
+        val apiKey = getApiKey(provider)
+        val isLocal = provider == AiProvider.OPENAI && isLocalEndpoint()
         val fallback = defaultModels(provider)
-        if (apiKey == null) return@withContext fallback
+        if (apiKey.isNullOrBlank() && !isLocal) return@withContext fallback
         val url = URL(modelsUrl(provider))
         val connection = url.openConnection() as HttpURLConnection
         try {
@@ -224,9 +219,9 @@ class ProofreadService(private val context: Context) {
             connection.readTimeout = 5000
             connection.requestMethod = "GET"
             connection.setRequestProperty("User-Agent", "ZeeBoard/4.1")
-            // Gemini uses query-param key; OpenAI uses Bearer header
-            if (provider == AiProvider.OPENAI) {
-                connection.setRequestProperty("Authorization", "Bearer $apiKey")
+            val authHeader = buildAuthHeader(provider, apiKey, isLocal)
+            if (authHeader != null) {
+                connection.setRequestProperty("Authorization", authHeader)
             }
             if (connection.responseCode == 200) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
@@ -262,8 +257,9 @@ class ProofreadService(private val context: Context) {
         temperature: Float,
         systemPrompt: String? = null,
     ): Result<String> {
-        val apiKey = getApiKey(provider) ?: if (provider == AiProvider.OPENAI && isLocalEndpoint()) "local" else null
-        if (apiKey == null) {
+        val apiKey = getApiKey(provider)
+        val isLocal = provider == AiProvider.OPENAI && isLocalEndpoint()
+        if (apiKey.isNullOrBlank() && !isLocal) {
             return Result.failure(AiException(context.getString(R.string.ai_no_api_key)))
         }
         val url = URL(chatUrl(provider))
@@ -273,7 +269,10 @@ class ProofreadService(private val context: Context) {
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Accept", "application/json")
             connection.setRequestProperty("User-Agent", "ZeeBoard/4.1")
-            connection.setRequestProperty("Authorization", "Bearer $apiKey")
+            val authHeader = buildAuthHeader(provider, apiKey, isLocal)
+            if (authHeader != null) {
+                connection.setRequestProperty("Authorization", authHeader)
+            }
             connection.doOutput = true
             connection.connectTimeout = 30000
             connection.readTimeout = 60000
@@ -476,6 +475,68 @@ class ProofreadService(private val context: Context) {
                 "meta-llama/Llama-3.1-8B-Instruct",
                 "mistralai/Mistral-7B-Instruct-v0.3"
             )
+        }
+
+        fun isLocalHost(host: String): Boolean {
+            val cleanHost = host.trim().lowercase().removeSurrounding("[", "]")
+            if (cleanHost == "localhost" || cleanHost.endsWith(".localhost") || cleanHost.endsWith(".local")) {
+                return true
+            }
+            if (cleanHost == "127.0.0.1" || cleanHost == "::1" || cleanHost == "0:0:0:0:0:0:0:1") {
+                return true
+            }
+            val parts = cleanHost.split(".")
+            if (parts.size == 4) {
+                val octets = parts.map { it.toIntOrNull() }
+                if (octets.all { it != null && it in 0..255 }) {
+                    val o0 = octets[0]!!
+                    val o1 = octets[1]!!
+                    if (o0 == 127) return true                         // 127.0.0.0/8 Loopback
+                    if (o0 == 10) return true                          // 10.0.0.0/8 Private
+                    if (o0 == 172 && o1 in 16..31) return true         // 172.16.0.0/12 Private
+                    if (o0 == 192 && o1 == 168) return true            // 192.168.0.0/16 Private
+                    if (o0 == 169 && o1 == 254) return true            // 169.254.0.0/16 Link-local
+                    if (o0 == 0) return true                           // 0.0.0.0
+                }
+            }
+            return false
+        }
+
+        fun isLocalEndpoint(endpoint: String): Boolean {
+            return try {
+                val normalized = if (endpoint.contains("://")) endpoint else "http://$endpoint"
+                val uri = URI(normalized)
+                val host = uri.host ?: return false
+                isLocalHost(host)
+            } catch (_: Exception) {
+                false
+            }
+        }
+
+        fun buildChatUrl(provider: AiProvider, endpoint: String, apiKey: String?): String = when (provider) {
+            AiProvider.GEMINI -> {
+                val key = apiKey?.trim().orEmpty()
+                if (key.isNotEmpty()) "$GEMINI_CHAT_URL?key=$key" else GEMINI_CHAT_URL
+            }
+            AiProvider.OPENAI -> "${endpoint.trimEnd('/')}/chat/completions"
+        }
+
+        fun buildModelsUrl(provider: AiProvider, endpoint: String, apiKey: String?): String = when (provider) {
+            AiProvider.GEMINI -> {
+                val key = apiKey?.trim().orEmpty()
+                if (key.isNotEmpty()) "https://generativelanguage.googleapis.com/v1beta/models?key=$key"
+                else "https://generativelanguage.googleapis.com/v1beta/models"
+            }
+            AiProvider.OPENAI -> "${endpoint.trimEnd('/')}/models"
+        }
+
+        fun buildAuthHeader(provider: AiProvider, apiKey: String?, isLocal: Boolean): String? {
+            // Gemini uses API key query parameter only; never send Authorization header
+            if (provider == AiProvider.GEMINI) return null
+            val key = apiKey?.trim()
+            // Local endpoint without explicit key must not send fake "Bearer local"
+            if (key.isNullOrBlank()) return null
+            return "Bearer $key"
         }
 
         private fun getTranslateSystemPrompt(targetLanguage: String): String {
