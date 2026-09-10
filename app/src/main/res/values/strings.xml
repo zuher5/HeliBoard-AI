@@ -964,7 +964,7 @@ New dictionary:
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
     <!-- Title of the setting to customize icons for keyboard and toolbar keys -->
-    <string name="customize_icons">Customize icons toolbar</string>
+    <string name="customize_icons">Customize icon toolbar</string>
     <!-- Confirmation message when resetting all custom icons -->
     <string name="customize_icons_reset_message">Really reset all customized icons?</string>
     <!-- Confirmation message when deleting a something (currently used for custom colors) -->
@@ -1319,8 +1319,7 @@ New dictionary:
     <string name="ai_integration_summary">Configure cloud AI provider, model and API key</string>
     <string name="ai_provider">AI provider</string>
     <string name="ai_provider_gemini">Gemini (Google)</string>
-    <string name="ai_provider_mistral">Mistral AI</string>
-    <string name="ai_provider_openai">OpenAI-compatible</string>
+    <string name="ai_provider_openai">HF / AI Compatible</string>
     <string name="api_key_label">API key</string>
     <string name="ai_key_not_set">Not set</string>
     <string name="ai_key_set">Set (ends in %1$s)</string>
@@ -1332,7 +1331,7 @@ New dictionary:
     <string name="ai_cloud_max_tokens">Maximum output tokens</string>
     <string name="ai_cloud_max_tokens_summary">Maximum number of tokens the AI may output per request</string>
     <string name="ai_openai_endpoint">API endpoint (base URL)</string>
-    <string name="ai_openai_endpoint_summary">OpenAI-compatible base URL, e.g. https://api.openai.com/v1</string>
+    <string name="ai_openai_endpoint_summary">OpenAI-compatible base URL, e.g. https://api.openai.com/v1 or https://api.huggingface.co/v1</string>
     <string name="translation_target_language">Target language for translation</string>
     <string name="translation_settings">Translation settings</string>
     <string name="close_translate_language_selector">Close language selector</string>

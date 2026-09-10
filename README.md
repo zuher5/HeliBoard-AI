@@ -1,139 +1,130 @@
-# HeliBoard
-HeliBoard is a privacy-conscious and customizable open-source keyboard, based on AOSP / OpenBoard.
-Does not use internet permission, and thus is 100% offline.
+# ZeeBoard
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/helium314.keyboard/)
-[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get APK from GitHub" height="80">](https://github.com/HeliBorg/HeliBoard/releases/latest)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/helium314.keyboard)
+> [🇮🇩 Bahasa Indonesia](README_ID.md) | 🇬🇧 English
 
-## Table of Contents
+**A privacy-conscious, customizable open-source keyboard for Android — forked from HeliBoard / AOSP, enhanced with optional cloud AI and on-device translation.**
 
-- [Features](#features)
-- [Contributing](#contributing-)
-   * [Reporting Issues](#reporting-issues)
-   * [Translations](#translations)
-   * [To Community](#to-community)
-   * [Code Contribution](CONTRIBUTING.md)
-- [Links](#links)
-- [License](#license)
-- [Credits](#credits)
-  * [Funding](#funding)
+[![Get APK from GitHub](https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png)](https://github.com/zuher5/HeliBoard-AI/releases/latest)
 
-# Features
-<ul>
-  <li>Add dictionaries for suggestions and spell check</li>
-  <ul>
-    <li>build your own, or get them  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">here</a> (quality may vary)</li>
-    <li>additional dictionaries for emojis or scientific symbols can be used to provide suggestions (similar to "emoji search")</li>
-    <li>note that for Korean layouts, suggestions only work using <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">this dictionary</a>, the tools in the dictionary repository are not able to create working dictionaries</li>
-  </ul>
-  <li>Customize keyboard themes (style, colors and background image)</li>
-  <li>Emoji search (inline and separate, requires <a href="https://codeberg.org/Helium314/aosp-dictionaries">emoji dictionary</a>)</li>
-  <ul>
-    <li>can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)</li>
-    <li>can follow dynamic colors for Android 12+</li>
-  </ul>
-  <li>Customize keyboard <a href="https://github.com/HeliBorg/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
-  <li>Customize special layouts, like symbols, number,  or functional key layout</li>
-  <li>Multilingual typing</li>
-  <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
-  <ul>
-    <li>library not included in the app, as there is no compatible open source library available</li>
-    <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a> (click on the file and then "raw" or the tiny download button)</li>
-  </ul>
-  <li>Clipboard history</li>
-  <li>One-handed mode</li>
-  <li>Split keyboard</li>
-  <li>Number pad</li>
-  <li>Backup and restore your settings and learned word / history data</li>
-</ul>
+[![Latest Release](https://img.shields.io/github/v/release/zuher5/HeliBoard-AI?style=flat-square&label=Release)](https://github.com/zuher5/HeliBoard-AI/releases/latest)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 
-For [FAQ](https://github.com/HeliBorg/HeliBoard/wiki/FAQ), [hidden features](https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features) and more information about the app and features, please visit the [wiki](https://github.com/HeliBorg/HeliBoard/wiki)
+---
 
-# Contributing ❤
+## About ZeeBoard
 
-## Reporting Issues
+ZeeBoard started as a personal fork of [HeliBoard](https://github.com/HeliBorg/HeliBoard) with one goal: keep the keyboard **lightweight, private, and offline by default** — while adding **optional cloud AI** for those who want it.
 
-Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/HeliBorg/HeliBoard/issues). Your help is always welcome!
+The core philosophy:
 
-Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/HeliBorg/HeliBoard/issues?q=). Please search open and closed issues. In case of feature requests you could also check the [FAQ](https://github.com/HeliBorg/HeliBoard/wiki/FAQ) and [hidden features](https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features).
- - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
- - **Is it a single topic?** If you want to suggest multiple things, open multiple issues.
- - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
- - **Is it written by a human?** Do not use LLMs or similar to generate issues. Having LLMs help with translation or similar is acceptable, but must be disclosed. See also [AI_USAGE.md](AI_USAGE.md)
-Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, not providing a proper description, or addressing multiple topics). Blatant violation of the guidelines may result in the issue getting closed.
+- **Offline-first.** No internet is used unless you explicitly configure an AI provider.
+- **Your key, your data.** API keys are stored encrypted on-device (AES-256-GCM). Nothing is collected by ZeeBoard.
+- **HeliBoard DNA.** All the customization, layouts, dictionaries, and themes from HeliBoard — untouched.
+- **Practical AI.** Translate, proofread, or run custom prompts via Google Gemini or any OpenAI-compatible endpoint (HuggingFace, Ollama, OpenRouter, etc.) — right from the keyboard toolbar.
 
-If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html
+---
 
-## Translations
-Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
-Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
+## Features
 
-Some notes on translations
-* when translating metadata, translating the changelogs is rather useless. It's available as it was requested by translators.
-* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
+### AI Features (ZeeBoard additions)
 
-## To Community
-There is the [discussions on GitHub](https://github.com/HeliBorg/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
-You can share your themes, layouts and dictionaries with other people:
-* Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
-  * you can share custom colors in a separate [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/categories/custom-colors)
-  * there are theme collections available at [Star-Trowa/heliboard-themes](https://github.com/Star-Trowa/heliboard-themes) and [PickleHik3/droid-tings](https://github.com/PickleHik3/droid-tings)
-* Custom keyboard layouts are text files whose content you can edit, copy and share
-  * this applies to main keyboard layouts and to special layouts adjustable in advanced settings
-  * see [layouts.md](layouts.md) for details
-  * you can share custom layouts in a separate [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/categories/custom-layout)
-  * [Roccobot's Layout Maker](https://roccobot.github.io/HeliBoard-RLM/) is a browser-based editor for json layout files
-* Creating dictionaries is a little more work
-  * first you will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme
-  * the you need to compile the dictionary using [external tools](https://github.com/remi0s/aosp-dictionary-tools)
-  * the resulting file (and ideally the wordlist too) can be shared with other users
-  * note that there will not be any further dictionaries added to this app, but you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries)
+- **AI Translate** — translate selected text or entire field, inline, via Gemini or any OpenAI-compatible provider
+- **HF / AI Compatible** — use HuggingFace Inference, Ollama, OpenRouter, or any local LLM server (`http://192.168.x.x:11434/v1`)
+- **Gemini (Google)** — Google Gemini via AI Studio free tier (`AIzaSy...` key)
+- **Custom AI Keys (1–10)** — assign custom prompts to up to 10 toolbar keys; use hashtags like `#proofread`, `#summarize`, `#editor`, `#paraphrase` to define AI behavior
+- **Encrypted key storage** — API keys stored in `EncryptedSharedPreferences` (AES-256-GCM), never logged or sent anywhere except the provider endpoint you configured
+- **In-keyboard language picker** — choose translation target language directly from the keyboard
 
-## Code Contribution
-See [Contribution Guidelines](CONTRIBUTING.md)
+### HeliBoard Features (inherited)
 
-# Links
-* Info
-  * [Wiki](https://github.com/HeliBorg/HeliBoard/wiki), including FAQ, help on customizing layouts, and gesture data gathering
-  * [Layout documentation](layouts.md) (more technical info regarding layout customization)
-  * [For creating custom dictionaries](https://codeberg.org/Helium314/aosp-dictionaries#wordlist-information) (see also top of the linked readme)
-* Community
-  * [Lemmy](https://lemmy.world/c/Heliboard)
-  * [Reddit](https://www.reddit.com/r/HeliBoard)
-  * GitHub [discussions](https://github.com/HeliBorg/HeliBoard/discussions)
-* Other
-  * [Translations](https://translate.codeberg.org/projects/heliboard/)
-  * [Dictionaries](https://codeberg.org/Helium314/aosp-dictionaries)
-  * [k3lp](https://codeberg.org/k3lp/k3lp) is a WIP library for keyboard layout parsing that will be implemented in HeliBoard when ready (created by [FlorisBoard](https://github.com/florisboard/florisboard/) maintainers)
-  * [swipe-o-scope](https://codeberg.org/eclexic/swipe-o-scope) for visualizing gesture data as created when using gesture data gathering
+- Customizable keyboard themes (style, colors, background image)
+- Add dictionaries for suggestions and spell check — [get them here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries)
+- Emoji search (requires [emoji dictionary](https://codeberg.org/Helium314/aosp-dictionaries))
+- Customize keyboard [layouts](layouts.md)
+- Customize special layouts (symbols, number, functional keys)
+- Multilingual typing
+- Glide typing *(closed source library, optional)*
+- Clipboard history
+- One-handed mode, Split keyboard, Number pad
+- Day/night auto theme (Android 10+), dynamic colors (Android 12+)
+- Backup and restore settings and learned word data
 
-# License
+---
 
-HeliBoard (as a fork of OpenBoard) is licensed under GNU General Public License v3.0.
+## Download
 
- > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+**[Get the latest APK from GitHub Releases](https://github.com/zuher5/HeliBoard-AI/releases/latest)**
 
-See repo's [LICENSE](/LICENSE) file.
+Two build variants:
+- `ZeeBoard_x.x.x-release.apk` — minified release build
+- `ZeeBoard_x.x.x-nouserlib.apk` — same as release, without user-provided gesture library
+
+---
+
+## AI Setup Guide
+
+### Gemini (Google)
+
+1. Get a free API key at [Google AI Studio](https://aistudio.google.com/apikey) (starts with `AIzaSy...`)
+2. In ZeeBoard: **Settings → AI Integration**
+3. Set provider to **Gemini (Google)**, paste your API key
+4. Optionally change the model (default: `gemini-2.5-flash`)
+
+### HF / AI Compatible (HuggingFace, Ollama, OpenRouter, …)
+
+1. Get an API key from your provider:
+   - HuggingFace: [hf.co/settings/tokens](https://huggingface.co/settings/tokens) (starts with `hf_...`)
+   - OpenRouter: [openrouter.ai/keys](https://openrouter.ai/keys)
+   - Ollama (local): no key needed, set endpoint to `http://192.168.x.x:11434/v1`
+2. In ZeeBoard: **Settings → AI Integration**
+3. Set provider to **HF / AI Compatible**, enter API key and base URL endpoint
+4. Choose model — for HuggingFace try `Qwen/Qwen2.5-72B-Instruct` or `meta-llama/Llama-3.1-8B-Instruct`
+
+### Custom AI Keys
+
+- Go to **Settings → AI Integration → Custom AI Keys**
+- Assign a prompt to any of the 10 keys (e.g. `Translate to English`, `Fix grammar`, `Summarize`)
+- Use hashtags in prompts to set behavior:
+  - `#proofread` — fix grammar/spelling, output only result
+  - `#editor` — edit text, no filler
+  - `#summarize` — concise summary
+  - `#paraphrase` — rephrase with same meaning
+  - `#expand` — add detail
+  - `#append` — append result instead of replacing
+- Add these keys to your toolbar: **Settings → Toolbar → Select toolbar keys**
+
+---
+
+## Privacy
+
+ZeeBoard with no AI configured = **zero internet usage**, same as upstream HeliBoard.
+
+When AI is configured:
+- Only the text you explicitly trigger AI on is sent (selected text, or whole field if no selection)
+- The endpoint you chose receives the text + your API key — nothing goes to ZeeBoard
+- API keys are stored encrypted on-device, never appear in logs
+- `network_security_config.xml` allows cleartext only for local endpoints (Ollama)
+
+---
+
+## License
+
+ZeeBoard (as a fork of HeliBoard / OpenBoard) is licensed under **GNU General Public License v3.0**.
+
+> Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved.
+
+See [LICENSE](LICENSE).
 
 Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided.
 The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). A [license file](LICENSE-CC-BY-SA-4.0) is also included.
 
-# Credits
-- Icon by [Fabian OvrWrt](https://github.com/FabianOvrWrt) with contributions from [The Eclectic Dyslexic](https://github.com/the-eclectic-dyslexic)
+---
+
+## Credits
+
+- **[HeliBoard](https://github.com/HeliBorg/HeliBoard)** by Helium314 — the excellent keyboard this fork is built on
+- **[LeanType](https://github.com/LeanBitLab/LeanType)** by LeanBitLab — inspiration for the AI provider architecture
 - [OpenBoard](https://github.com/openboard-team/openboard)
 - [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
 - [LineageOS](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)
-- [Simple Keyboard](https://github.com/rkkr/simple-keyboard)
-- [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
-- [FlorisBoard](https://github.com/florisboard/florisboard/)
-- Our [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
-
-## Funding
-
-This project is funded through [NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/GestureTyping).
-
-[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
-
-Further the project benefits from donations provided by many users (thank you all!).
+- Icon by [Fabian OvrWrt](https://github.com/FabianOvrWrt) with contributions from [The Eclectic Dyslexic](https://github.com/the-eclectic-dyslexic)

@@ -17,13 +17,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
-import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
@@ -34,7 +34,6 @@ import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.ColorThemePickerDialog
-import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.BackgroundImagePref
 import helium314.keyboard.settings.preferences.CustomFontPreference
@@ -60,7 +59,6 @@ fun AppearanceScreen(
         R.string.settings_screen_theme,
         Settings.PREF_THEME_STYLE,
         Settings.PREF_ICON_STYLE,
-        Settings.PREF_CUSTOM_ICON_NAMES,
         Settings.PREF_THEME_KEY_BORDERS,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             Settings.PREF_THEME_DAY_NIGHT else null,
@@ -137,17 +135,6 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) {
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
-        }
-    },
-    Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
-        var showDialog by rememberSaveable { mutableStateOf(false) }
-        Preference(
-            name = setting.title,
-            onClick = { showDialog = true }
-        )
-        if (showDialog) {
-            KeyboardIconsSet.instance.loadIcons(LocalContext.current)
-            CustomizeIconsDialog(setting.key) { showDialog = false }
         }
     },
     Setting(context, Settings.PREF_THEME_COLORS, R.string.theme_colors) { setting ->

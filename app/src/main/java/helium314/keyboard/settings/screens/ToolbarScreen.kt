@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -26,6 +27,7 @@ import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.latin.utils.Theme
+import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.ListPreference
@@ -117,6 +119,17 @@ fun createToolbarSettings(context: Context) = listOf(
                 key = it.key,
                 onDismissRequest = { showDialog = false }
             )
+    },
+    Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
+        var showDialog by rememberSaveable { mutableStateOf(false) }
+        Preference(
+            name = setting.title,
+            onClick = { showDialog = true }
+        )
+        if (showDialog) {
+            KeyboardIconsSet.instance.loadIcons(LocalContext.current)
+            CustomizeIconsDialog(setting.key) { showDialog = false }
+        }
     },
     Setting(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
         R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary)

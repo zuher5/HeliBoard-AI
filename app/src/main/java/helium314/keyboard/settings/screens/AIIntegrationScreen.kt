@@ -36,6 +36,7 @@ import helium314.keyboard.settings.preferences.SliderPreference
 
 private const val KEY_AI_API_KEY = "ai_api_key"
 private const val KEY_AI_MODEL = "ai_model"
+private const val KEY_AI_ENDPOINT = "ai_endpoint"
 
 @Composable
 fun AIIntegrationScreen(
@@ -57,9 +58,14 @@ fun AIIntegrationScreen(
     if (refreshToken < 0)
         Log.v("irrelevant", "recompose on secure preference change")
 
-    val items = listOf(
+    val provider = service.getProvider()
+    val isOpenAI = provider == ProofreadService.AiProvider.OPENAI
+
+    val items = listOfNotNull(
+        Settings.PREF_AI_PROVIDER,
         KEY_AI_API_KEY,
         KEY_AI_MODEL,
+        if (isOpenAI) KEY_AI_ENDPOINT else null,
         Settings.PREF_TRANSLATION_TARGET_LANGUAGE,
         Settings.PREF_CLOUD_AI_MAX_TOKENS,
         SettingsWithoutKey.CUSTOM_AI_KEYS,
@@ -72,26 +78,62 @@ fun AIIntegrationScreen(
 }
 
 fun createAISettings(context: Context) = listOf(
+    Setting(context, Settings.PREF_AI_PROVIDER, R.string.ai_provider) { setting ->
+        val service = remember { ProofreadService(context) }
+        val items = listOf(
+            stringResource(R.string.ai_provider_gemini) to ProofreadService.AiProvider.GEMINI.name,
+            stringResource(R.string.ai_provider_openai) to ProofreadService.AiProvider.OPENAI.name,
+        )
+        ListPreference(
+            setting,
+            items,
+            ProofreadService.AiProvider.GEMINI.name,
+        )
+    },
     Setting(context, KEY_AI_API_KEY, R.string.api_key_label) { setting ->
         val service = remember { ProofreadService(context) }
-        val key = service.getApiKey()
+        val provider = service.getProvider()
+        val key = service.getApiKey(provider)
+        val hint = when (provider) {
+            ProofreadService.AiProvider.GEMINI -> "AIzaSy..."
+            ProofreadService.AiProvider.OPENAI -> "sk-... / hf_..."
+        }
         SecureTextInputPreference(
             title = setting.title,
-            description = if (key == null) stringResource(R.string.ai_key_not_set) else "******",
-            onGet = { service.getApiKey() },
-            onSet = { service.setApiKey(key = it) },
-            onReset = { service.setApiKey(key = null) },
+            description = if (key == null) stringResource(R.string.ai_key_not_set)
+                          else stringResource(R.string.ai_key_set, key.takeLast(4)),
+            onGet = { service.getApiKey(service.getProvider()) },
+            onSet = { service.setApiKey(service.getProvider(), it) },
+            onReset = { service.setApiKey(service.getProvider(), null) },
+            info = hint,
         )
     },
     Setting(context, KEY_AI_MODEL, R.string.ai_model_name) { setting ->
         val service = remember { ProofreadService(context) }
+        val provider = service.getProvider()
+        val hint = when (provider) {
+            ProofreadService.AiProvider.GEMINI -> "e.g. gemini-2.5-flash, gemini-2.0-flash"
+            ProofreadService.AiProvider.OPENAI -> "e.g. Qwen/Qwen2.5-72B-Instruct, gpt-4o-mini"
+        }
         SecureTextInputPreference(
             title = setting.title,
-            description = service.getModelName().takeIf { it.isNotBlank() }
-                ?: stringResource(R.string.ai_model_default, ProofreadService.defaultModel()),
-            onGet = { service.getModelName() },
-            onSet = { service.setModelName(modelName = it) },
-            onReset = { service.setModelName(modelName = "") },
+            description = service.getModelName(provider).takeIf { it.isNotBlank() }
+                ?: stringResource(R.string.ai_model_default, ProofreadService.defaultModel(provider)),
+            onGet = { service.getModelName(service.getProvider()) },
+            onSet = { service.setModelName(service.getProvider(), it) },
+            onReset = { service.setModelName(service.getProvider(), "") },
+            info = hint,
+        )
+    },
+    Setting(context, KEY_AI_ENDPOINT, R.string.ai_openai_endpoint, R.string.ai_openai_endpoint_summary) { setting ->
+        val service = remember { ProofreadService(context) }
+        SecureTextInputPreference(
+            title = setting.title,
+            description = service.getEndpoint(),
+            onGet = { service.getEndpoint() },
+            onSet = { service.setEndpoint(it) },
+            onReset = { service.setEndpoint(null) },
+            info = "e.g. https://api.openai.com/v1, https://api.huggingface.co/v1, http://192.168.1.100:11434/v1",
         )
     },
     Setting(context, Settings.PREF_TRANSLATION_TARGET_LANGUAGE, R.string.translation_target_language) {

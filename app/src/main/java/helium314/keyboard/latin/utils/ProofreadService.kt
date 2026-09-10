@@ -27,17 +27,16 @@ import java.net.URL
 /**
  * Cloud AI service used for proofreading and translating text.
  *
- * All providers are queried through a single OpenAI-compatible REST client:
+ * Two providers, both queried through the OpenAI-compatible REST format:
  *  - [AiProvider.GEMINI] : Google Gemini (https://generativelanguage.googleapis.com/v1beta/openai)
- *  - [AiProvider.MISTRAL] : Mistral AI (https://api.mistral.ai/v1)
- *  - [AiProvider.OPENAI] : any OpenAI-compatible endpoint (OpenAI, Groq, OpenRouter, Ollama, ...)
+ *  - [AiProvider.OPENAI] : any OpenAI-compatible endpoint — HuggingFace, OpenRouter, Ollama, ...
  *
  * API keys and secret configuration are stored in [EncryptedSharedPreferences]
  * (API 23+) with a fallback to regular prefs when encryption is unavailable.
  */
 class ProofreadService(private val context: Context) {
 
-    enum class AiProvider { GEMINI }
+    enum class AiProvider { GEMINI, OPENAI }
 
     private val encryptedPrefs: SharedPreferences by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -68,42 +67,95 @@ class ProofreadService(private val context: Context) {
 
     // ---------------------------------------------------------------------------------- provider
 
-    fun getProvider(): AiProvider = AiProvider.GEMINI
+    fun getProvider(): AiProvider {
+        val name = getPrefs().getString(Settings.PREF_AI_PROVIDER, AiProvider.GEMINI.name)
+        return try { AiProvider.valueOf(name ?: AiProvider.GEMINI.name) }
+        catch (_: IllegalArgumentException) { AiProvider.GEMINI }
+    }
 
-    fun setProvider(provider: AiProvider) { }
+    fun setProvider(provider: AiProvider) {
+        getPrefs().edit().putString(Settings.PREF_AI_PROVIDER, provider.name).apply()
+    }
 
     // -------------------------------------------------------------------------------------- API key
 
-    fun getApiKey(provider: AiProvider = AiProvider.GEMINI): String? =
-        encryptedPrefs.getString(KEY_GEMINI_KEY, null)?.takeIf { it.isNotBlank() }
+    fun getApiKey(provider: AiProvider = getProvider()): String? {
+        val key = when (provider) {
+            AiProvider.GEMINI -> KEY_GEMINI_KEY
+            AiProvider.OPENAI -> KEY_OPENAI_KEY
+        }
+        return encryptedPrefs.getString(key, null)?.takeIf { it.isNotBlank() }
+    }
 
-    fun setApiKey(provider: AiProvider = AiProvider.GEMINI, key: String?) {
+    fun setApiKey(provider: AiProvider = getProvider(), key: String?) {
+        val prefKey = when (provider) {
+            AiProvider.GEMINI -> KEY_GEMINI_KEY
+            AiProvider.OPENAI -> KEY_OPENAI_KEY
+        }
         encryptedPrefs.edit().apply {
-            if (key.isNullOrBlank()) remove(KEY_GEMINI_KEY)
-            else putString(KEY_GEMINI_KEY, key.trim())
+            if (key.isNullOrBlank()) remove(prefKey)
+            else putString(prefKey, key.trim())
             apply()
         }
     }
 
-    fun hasApiKey(provider: AiProvider = AiProvider.GEMINI): Boolean = getApiKey() != null
+    fun hasApiKey(provider: AiProvider = getProvider()): Boolean {
+        if (provider == AiProvider.OPENAI && isLocalEndpoint()) return true
+        return getApiKey(provider) != null
+    }
+
+    private fun isLocalEndpoint(): Boolean {
+        val ep = getEndpoint().lowercase()
+        return ep.contains("localhost") || ep.contains("127.0.0.1") || ep.contains("192.168.") || ep.contains("10.0.")
+    }
 
     // ----------------------------------------------------------------------------------------- model
 
-    fun getModelName(provider: AiProvider = AiProvider.GEMINI): String =
-        encryptedPrefs.getString(KEY_MODEL_NAME, null)?.takeIf { it.isNotBlank() } ?: defaultModel(AiProvider.GEMINI)
+    fun getModelName(provider: AiProvider = getProvider()): String {
+        val key = when (provider) {
+            AiProvider.GEMINI -> KEY_GEMINI_MODEL
+            AiProvider.OPENAI -> KEY_OPENAI_MODEL
+        }
+        return encryptedPrefs.getString(key, null)?.takeIf { it.isNotBlank() } ?: defaultModel(provider)
+    }
 
-    fun setModelName(provider: AiProvider = AiProvider.GEMINI, modelName: String) {
+    fun setModelName(provider: AiProvider = getProvider(), modelName: String) {
+        val key = when (provider) {
+            AiProvider.GEMINI -> KEY_GEMINI_MODEL
+            AiProvider.OPENAI -> KEY_OPENAI_MODEL
+        }
         encryptedPrefs.edit().apply {
-            if (modelName.isBlank()) remove(KEY_MODEL_NAME)
-            else putString(KEY_MODEL_NAME, modelName.trim())
+            if (modelName.isBlank()) remove(key)
+            else putString(key, modelName.trim())
             apply()
         }
     }
 
-    private fun chatUrl(provider: AiProvider = AiProvider.GEMINI) = GEMINI_CHAT_URL
+    // ------------------------------------------------------------------------------------- endpoint (OpenAI only)
 
-    private fun modelsUrl(provider: AiProvider = AiProvider.GEMINI) =
-        "https://generativelanguage.googleapis.com/v1beta/models?key=${getApiKey()}"
+    fun getEndpoint(): String =
+        encryptedPrefs.getString(KEY_OPENAI_ENDPOINT, null)?.takeIf { it.isNotBlank() }
+            ?: DEFAULT_OPENAI_ENDPOINT
+
+    fun setEndpoint(url: String?) {
+        encryptedPrefs.edit().apply {
+            if (url.isNullOrBlank()) remove(KEY_OPENAI_ENDPOINT)
+            else putString(KEY_OPENAI_ENDPOINT, url.trim().trimEnd('/'))
+            apply()
+        }
+    }
+
+    // ------------------------------------------------------------------------------------- urls
+
+    private fun chatUrl(provider: AiProvider = getProvider()): String = when (provider) {
+        AiProvider.GEMINI -> GEMINI_CHAT_URL
+        AiProvider.OPENAI -> "${getEndpoint()}/chat/completions"
+    }
+
+    private fun modelsUrl(provider: AiProvider = getProvider()): String = when (provider) {
+        AiProvider.GEMINI -> "https://generativelanguage.googleapis.com/v1beta/models?key=${getApiKey(provider)}"
+        AiProvider.OPENAI -> "${getEndpoint()}/models"
+    }
 
     // ------------------------------------------------------------------------------------ language
 
@@ -142,41 +194,51 @@ class ProofreadService(private val context: Context) {
         if (text.isBlank()) {
             return@withContext Result.failure(AiException(context.getString(R.string.translate_no_text)))
         }
-        val model = getModelName()
+        val provider = getProvider()
+        val model = getModelName(provider)
         val targetName = getTargetLanguageName()
         val systemPrompt = getTranslateSystemPrompt(targetName)
-        chatRequest(prompt = text, provider = AiProvider.GEMINI, model = model, temperature = 0.2f, systemPrompt = systemPrompt)
+        chatRequest(prompt = text, provider = provider, model = model, temperature = 0.2f, systemPrompt = systemPrompt)
             .mapCatching { cleanTranslationOutput(text, it) }
     }
 
     // ------------------------------------------------------------------------------------ custom AI
 
     suspend fun customAi(text: String, prompt: String): Result<String> = withContext(Dispatchers.IO) {
+        val provider = getProvider()
         val fullPrompt = if (text.isNotBlank()) "$prompt\n\n$text" else prompt
-        val result = chatRequest(prompt = fullPrompt, provider = AiProvider.GEMINI, model = getModelName(), temperature = 0.1f)
+        val result = chatRequest(prompt = fullPrompt, provider = provider, model = getModelName(provider), temperature = 0.1f)
         result.mapCatching { cleanCustomAiOutput(it) }
     }
 
     // ---------------------------------------------------------------------------------- model fetching
 
-    suspend fun fetchAvailableModels(provider: AiProvider = AiProvider.GEMINI): List<String> = withContext(Dispatchers.IO) {
-        val apiKey = getApiKey()
-        val fallback = defaultModels(AiProvider.GEMINI)
+    suspend fun fetchAvailableModels(provider: AiProvider = getProvider()): List<String> = withContext(Dispatchers.IO) {
+        val apiKey = getApiKey(provider) ?: if (provider == AiProvider.OPENAI && isLocalEndpoint()) "local" else null
+        val fallback = defaultModels(provider)
         if (apiKey == null) return@withContext fallback
-        val url = URL(modelsUrl())
+        val url = URL(modelsUrl(provider))
         val connection = url.openConnection() as HttpURLConnection
         try {
             connection.connectTimeout = 5000
             connection.readTimeout = 5000
             connection.requestMethod = "GET"
             connection.setRequestProperty("User-Agent", "ZeeBoard/4.1")
+            // Gemini uses query-param key; OpenAI uses Bearer header
+            if (provider == AiProvider.OPENAI) {
+                connection.setRequestProperty("Authorization", "Bearer $apiKey")
+            }
             if (connection.responseCode == 200) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
                 val json = JSONObject(response)
-                val arr = json.optJSONArray("models") ?: return@withContext fallback
+                val arr = json.optJSONArray("models") ?: json.optJSONArray("data") ?: return@withContext fallback
                 val models = buildList {
                     for (i in 0 until arr.length()) {
-                        arr.getJSONObject(i).getString("name").removePrefix("models/").let { add(it) }
+                        val obj = arr.optJSONObject(i) ?: continue
+                        val id = obj.optString("id").takeIf { it.isNotBlank() }
+                        val name = obj.optString("name").removePrefix("models/").takeIf { it.isNotBlank() }
+                        val modelName = id ?: name
+                        if (!modelName.isNullOrBlank()) add(modelName)
                     }
                 }
                 models.ifEmpty { fallback }
@@ -195,16 +257,16 @@ class ProofreadService(private val context: Context) {
 
     private fun chatRequest(
         prompt: String,
-        provider: AiProvider = AiProvider.GEMINI,
+        provider: AiProvider = getProvider(),
         model: String,
         temperature: Float,
         systemPrompt: String? = null,
     ): Result<String> {
-        val apiKey = getApiKey()
+        val apiKey = getApiKey(provider) ?: if (provider == AiProvider.OPENAI && isLocalEndpoint()) "local" else null
         if (apiKey == null) {
             return Result.failure(AiException(context.getString(R.string.ai_no_api_key)))
         }
-        val url = URL(chatUrl())
+        val url = URL(chatUrl(provider))
         val connection = url.openConnection() as HttpURLConnection
         return try {
             connection.requestMethod = "POST"
@@ -345,10 +407,10 @@ class ProofreadService(private val context: Context) {
 
         // 2. Strip leading conversational preambles and section prefixes (EN & ID)
         val prefixRegex = Regex(
-            "^(?i)(?:sure[,!.]?\\s*(?:here(?:'s|\\s+is)\\s+(?:the\\s+)?(?:translated\\s+text|translation)[^:\n]*:?)?|" +
-            "(?:here(?:'s|\\s+is)\\s+(?:the\\s+)?(?:translated\\s+text|translation)[^:\n]*:?)|" +
-            "(?:translated\\s+text|translation)[^:\n]*:?|" +
-            "(?:berikut(?:\\s+adalah)?\\s+(?:hasil\\s+)?terjemahan(?:nya)?[^:\n]*:?)|" +
+            "^(?i)(?:sure[,!.]?\\s*(?:here(?:'s|\\s+is)\\s+(?:the\\s+)?(?:translated\\s+text|translation)[^:\\n]*:?)?|" +
+            "(?:here(?:'s|\\s+is)\\s+(?:the\\s+)?(?:translated\\s+text|translation)[^:\\n]*:?)|" +
+            "(?:translated\\s+text|translation)[^:\\n]*:?|" +
+            "(?:berikut(?:\\s+adalah)?\\s+(?:hasil\\s+)?terjemahan(?:nya)?[^:\\n]*:?)|" +
             "text\\s+to\\s+translate:?)\\s*",
             RegexOption.MULTILINE
         )
@@ -385,19 +447,36 @@ class ProofreadService(private val context: Context) {
         private const val SECURE_PREFS_NAME = "ai_prefs"
 
         private const val KEY_GEMINI_KEY = "gemini_api_key"
-        private const val KEY_MODEL_NAME = "ai_model_name"
+        private const val KEY_GEMINI_MODEL = "ai_model_name"   // keep old key for backward compat
+        private const val KEY_OPENAI_KEY = "openai_api_key"
+        private const val KEY_OPENAI_MODEL = "openai_model_name"
+        private const val KEY_OPENAI_ENDPOINT = "openai_endpoint"
 
         private const val GEMINI_CHAT_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+        private const val DEFAULT_OPENAI_ENDPOINT = "https://api.openai.com/v1"
 
-        fun defaultModel(provider: AiProvider = AiProvider.GEMINI) = "gemini-2.5-flash"
+        fun defaultModel(provider: AiProvider = AiProvider.GEMINI) = when (provider) {
+            AiProvider.GEMINI -> "gemini-2.5-flash"
+            AiProvider.OPENAI -> "gpt-4o-mini"
+        }
 
-        fun defaultModels(provider: AiProvider = AiProvider.GEMINI) = listOf(
-            "gemini-2.5-flash",
-            "gemini-2.5-pro",
-            "gemini-2.0-flash",
-            "gemini-flash-latest",
-            "gemini-pro-latest"
-        )
+        fun defaultModels(provider: AiProvider = AiProvider.GEMINI) = when (provider) {
+            AiProvider.GEMINI -> listOf(
+                "gemini-2.5-flash",
+                "gemini-2.5-pro",
+                "gemini-2.0-flash",
+                "gemini-flash-latest",
+                "gemini-pro-latest"
+            )
+            AiProvider.OPENAI -> listOf(
+                "gpt-4o-mini",
+                "gpt-4o",
+                "gpt-4-turbo",
+                "Qwen/Qwen2.5-72B-Instruct",
+                "meta-llama/Llama-3.1-8B-Instruct",
+                "mistralai/Mistral-7B-Instruct-v0.3"
+            )
+        }
 
         private fun getTranslateSystemPrompt(targetLanguage: String): String {
             val langName = try {
