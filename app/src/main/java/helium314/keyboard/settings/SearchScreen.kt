@@ -139,8 +139,8 @@ fun <T: Any?> SearchScreen(
     itemContent: @Composable (T) -> Unit,
     icon: @Composable (() -> Unit)? = null,
     menu: List<Pair<String, () -> Unit>>? = null,
-    content: @Composable (ColumnScope.() -> Unit)? = null,
     wrapListInCard: Boolean = false,
+    content: @Composable (ColumnScope.() -> Unit)? = null,
 ) {
     // searchText and showSearch should have the same remember or rememberSaveable
     // saveable survives orientation changes and switching between screens, but shows the
