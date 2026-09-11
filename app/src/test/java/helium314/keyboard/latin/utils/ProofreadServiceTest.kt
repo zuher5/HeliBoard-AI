@@ -11,13 +11,16 @@ class ProofreadServiceTest {
     // ----------------------------------------------------------------------------------- URL Construction
 
     @Test
-    fun geminiChatUrlContainsKeyParam() {
+    fun geminiChatUrlDoesNotContainKeyParam() {
         val url = ProofreadService.buildChatUrl(
             provider = ProofreadService.AiProvider.GEMINI,
-            endpoint = "https://ignored.com",
-            apiKey = "AIzaSyTestKey123"
+            endpoint = "https://ignored.com"
         )
-        assertTrue(url.contains("?key=AIzaSyTestKey123"), "Gemini chat URL must include API key query parameter: $url")
+        assertEquals(
+            "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+            url
+        )
+        assertFalse(url.contains("?key="), "Gemini chat URL must not include key in query: $url")
         assertFalse(url.contains("ignored.com"), "Gemini chat URL must use generative language endpoint")
     }
 
@@ -36,8 +39,7 @@ class ProofreadServiceTest {
         val endpoint = "https://api.openai.com/v1"
         val url = ProofreadService.buildChatUrl(
             provider = ProofreadService.AiProvider.OPENAI,
-            endpoint = endpoint,
-            apiKey = "sk-secretKey"
+            endpoint = endpoint
         )
         assertEquals("https://api.openai.com/v1/chat/completions", url)
         assertFalse(url.contains("?key="), "OpenAI chat URL must not include key in query")
@@ -57,21 +59,44 @@ class ProofreadServiceTest {
 
     // ----------------------------------------------------------------------------------- Auth Headers
 
+    private val geminiChatUrl = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+    private val geminiModelsUrl = "https://generativelanguage.googleapis.com/v1beta/models?key=AIzaSyTestKey123"
+
     @Test
-    fun geminiNeverSendsAuthorizationHeader() {
-        val headerWithKey = ProofreadService.buildAuthHeader(
+    fun geminiOpenAiProxyChatSendsBearerHeader() {
+        val header = ProofreadService.buildAuthHeader(
             provider = ProofreadService.AiProvider.GEMINI,
             apiKey = "AIzaSyTestKey123",
-            isLocal = false
+            requestUrl = geminiChatUrl
         )
-        assertNull(headerWithKey, "Gemini must never send Authorization header even when key is provided")
+        assertEquals("Bearer AIzaSyTestKey123", header, "Gemini OpenAI-compatible chat must send Bearer header")
+    }
+
+    @Test
+    fun geminiNativeModelsNeverSendsAuthorizationHeader() {
+        val header = ProofreadService.buildAuthHeader(
+            provider = ProofreadService.AiProvider.GEMINI,
+            apiKey = "AIzaSyTestKey123",
+            requestUrl = geminiModelsUrl
+        )
+        assertNull(header, "Gemini native REST must not send Authorization header (key goes in query)")
 
         val headerWithoutKey = ProofreadService.buildAuthHeader(
             provider = ProofreadService.AiProvider.GEMINI,
             apiKey = null,
-            isLocal = false
+            requestUrl = geminiModelsUrl
         )
-        assertNull(headerWithoutKey, "Gemini must never send Authorization header")
+        assertNull(headerWithoutKey)
+    }
+
+    @Test
+    fun geminiOpenAiProxyWithoutKeySendsNoHeader() {
+        val header = ProofreadService.buildAuthHeader(
+            provider = ProofreadService.AiProvider.GEMINI,
+            apiKey = null,
+            requestUrl = geminiChatUrl
+        )
+        assertNull(header)
     }
 
     @Test
@@ -79,7 +104,7 @@ class ProofreadServiceTest {
         val header = ProofreadService.buildAuthHeader(
             provider = ProofreadService.AiProvider.OPENAI,
             apiKey = "sk-proj-12345",
-            isLocal = false
+            requestUrl = "https://api.openai.com/v1/chat/completions"
         )
         assertEquals("Bearer sk-proj-12345", header)
     }
@@ -89,7 +114,7 @@ class ProofreadServiceTest {
         val header = ProofreadService.buildAuthHeader(
             provider = ProofreadService.AiProvider.OPENAI,
             apiKey = "my-local-token",
-            isLocal = true
+            requestUrl = "http://localhost:11434/v1/chat/completions"
         )
         assertEquals("Bearer my-local-token", header)
     }
@@ -99,14 +124,14 @@ class ProofreadServiceTest {
         val headerNull = ProofreadService.buildAuthHeader(
             provider = ProofreadService.AiProvider.OPENAI,
             apiKey = null,
-            isLocal = true
+            requestUrl = "http://localhost:11434/v1/chat/completions"
         )
         assertNull(headerNull, "Local endpoint without key must not send Authorization header")
 
         val headerBlank = ProofreadService.buildAuthHeader(
             provider = ProofreadService.AiProvider.OPENAI,
             apiKey = "   ",
-            isLocal = true
+            requestUrl = "http://localhost:11434/v1/chat/completions"
         )
         assertNull(headerBlank, "Local endpoint with blank key must not send Authorization header")
     }

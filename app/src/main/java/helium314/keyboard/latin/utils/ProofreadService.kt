@@ -146,7 +146,7 @@ class ProofreadService(private val context: Context) {
     // ------------------------------------------------------------------------------------- urls
 
     private fun chatUrl(provider: AiProvider = getProvider()): String =
-        buildChatUrl(provider, getEndpoint(), getApiKey(provider))
+        buildChatUrl(provider, getEndpoint())
 
     private fun modelsUrl(provider: AiProvider = getProvider()): String =
         buildModelsUrl(provider, getEndpoint(), getApiKey(provider))
@@ -219,7 +219,7 @@ class ProofreadService(private val context: Context) {
             connection.readTimeout = 5000
             connection.requestMethod = "GET"
             connection.setRequestProperty("User-Agent", "ZeeBoard/4.1")
-            val authHeader = buildAuthHeader(provider, apiKey, isLocal)
+            val authHeader = buildAuthHeader(provider, apiKey, url.toExternalForm())
             if (authHeader != null) {
                 connection.setRequestProperty("Authorization", authHeader)
             }
@@ -269,7 +269,7 @@ class ProofreadService(private val context: Context) {
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Accept", "application/json")
             connection.setRequestProperty("User-Agent", "ZeeBoard/4.1")
-            val authHeader = buildAuthHeader(provider, apiKey, isLocal)
+            val authHeader = buildAuthHeader(provider, apiKey, url.toExternalForm())
             if (authHeader != null) {
                 connection.setRequestProperty("Authorization", authHeader)
             }
@@ -513,11 +513,8 @@ class ProofreadService(private val context: Context) {
             }
         }
 
-        fun buildChatUrl(provider: AiProvider, endpoint: String, apiKey: String?): String = when (provider) {
-            AiProvider.GEMINI -> {
-                val key = apiKey?.trim().orEmpty()
-                if (key.isNotEmpty()) "$GEMINI_CHAT_URL?key=$key" else GEMINI_CHAT_URL
-            }
+        fun buildChatUrl(provider: AiProvider, endpoint: String): String = when (provider) {
+            AiProvider.GEMINI -> GEMINI_CHAT_URL
             AiProvider.OPENAI -> "${endpoint.trimEnd('/')}/chat/completions"
         }
 
@@ -530,11 +527,17 @@ class ProofreadService(private val context: Context) {
             AiProvider.OPENAI -> "${endpoint.trimEnd('/')}/models"
         }
 
-        fun buildAuthHeader(provider: AiProvider, apiKey: String?, isLocal: Boolean): String? {
-            // Gemini uses API key query parameter only; never send Authorization header
-            if (provider == AiProvider.GEMINI) return null
+        fun buildAuthHeader(provider: AiProvider, apiKey: String?, requestUrl: String): String? {
             val key = apiKey?.trim()
-            // Local endpoint without explicit key must not send fake "Bearer local"
+            // OpenAI-compatible endpoints always authenticate via Bearer header
+            if (provider == AiProvider.OPENAI) {
+                if (key.isNullOrBlank()) return null
+                return "Bearer $key"
+            }
+            // Gemini: the OpenAI-compatible proxy (/openai/) requires the API key in the
+            // Authorization header, while the native REST endpoints (/v1beta/models, etc.)
+            // authenticate via the ?key= query parameter and must NOT get a Bearer header.
+            if (!requestUrl.contains("/openai/")) return null
             if (key.isNullOrBlank()) return null
             return "Bearer $key"
         }
