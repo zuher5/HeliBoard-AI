@@ -38,9 +38,12 @@ import helium314.keyboard.latin.utils.previewDark
 fun PreferenceCategory(
     title: String,
     modifier: Modifier = Modifier,
+    showDivider: Boolean = true,
 ) {
     Column {
-        HorizontalDivider()
+        if (showDivider) {
+            HorizontalDivider()
+        }
         Text(
             text = title,
             modifier = modifier.padding(top = 12.dp, start = 16.dp, end = 8.dp, bottom = 8.dp),

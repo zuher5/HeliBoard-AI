@@ -79,7 +79,8 @@ fun LanguageScreen(
                     .splitOnWhitespace().any { it.startsWith(term, true) }
             }
         },
-        itemContent = { SubtypeRow(it, it in enabledSubtypes) }
+        itemContent = { SubtypeRow(it, it in enabledSubtypes) },
+        wrapListInCard = true
     )
 }
 

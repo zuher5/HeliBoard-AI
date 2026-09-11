@@ -106,7 +106,8 @@ fun DictionaryScreen(
                     )
                 }
             }
-        }
+        },
+        wrapListInCard = true
     )
     if (showAddDictDialog) {
         ConfirmationDialog(

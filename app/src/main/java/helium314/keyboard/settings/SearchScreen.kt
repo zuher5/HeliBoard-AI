@@ -3,6 +3,7 @@ package helium314.keyboard.settings
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -108,7 +110,7 @@ fun SearchSettingsScreen(
                             ) {
                                 Column {
                                     if (titleRes != null) {
-                                        PreferenceCategory(stringResource(titleRes))
+                                        PreferenceCategory(stringResource(titleRes), showDivider = false)
                                     }
 
                                     keys.forEach { key ->
@@ -138,6 +140,7 @@ fun <T: Any?> SearchScreen(
     icon: @Composable (() -> Unit)? = null,
     menu: List<Pair<String, () -> Unit>>? = null,
     content: @Composable (ColumnScope.() -> Unit)? = null,
+    wrapListInCard: Boolean = false,
 ) {
     // searchText and showSearch should have the same remember or rememberSaveable
     // saveable survives orientation changes and switching between screens, but shows the
@@ -218,9 +221,26 @@ fun <T: Any?> SearchScreen(
                     Scaffold(
                         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
                     ) { innerPadding ->
-                        LazyColumn(contentPadding = innerPadding) {
-                            items(items) {
-                                itemContent(it)
+                        if (wrapListInCard) {
+                            LazyColumn(
+                                modifier = Modifier
+                                    .padding(innerPadding)
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                                    .background(
+                                        MaterialTheme.colorScheme.surfaceContainer,
+                                        RoundedCornerShape(12.dp)
+                                    ),
+                                contentPadding = PaddingValues(vertical = 4.dp)
+                            ) {
+                                items(items) {
+                                    itemContent(it)
+                                }
+                            }
+                        } else {
+                            LazyColumn(contentPadding = innerPadding) {
+                                items(items) {
+                                    itemContent(it)
+                                }
                             }
                         }
                     }
