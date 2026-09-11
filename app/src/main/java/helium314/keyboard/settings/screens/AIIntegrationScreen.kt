@@ -37,7 +37,6 @@ import helium314.keyboard.settings.preferences.SliderPreference
 private const val KEY_AI_API_KEY = "ai_api_key"
 private const val KEY_AI_MODEL = "ai_model"
 private const val KEY_AI_ENDPOINT = "ai_endpoint"
-private const val MASKED_API_KEY = "*****"
 
 @Composable
 fun AIIntegrationScreen(
@@ -101,8 +100,7 @@ fun createAISettings(context: Context) = listOf(
         }
         SecureTextInputPreference(
             title = setting.title,
-            description = if (key == null) stringResource(R.string.ai_key_not_set)
-                          else stringResource(R.string.ai_key_set, MASKED_API_KEY),
+            description = ProofreadService.formatApiKeySummary(key, stringResource(R.string.ai_key_not_set)),
             onGet = { service.getApiKey(service.getProvider()) },
             onSet = { service.setApiKey(service.getProvider(), it) },
             onReset = { service.setApiKey(service.getProvider(), null) },
@@ -186,7 +184,6 @@ fun SecureTextInputPreference(
             },
             initialText = onGet() ?: "",
             title = { androidx.compose.material3.Text(title) },
-            textInputLabel = { androidx.compose.material3.Text(title) },
             placeholder = if (info == null) null else { { androidx.compose.material3.Text(info) } },
             singleLine = true,
             onNeutral = { onReset(); showDialog = false },

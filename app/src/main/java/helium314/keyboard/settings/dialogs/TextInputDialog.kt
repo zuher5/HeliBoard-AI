@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelScope
@@ -43,7 +45,7 @@ fun TextInputDialog(
     placeholder: @Composable (() -> Unit)? = null,
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
-    properties: DialogProperties = DialogProperties(),
+    properties: DialogProperties = DialogProperties(decorFitsSystemWindows = false),
     reducePadding: Boolean = false,
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
@@ -58,8 +60,9 @@ fun TextInputDialog(
         checkOk = { isOkEnabled },
         neutralButtonText = neutralButtonText,
         onNeutral = { onDismissRequest(); onNeutral() },
-        modifier = modifier,
+        modifier = modifier.imePadding(),
         title = title,
+        scrollContent = true,
         content = {
             Column {
                 description?.let {
@@ -76,7 +79,7 @@ fun TextInputDialog(
                     placeholder = placeholder,
                     keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
                     lineLimits = if (singleLine) TextFieldLineLimits.SingleLine else TextFieldLineLimits.MultiLine(),
-                    textStyle = contentTextDirectionStyle,
+                    textStyle = LocalTextStyle.current.merge(contentTextDirectionStyle),
                 )
                 LaunchedEffect(Unit) { focusRequester.requestFocus() }
             }

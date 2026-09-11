@@ -171,4 +171,29 @@ class ProofreadServiceTest {
         assertFalse(ProofreadService.isLocalEndpoint("http://8.8.8.8:8000"))
         assertFalse(ProofreadService.isLocalEndpoint("http://1.1.1.1:8000"))
     }
+
+    // ----------------------------------------------------------------------------------- API Key Summary Masking
+
+    @Test
+    fun apiKeySummaryMasking() {
+        val notSet = "Not set"
+        // Missing / blank key returns notSetText
+        assertEquals(notSet, ProofreadService.formatApiKeySummary(null, notSet))
+        assertEquals(notSet, ProofreadService.formatApiKeySummary("", notSet))
+        assertEquals(notSet, ProofreadService.formatApiKeySummary("   ", notSet))
+
+        // Existing key returns exactly "*****"
+        assertEquals("*****", ProofreadService.formatApiKeySummary("AIzaSyTest123", notSet))
+        assertEquals("*****", ProofreadService.formatApiKeySummary("sk-proj-xyz", notSet))
+        assertEquals("*****", ProofreadService.formatApiKeySummary("3WDM", notSet))
+
+        // Actual key content is never displayed
+        val secretKey = "AIzaSySecret3WDM"
+        val summary = ProofreadService.formatApiKeySummary(secretKey, notSet)
+        assertEquals("*****", summary)
+        assertFalse(summary.contains(secretKey), "Summary must not contain the actual key")
+        assertFalse(summary.contains("3WDM"), "Summary must not contain key fragments")
+        assertFalse(summary.contains("Set"), "Summary must not contain 'Set' prefix")
+        assertFalse(summary.contains("ends in"), "Summary must not contain 'ends in'")
+    }
 }

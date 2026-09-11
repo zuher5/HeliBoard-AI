@@ -542,6 +542,10 @@ class ProofreadService(private val context: Context) {
             return "Bearer $key"
         }
 
+        /** Returns masked summary for UI display — never leaks any part of the real key. */
+        fun formatApiKeySummary(key: String?, notSetText: String): String =
+            if (key.isNullOrBlank()) notSetText else "*****"
+
         private fun getTranslateSystemPrompt(targetLanguage: String): String {
             val langName = try {
                 val clean = targetLanguage.trim()

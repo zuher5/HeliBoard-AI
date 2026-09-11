@@ -20,7 +20,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -82,9 +81,7 @@ fun SearchSettingsScreen(
                                 // a solution would be using a list(visible to key)
                                 AnimatedVisibility(visible = it != null) {
                                     if (it != null)
-                                        ElevatedPreference {
-                                            SettingsActivity.settingsContainer[it]?.Preference()
-                                        }
+                                        SettingsActivity.settingsContainer[it]?.Preference()
                                 }
                             }
                         }
@@ -109,21 +106,8 @@ fun SearchSettingsScreen(
             }
         },
         filteredItems = { SettingsActivity.settingsContainer.filter(it) },
-        itemContent = { ElevatedPreference { it.Preference() } }
+        itemContent = { it.Preference() }
     )
-}
-
-/** Wraps a setting preference in an elevated, rounded card (LeanType-style) */
-@Composable
-private fun ElevatedPreference(content: @Composable () -> Unit) {
-    ElevatedCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 3.dp),
-        shape = MaterialTheme.shapes.medium
-    ) {
-        content()
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
