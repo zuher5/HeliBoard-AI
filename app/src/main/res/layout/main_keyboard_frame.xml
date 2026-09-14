@@ -91,5 +91,13 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/config_floating_handle_height"
             android:src="@drawable/ic_drag_indicator"/>
+        <ImageView
+            android:id="@+id/dock_handle"
+            android:layout_weight="0"
+            android:layout_width="@dimen/config_floating_handle_height"
+            android:layout_height="@dimen/config_floating_handle_height"
+            android:padding="4dp"
+            android:src="@drawable/ic_close"
+            android:contentDescription="@string/label_stop_floating_mode_key"/>
     </LinearLayout>
 </LinearLayout>

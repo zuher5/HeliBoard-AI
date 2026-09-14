@@ -897,6 +897,7 @@ New dictionary:
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (number layout)</string>
     <!-- Label for key to stop onehanded mode, currently used only for showing the icon name -->
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">End one-handed mode</string>
+    <string name="label_stop_floating_mode_key" tools:keep="@string/label_stop_floating_mode_key">Dock keyboard</string>
     <!-- Label for key to resize onehanded mode, currently used only for showing the icon name -->
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Resize one-handed mode</string>
     <!-- Label for key to switch side of onehanded mode, currently used only for showing the icon name -->

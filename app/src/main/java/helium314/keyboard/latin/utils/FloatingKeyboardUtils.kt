@@ -41,6 +41,10 @@ object FloatingKeyboardUtils {
         view.findViewById<View>(R.id.float_handle_container)?.isVisible = true
         view.findViewById<ImageView>(R.id.drag_handle)?.setDragListener(view)
         view.findViewById<ImageView>(R.id.resize_handle)?.setResizeListener(lp)
+        view.findViewById<ImageView>(R.id.dock_handle)?.setOnClickListener {
+            KeyboardSwitcher.getInstance().setFloatingKeyboardEnabled(false)
+            KeyboardSwitcher.getInstance().reloadKeyboard()
+        }
     }
 
     @JvmStatic

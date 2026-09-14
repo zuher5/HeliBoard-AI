@@ -143,7 +143,8 @@ fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: St
         && key != Settings.PREF_ALWAYS_INCOGNITO_MODE
         && key != GestureDataGatheringSettings.PREF_BACKGROUND_GATHERING_ENABLED
         && key != GestureDataGatheringSettings.PREF_BACKGROUND_DISABLED_BEFORE_TIME_MILLIS
-        && key?.startsWith(Settings.PREF_ONE_HANDED_MODE_PREFIX) == false)
+        && key?.startsWith(Settings.PREF_ONE_HANDED_MODE_PREFIX) == false
+        && key?.startsWith(Settings.PREF_FLOATING_ENABLED_PREFIX) == false)
         return
 
     GlobalScope.launch {
@@ -159,12 +160,13 @@ fun setToolbarButtonActivatedState(button: ImageButton) {
         SPLIT -> Settings.getValues().mIsSplitKeyboardEnabled
         AUTOCORRECT -> Settings.getValues().mAutoCorrectionEnabledPerUserSettings
         BACKGROUND_GATHERING -> useBackgroundGathering
+        FLOATING -> Settings.getValues().mIsFloatingKeyboard
         else -> true
     }
     button.isActivated = activated
     val colors = Settings.getValues().mColors
     if (button.background != null) {
-        if (activated && button.tag in listOf(INCOGNITO, ONE_HANDED, SPLIT, AUTOCORRECT, BACKGROUND_GATHERING)) {
+        if (activated && button.tag in listOf(INCOGNITO, ONE_HANDED, SPLIT, AUTOCORRECT, BACKGROUND_GATHERING, FLOATING)) {
             colors.setColor(button.background, ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND)
             if (button.drawable != null) {
                 colors.setColor(button, ColorType.ACTION_KEY_ICON)
