@@ -226,9 +226,13 @@ fun <T: Any?> SearchScreen(
                                 modifier = Modifier
                                     .padding(innerPadding)
                                     .padding(horizontal = 16.dp, vertical = 8.dp)
-                                    .background(
-                                        MaterialTheme.colorScheme.surfaceContainer,
-                                        RoundedCornerShape(12.dp)
+                                    // avoid an empty card block when the search has no matches
+                                    .then(
+                                        if (items.isEmpty()) Modifier
+                                        else Modifier.background(
+                                            MaterialTheme.colorScheme.surfaceContainer,
+                                            RoundedCornerShape(12.dp)
+                                        )
                                     ),
                                 contentPadding = PaddingValues(vertical = 4.dp)
                             ) {
