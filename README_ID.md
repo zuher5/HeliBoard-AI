@@ -20,7 +20,8 @@ Filosofi utama:
 - **Offline-first.** Tidak ada koneksi internet yang digunakan kecuali Anda secara eksplisit mengonfigurasi provider AI.
 - **Kunci Anda, data Anda.** API key disimpan terenkripsi di perangkat (AES-256-GCM). Tidak ada data yang dikumpulkan oleh ZeeBoard.
 - **DNA HeliBoard.** Seluruh fleksibilitas kustomisasi, tata letak (layout), kamus, dan tema dari HeliBoard — tetap utuh.
-- **AI yang Praktis.** Terjemahkan, proofread, atau jalankan perintah prompt kustom melalui Google Gemini atau endpoint OpenAI-compatible apa pun (HuggingFace, Ollama, OpenRouter, dll.) — langsung dari toolbar keyboard.
+- **AI yang Praktis.** Terjemahkan, proofread, atau jalankan perintah prompt kustom melalui Google Gemini, Groq, atau endpoint OpenAI-compatible apa pun (HuggingFace, Ollama, OpenRouter, dll.) — langsung dari toolbar keyboard.
+- **Tampilan Modern & Rapi.** Desain antarmuka setelan flat card terinspirasi dari LeanType, kontrol dock keyboard mengambang yang lebih baik, dan penyempurnaan gaya Material You.
 
 ---
 
@@ -28,12 +29,19 @@ Filosofi utama:
 
 ### Fitur AI (Tambahan ZeeBoard)
 
-- **AI Translate** — Terjemahkan teks yang dipilih atau seluruh kolom teks, langsung di keyboard, melalui Gemini atau provider OpenAI-compatible apa pun.
-- **HF / AI Compatible** — Gunakan HuggingFace Inference, Ollama, OpenRouter, atau server LLM lokal lainnya (`http://192.168.x.x:11434/v1`).
+- **AI Translate & Proofread** — Terjemahkan atau periksa teks yang dipilih / seluruh kolom teks langsung di keyboard melalui Gemini, Groq, atau provider OpenAI-compatible.
+- **Groq** — Inferensi cloud ultra-cepat dengan model Llama 3.3, Llama 3.1, Qwen, dan lainnya melalui Groq Console (API key berawalan `gsk_...`).
 - **Gemini (Google)** — Google Gemini melalui free tier Google AI Studio (API key berawalan `AIzaSy...`).
+- **HF / AI Compatible** — Gunakan HuggingFace Inference, Ollama, OpenRouter, atau server LLM lokal lainnya (`http://192.168.x.x:11434/v1`).
 - **Custom AI Keys (1–10)** — Pasang prompt kustom ke hingga 10 tombol toolbar; gunakan tagar seperti `#proofread`, `#summarize`, `#editor`, `#paraphrase` untuk menentukan perilaku AI.
 - **Penyimpanan Kunci Terenkripsi** — API key disimpan menggunakan `EncryptedSharedPreferences` (AES-256-GCM), tidak pernah dicatat (log) atau dikirim ke mana pun selain ke endpoint provider yang Anda atur.
 - **Pemilih Bahasa di Keyboard** — Pilih bahasa target terjemahan langsung dari antarmuka keyboard.
+
+### Peningkatan UI & Keyboard
+
+- **Desain Setelan Flat Card Modern** — Tampilan setelan berbasis kartu bersih ala LeanType tanpa garis pembatas (divider) yang mengganggu.
+- **Quick Dock Keyboard Mengambang (Floating)** — Tombol dock khusus tepat di handle bar keyboard floating untuk mengembalikan posisi keyboard dalam sekali sentuh.
+- **Indikator Aktif Tombol Toolbar** — Umpan balik visual saat mode tertentu aktif (seperti tombol keyboard floating).
 
 ### Fitur HeliBoard (Bawaan)
 
@@ -62,6 +70,13 @@ Dua varian build:
 ---
 
 ## Panduan Pengaturan AI
+
+### Groq
+
+1. Dapatkan API key gratis di [Groq Console](https://console.groq.com/keys) (diawali `gsk_...`)
+2. Di ZeeBoard: **Setelan → AI Integration**
+3. Atur provider ke **Groq**, tempelkan API key Anda
+4. Anda dapat memilih model yang diinginkan (default: `llama-3.1-8b-instant`, atau `llama-3.3-70b-versatile`)
 
 ### Gemini (Google)
 
@@ -123,7 +138,7 @@ Ikon dilisensikan di bawah [Creative Commons BY-SA 4.0](https://creativecommons.
 ## Kredit
 
 - **[HeliBoard](https://github.com/HeliBorg/HeliBoard)** oleh Helium314 — keyboard luar biasa yang menjadi basis fork ini
-- **[LeanType](https://github.com/LeanBitLab/LeanType)** oleh LeanBitLab — inspirasi arsitektur provider AI
+- **[LeanType](https://github.com/LeanBitLab/LeanType)** oleh LeanBitLab — inspirasi arsitektur provider AI dan antarmuka setelan flat card
 - [OpenBoard](https://github.com/openboard-team/openboard)
 - [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
 - [LineageOS](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)

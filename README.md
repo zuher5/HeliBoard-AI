@@ -20,7 +20,8 @@ The core philosophy:
 - **Offline-first.** No internet is used unless you explicitly configure an AI provider.
 - **Your key, your data.** API keys are stored encrypted on-device (AES-256-GCM). Nothing is collected by ZeeBoard.
 - **HeliBoard DNA.** All the customization, layouts, dictionaries, and themes from HeliBoard — untouched.
-- **Practical AI.** Translate, proofread, or run custom prompts via Google Gemini or any OpenAI-compatible endpoint (HuggingFace, Ollama, OpenRouter, etc.) — right from the keyboard toolbar.
+- **Practical AI.** Translate, proofread, or run custom prompts via Google Gemini, Groq, or any OpenAI-compatible endpoint (HuggingFace, Ollama, OpenRouter, etc.) — right from the keyboard toolbar.
+- **Modern & Clean UI.** Modern flat card settings design inspired by LeanType, improved floating keyboard dock controls, and refined Material You styling.
 
 ---
 
@@ -28,12 +29,19 @@ The core philosophy:
 
 ### AI Features (ZeeBoard additions)
 
-- **AI Translate** — translate selected text or entire field, inline, via Gemini or any OpenAI-compatible provider
-- **HF / AI Compatible** — use HuggingFace Inference, Ollama, OpenRouter, or any local LLM server (`http://192.168.x.x:11434/v1`)
+- **AI Translate & Proofread** — translate selected text or entire field inline via Gemini, Groq, or any OpenAI-compatible provider
+- **Groq** — ultra-fast cloud inference with Llama 3.3, Llama 3.1, Qwen, and more via Groq Console (`gsk_...` key)
 - **Gemini (Google)** — Google Gemini via AI Studio free tier (`AIzaSy...` key)
+- **HF / AI Compatible** — use HuggingFace Inference, Ollama, OpenRouter, or any local LLM server (`http://192.168.x.x:11434/v1`)
 - **Custom AI Keys (1–10)** — assign custom prompts to up to 10 toolbar keys; use hashtags like `#proofread`, `#summarize`, `#editor`, `#paraphrase` to define AI behavior
 - **Encrypted key storage** — API keys stored in `EncryptedSharedPreferences` (AES-256-GCM), never logged or sent anywhere except the provider endpoint you configured
 - **In-keyboard language picker** — choose translation target language directly from the keyboard
+
+### Keyboard & UI Enhancements
+
+- **Modern Flat Card Settings** — clean card-based settings layout adapted from LeanType without divider clutter
+- **Floating Keyboard Quick Dock** — dedicated dock button right on the floating handle bar for instant one-tap docking
+- **Toolbar Button Activated States** — visual feedback for active modes like floating keyboard
 
 ### HeliBoard Features (inherited)
 
@@ -62,6 +70,13 @@ Two build variants:
 ---
 
 ## AI Setup Guide
+
+### Groq
+
+1. Get a free API key at [Groq Console](https://console.groq.com/keys) (starts with `gsk_...`)
+2. In ZeeBoard: **Settings → AI Integration**
+3. Set provider to **Groq**, paste your API key
+4. Optionally change the model (default: `llama-3.1-8b-instant`, or try `llama-3.3-70b-versatile`)
 
 ### Gemini (Google)
 
@@ -123,7 +138,7 @@ The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.
 ## Credits
 
 - **[HeliBoard](https://github.com/HeliBorg/HeliBoard)** by Helium314 — the excellent keyboard this fork is built on
-- **[LeanType](https://github.com/LeanBitLab/LeanType)** by LeanBitLab — inspiration for the AI provider architecture
+- **[LeanType](https://github.com/LeanBitLab/LeanType)** by LeanBitLab — inspiration for AI provider architecture and flat card settings UI
 - [OpenBoard](https://github.com/openboard-team/openboard)
 - [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
 - [LineageOS](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)
