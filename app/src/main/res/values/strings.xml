@@ -1320,6 +1320,7 @@ New dictionary:
     <string name="ai_integration_summary">Configure cloud AI provider, model and API key</string>
     <string name="ai_provider">AI provider</string>
     <string name="ai_provider_gemini">Gemini (Google)</string>
+    <string name="ai_provider_groq">Groq</string>
     <string name="ai_provider_openai">HF / AI Compatible</string>
     <string name="api_key_label">API key</string>
     <string name="ai_key_not_set">Not set</string>

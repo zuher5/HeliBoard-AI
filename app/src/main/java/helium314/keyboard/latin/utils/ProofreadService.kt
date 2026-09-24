@@ -37,7 +37,7 @@ import java.net.URL
  */
 class ProofreadService(private val context: Context) {
 
-    enum class AiProvider { GEMINI, OPENAI }
+    enum class AiProvider { GEMINI, GROQ, OPENAI }
 
     private val encryptedPrefs: SharedPreferences by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -83,6 +83,7 @@ class ProofreadService(private val context: Context) {
     fun getApiKey(provider: AiProvider = getProvider()): String? {
         val key = when (provider) {
             AiProvider.GEMINI -> KEY_GEMINI_KEY
+            AiProvider.GROQ -> KEY_GROQ_KEY
             AiProvider.OPENAI -> KEY_OPENAI_KEY
         }
         return encryptedPrefs.getString(key, null)?.takeIf { it.isNotBlank() }
@@ -91,6 +92,7 @@ class ProofreadService(private val context: Context) {
     fun setApiKey(provider: AiProvider = getProvider(), key: String?) {
         val prefKey = when (provider) {
             AiProvider.GEMINI -> KEY_GEMINI_KEY
+            AiProvider.GROQ -> KEY_GROQ_KEY
             AiProvider.OPENAI -> KEY_OPENAI_KEY
         }
         encryptedPrefs.edit().apply {
@@ -112,6 +114,7 @@ class ProofreadService(private val context: Context) {
     fun getModelName(provider: AiProvider = getProvider()): String {
         val key = when (provider) {
             AiProvider.GEMINI -> KEY_GEMINI_MODEL
+            AiProvider.GROQ -> KEY_GROQ_MODEL
             AiProvider.OPENAI -> KEY_OPENAI_MODEL
         }
         return encryptedPrefs.getString(key, null)?.takeIf { it.isNotBlank() } ?: defaultModel(provider)
@@ -120,6 +123,7 @@ class ProofreadService(private val context: Context) {
     fun setModelName(provider: AiProvider = getProvider(), modelName: String) {
         val key = when (provider) {
             AiProvider.GEMINI -> KEY_GEMINI_MODEL
+            AiProvider.GROQ -> KEY_GROQ_MODEL
             AiProvider.OPENAI -> KEY_OPENAI_MODEL
         }
         encryptedPrefs.edit().apply {
@@ -447,15 +451,20 @@ class ProofreadService(private val context: Context) {
 
         private const val KEY_GEMINI_KEY = "gemini_api_key"
         private const val KEY_GEMINI_MODEL = "ai_model_name"   // keep old key for backward compat
+        private const val KEY_GROQ_KEY = "groq_api_key"
+        private const val KEY_GROQ_MODEL = "groq_model_name"
         private const val KEY_OPENAI_KEY = "openai_api_key"
         private const val KEY_OPENAI_MODEL = "openai_model_name"
         private const val KEY_OPENAI_ENDPOINT = "openai_endpoint"
 
         private const val GEMINI_CHAT_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+        private const val GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
+        private const val GROQ_MODELS_URL = "https://api.groq.com/openai/v1/models"
         private const val DEFAULT_OPENAI_ENDPOINT = "https://api.openai.com/v1"
 
         fun defaultModel(provider: AiProvider = AiProvider.GEMINI) = when (provider) {
             AiProvider.GEMINI -> "gemini-2.5-flash"
+            AiProvider.GROQ -> GroqModels.DEFAULT_MODEL
             AiProvider.OPENAI -> "gpt-4o-mini"
         }
 
@@ -467,6 +476,7 @@ class ProofreadService(private val context: Context) {
                 "gemini-flash-latest",
                 "gemini-pro-latest"
             )
+            AiProvider.GROQ -> GroqModels.AVAILABLE_MODELS
             AiProvider.OPENAI -> listOf(
                 "gpt-4o-mini",
                 "gpt-4o",
@@ -515,6 +525,7 @@ class ProofreadService(private val context: Context) {
 
         fun buildChatUrl(provider: AiProvider, endpoint: String): String = when (provider) {
             AiProvider.GEMINI -> GEMINI_CHAT_URL
+            AiProvider.GROQ -> GROQ_CHAT_URL
             AiProvider.OPENAI -> "${endpoint.trimEnd('/')}/chat/completions"
         }
 
@@ -524,13 +535,14 @@ class ProofreadService(private val context: Context) {
                 if (key.isNotEmpty()) "https://generativelanguage.googleapis.com/v1beta/models?key=$key"
                 else "https://generativelanguage.googleapis.com/v1beta/models"
             }
+            AiProvider.GROQ -> GROQ_MODELS_URL
             AiProvider.OPENAI -> "${endpoint.trimEnd('/')}/models"
         }
 
         fun buildAuthHeader(provider: AiProvider, apiKey: String?, requestUrl: String): String? {
             val key = apiKey?.trim()
-            // OpenAI-compatible endpoints always authenticate via Bearer header
-            if (provider == AiProvider.OPENAI) {
+            // OpenAI and Groq compatible endpoints always authenticate via Bearer header
+            if (provider == AiProvider.GROQ || provider == AiProvider.OPENAI) {
                 if (key.isNullOrBlank()) return null
                 return "Bearer $key"
             }

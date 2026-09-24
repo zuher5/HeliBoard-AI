@@ -196,4 +196,51 @@ class ProofreadServiceTest {
         assertFalse(summary.contains("Set"), "Summary must not contain 'Set' prefix")
         assertFalse(summary.contains("ends in"), "Summary must not contain 'ends in'")
     }
+
+    // ----------------------------------------------------------------------------------- Groq Provider
+
+    @Test
+    fun groqChatUrlIsCorrect() {
+        val url = ProofreadService.buildChatUrl(
+            provider = ProofreadService.AiProvider.GROQ,
+            endpoint = "https://ignored.com"
+        )
+        assertEquals("https://api.groq.com/openai/v1/chat/completions", url)
+    }
+
+    @Test
+    fun groqModelsUrlIsCorrect() {
+        val url = ProofreadService.buildModelsUrl(
+            provider = ProofreadService.AiProvider.GROQ,
+            endpoint = "https://ignored.com",
+            apiKey = "gsk_test123"
+        )
+        assertEquals("https://api.groq.com/openai/v1/models", url)
+        assertFalse(url.contains("?key="), "Groq models URL must authenticate via header, not query")
+    }
+
+    @Test
+    fun groqSendsBearerHeader() {
+        val header = ProofreadService.buildAuthHeader(
+            provider = ProofreadService.AiProvider.GROQ,
+            apiKey = "gsk_myApiKey123",
+            requestUrl = "https://api.groq.com/openai/v1/chat/completions"
+        )
+        assertEquals("Bearer gsk_myApiKey123", header)
+    }
+
+    @Test
+    fun groqWithoutKeySendsNoHeader() {
+        val header = ProofreadService.buildAuthHeader(
+            provider = ProofreadService.AiProvider.GROQ,
+            apiKey = null,
+            requestUrl = "https://api.groq.com/openai/v1/chat/completions"
+        )
+        assertNull(header)
+    }
+
+    @Test
+    fun groqDefaultModel() {
+        assertEquals("llama-3.1-8b-instant", ProofreadService.defaultModel(ProofreadService.AiProvider.GROQ))
+    }
 }

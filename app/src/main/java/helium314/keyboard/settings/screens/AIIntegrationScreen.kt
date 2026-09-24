@@ -82,6 +82,7 @@ fun createAISettings(context: Context) = listOf(
         val service = remember { ProofreadService(context) }
         val items = listOf(
             stringResource(R.string.ai_provider_gemini) to ProofreadService.AiProvider.GEMINI.name,
+            stringResource(R.string.ai_provider_groq) to ProofreadService.AiProvider.GROQ.name,
             stringResource(R.string.ai_provider_openai) to ProofreadService.AiProvider.OPENAI.name,
         )
         ListPreference(
@@ -96,6 +97,7 @@ fun createAISettings(context: Context) = listOf(
         val key = service.getApiKey(provider)
         val hint = when (provider) {
             ProofreadService.AiProvider.GEMINI -> "AIzaSy..."
+            ProofreadService.AiProvider.GROQ -> "gsk_..."
             ProofreadService.AiProvider.OPENAI -> "sk-... / hf_..."
         }
         SecureTextInputPreference(
@@ -112,6 +114,7 @@ fun createAISettings(context: Context) = listOf(
         val provider = service.getProvider()
         val hint = when (provider) {
             ProofreadService.AiProvider.GEMINI -> "e.g. gemini-2.5-flash, gemini-2.0-flash"
+            ProofreadService.AiProvider.GROQ -> "e.g. llama-3.3-70b-versatile, llama-3.1-8b-instant"
             ProofreadService.AiProvider.OPENAI -> "e.g. Qwen/Qwen2.5-72B-Instruct, gpt-4o-mini"
         }
         SecureTextInputPreference(
