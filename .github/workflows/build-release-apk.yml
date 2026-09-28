@@ -26,13 +26,16 @@ jobs:
       - name: Decode Keystore
         env:
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
-        if: ${{ env.RELEASE_KEYSTORE != '' }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+          RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+        if: ${{ secrets.RELEASE_KEYSTORE != '' }}
         run: |
-          echo "${{ secrets.RELEASE_KEYSTORE }}" | base64 -d > zeeboard-release.jks
-          echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" > keystore.properties
-          echo "keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> keystore.properties
+          echo "$RELEASE_KEYSTORE" | base64 -d > zeeboard-release.jks
+          echo "keyAlias=$RELEASE_KEY_ALIAS" > keystore.properties
+          echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
           echo "storeFile=zeeboard-release.jks" >> keystore.properties
-          echo "storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> keystore.properties
+          echo "storePassword=$RELEASE_STORE_PASSWORD" >> keystore.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
