@@ -66,7 +66,6 @@ import kotlinx.serialization.json.Json
 
 @Composable
 fun ColorsScreen(
-    isNight: Boolean,
     theme: String?,
     onClickBack: () -> Unit
 ) {
@@ -76,13 +75,12 @@ fun ColorsScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
 
-    val themeName = theme ?: if (isNight) prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)!!
-        else prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)!!
+    val themeName = theme ?: prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)!!
     var newThemeName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(themeName)) }
 
     // is there really no better way of only setting forceOpposite while the screen is shown (and not paused)?
     // lifecycle stuff is weird, there is no pause and similar when activity is paused
-    DisposableEffect(isNight) {
+    DisposableEffect(Unit) {
         onDispose { // works on pressing back
             (ctx.getActivity() as? SettingsActivity)?.setForceTheme(null, null)
         }
@@ -91,7 +89,7 @@ fun ColorsScreen(
     val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
     LaunchedEffect(lifecycleState) {
         if (lifecycleState == Lifecycle.State.RESUMED) {
-            (ctx.getActivity() as? SettingsActivity)?.setForceTheme(newThemeName.text, isNight)
+            (ctx.getActivity() as? SettingsActivity)?.setForceTheme(newThemeName.text, false)
         }
     }
 
@@ -101,7 +99,7 @@ fun ColorsScreen(
         val fallbackColors = KeyboardTheme.readUserColorTheme(
             prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)!!,
             prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS),
-        userColors, ctx, isNight, null
+        userColors, ctx, false, null
         )
         val allColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text, fallbackColors)
         ColorType.entries.map {
@@ -117,8 +115,8 @@ fun ColorsScreen(
         if (moreColors == 1) toDisplay
         else toDisplay.filter { it.color != null || it.name !in colorsToHide }
     }
-    fun ColorSetting.displayColor() = if (auto == true) KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
-        else color ?: KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
+    fun ColorSetting.displayColor() = if (auto == true) KeyboardTheme.determineUserColor(userColors, ctx, name, false)
+        else color ?: KeyboardTheme.determineUserColor(userColors, ctx, name, false)
 
     var chosenColorString: String by rememberSaveable { mutableStateOf("") }
     val chosenColor = runCatching { Json.decodeFromString<ColorSetting?>(chosenColorString) }.getOrNull()
@@ -276,7 +274,7 @@ private fun getColorPrefsToHideInitially(prefs: SharedPreferences): List<String>
 private fun Preview() {
     Theme(previewDark) {
         Surface {
-            ColorsScreen(false, null) { }
+            ColorsScreen(null) { }
         }
     }
 }

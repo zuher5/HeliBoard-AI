@@ -54,7 +54,6 @@ fun AppearanceScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val dayNightMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT)
     val items = listOf(
         R.string.settings_screen_theme,
         Settings.PREF_THEME_STYLE,
@@ -63,7 +62,6 @@ fun AppearanceScreen(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             Settings.PREF_THEME_DAY_NIGHT else null,
         Settings.PREF_THEME_COLORS,
-        if (dayNightMode) Settings.PREF_THEME_COLORS_NIGHT else null,
         Settings.PREF_NAVBAR_COLOR,
         SettingsWithoutKey.BACKGROUND_IMAGE,
         SettingsWithoutKey.BACKGROUND_IMAGE_LANDSCAPE,
@@ -102,7 +100,6 @@ fun AppearanceScreen(
 fun createAppearanceSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_THEME_STYLE, R.string.theme_style) { setting ->
         val ctx = LocalContext.current
-        val prefs = ctx.prefs()
         val items = KeyboardTheme.STYLES.map {
             it.getStringResourceOrName("style_name_", ctx) to it
         }
@@ -111,12 +108,6 @@ fun createAppearanceSettings(context: Context) = listOf(
             items,
             Defaults.PREF_THEME_STYLE
         ) {
-            if (it != KeyboardTheme.STYLE_HOLO) {
-                if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit { remove(Settings.PREF_THEME_COLORS) }
-                if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit { remove(Settings.PREF_THEME_COLORS_NIGHT) }
-            }
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
@@ -153,28 +144,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             ColorThemePickerDialog(
                 onDismissRequest = { showDialog = false },
                 setting = setting,
-                isNight = false,
                 default = Defaults.PREF_THEME_COLORS
-            )
-    },
-    Setting(context, Settings.PREF_THEME_COLORS_NIGHT, R.string.theme_colors_night) { setting ->
-        val ctx = LocalContext.current
-        val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
-        val prefs = ctx.prefs()
-        if ((b?.value ?: 0) < 0)
-            Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        var showDialog by rememberSaveable { mutableStateOf(false) }
-        Preference(
-            name = setting.title,
-            description = prefs.getString(setting.key, Defaults.PREF_THEME_COLORS_NIGHT)!!.getStringResourceOrName("theme_name_", ctx),
-            onClick = { showDialog = true }
-        )
-        if (showDialog)
-            ColorThemePickerDialog(
-                onDismissRequest = { showDialog = false },
-                setting = setting,
-                isNight = true,
-                default = Defaults.PREF_THEME_COLORS_NIGHT
             )
     },
     Setting(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) {

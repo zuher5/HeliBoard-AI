@@ -71,7 +71,6 @@ import androidx.core.content.edit
 fun ColorThemePickerDialog(
     onDismissRequest: () -> Unit,
     setting: Setting,
-    isNight: Boolean,
     default: String
 ) {
     val ctx = LocalContext.current
@@ -80,7 +79,7 @@ fun ColorThemePickerDialog(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
 
-    val defaultColors = KeyboardTheme.getAvailableDefaultColors(prefs, isNight)
+    val defaultColors = KeyboardTheme.getAvailableDefaultColors(prefs, false)
 
     // prefs.all is null in preview only
     val userColors = (prefs.all ?: mapOf(Settings.PREF_USER_COLORS_PREFIX + "usercolor" to "") ).keys.mapNotNull {
@@ -102,7 +101,7 @@ fun ColorThemePickerDialog(
         if (index >= 5) state.animateScrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
     }
     var showLoadDialog by remember { mutableStateOf(false) }
-    val targetScreen = if (isNight) SettingsDestination.ColorsNight else SettingsDestination.Colors
+    val targetScreen = SettingsDestination.Colors
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         cancelButtonText = stringResource(R.string.dialog_close),
@@ -120,7 +119,7 @@ fun ColorThemePickerDialog(
                         if (item == "") {
                             AddColorRow(onDismissRequest, userColors, targetScreen, setting.key)
                         } else {
-                            ColorItemRow(onDismissRequest, item, item == selectedColor, item in userColors, targetScreen, setting.key, isNight)
+                            ColorItemRow(onDismissRequest, item, item == selectedColor, item in userColors, targetScreen, setting.key)
                         }
                     }
                 }
@@ -199,17 +198,12 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
 }
 
 @Composable
-private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String, isNight: Boolean) {
+private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     val selectTheme = {
         onDismissRequest()
-        prefs.edit {
-            putString(prefKey, item)
-            if (prefKey == Settings.PREF_THEME_COLORS && item in listOf(KeyboardTheme.THEME_GBOARD, KeyboardTheme.THEME_GBOARD_DYNAMIC, KeyboardTheme.THEME_DYNAMIC)) {
-                putString(Settings.PREF_THEME_COLORS_NIGHT, item)
-            }
-        }
+        prefs.edit { putString(prefKey, item) }
         KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
     Row(
@@ -256,7 +250,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
                 onDismissRequest()
                 val baseName = item.getStringResourceOrName("theme_name_", ctx)
                 val newName = KeyboardTheme.getUnusedThemeName(baseName, prefs)
-                val colorSettings = KeyboardTheme.getPresetColorSettings(item, isNight, ctx)
+                val colorSettings = KeyboardTheme.getPresetColorSettings(item, false, ctx)
                 KeyboardTheme.writeUserColors(prefs, newName, colorSettings)
                 KeyboardTheme.writeUserMoreColors(prefs, newName, Defaults.PREF_USER_MORE_COLORS)
                 prefs.edit { putString(prefKey, newName) }
@@ -305,8 +299,7 @@ private fun Preview() {
         ColorThemePickerDialog(
             onDismissRequest = {},
             setting = Setting(LocalContext.current, "", R.string.settings) {},
-            default = "dark",
-            isNight = true
+            default = KeyboardTheme.THEME_GBOARD_DARK
         )
     }
 }

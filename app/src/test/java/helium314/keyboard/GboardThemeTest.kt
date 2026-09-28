@@ -13,6 +13,7 @@ import android.graphics.Color
 import org.robolectric.annotation.Config
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @RunWith(RobolectricTestRunner::class)
@@ -21,21 +22,8 @@ class GboardThemeTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val prefs: SharedPreferences = context.getSharedPreferences("test_prefs", Context.MODE_PRIVATE)
 
-    @Test
-    fun gboardLightColorsMapping() {
-        val colors = KeyboardTheme.getGboardLightColors(KeyboardTheme.STYLE_ROUNDED, true)
-        assertEquals("#F7F7F7".toColorInt(), colors.get(ColorType.MAIN_BACKGROUND))
-        assertEquals("#FFFFFF".toColorInt(), colors.get(ColorType.KEY_BACKGROUND))
-        assertEquals("#E9E9E9".toColorInt(), colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND))
-        assertEquals("#FFFFFF".toColorInt(), colors.get(ColorType.SPACE_BAR_BACKGROUND))
-        assertEquals("#AECBFA".toColorInt(), colors.get(ColorType.ACTION_KEY_BACKGROUND))
-        assertEquals("#202124".toColorInt(), colors.get(ColorType.ACTION_KEY_ICON))
-        assertEquals("#202124".toColorInt(), colors.get(ColorType.KEY_TEXT))
-        assertEquals("#5F6368".toColorInt(), colors.get(ColorType.KEY_HINT_TEXT))
-        assertEquals("#1A73E8".toColorInt(), colors.get(ColorType.GESTURE_TRAIL))
-        assertEquals("#F7F7F7".toColorInt(), colors.get(ColorType.STRIP_BACKGROUND))
-        assertEquals("#F7F7F7".toColorInt(), colors.get(ColorType.NAVIGATION_BAR))
-    }
+    private fun presetColorMap(theme: String, isNight: Boolean = false): Map<String, Int?> =
+        KeyboardTheme.getPresetColorSettings(theme, isNight, context).associate { it.name to it.color }
 
     @Test
     fun gboardDarkColorsMapping() {
@@ -54,16 +42,44 @@ class GboardThemeTest {
     }
 
     @Test
-    fun gboardAvailableDefaultColors() {
+    fun catppuccinMochaMapping() {
+        val map = presetColorMap(KeyboardTheme.THEME_CATPPUCCIN_MOCHA)
+        assertEquals("#cba6f7".toColorInt(), map[KeyboardTheme.COLOR_ACCENT])
+        assertEquals("#1e1e2e".toColorInt(), map[KeyboardTheme.COLOR_BACKGROUND])
+        assertEquals("#313244".toColorInt(), map[KeyboardTheme.COLOR_KEYS])
+        assertEquals("#45475a".toColorInt(), map[KeyboardTheme.COLOR_FUNCTIONAL_KEYS])
+        assertEquals("#181825".toColorInt(), map[KeyboardTheme.COLOR_SPACEBAR])
+        assertEquals("#cdd6f4".toColorInt(), map[KeyboardTheme.COLOR_TEXT])
+        assertEquals("#a6adc8".toColorInt(), map[KeyboardTheme.COLOR_HINT_TEXT])
+    }
+
+    @Test
+    fun catppuccinLatteMapping() {
+        val map = presetColorMap(KeyboardTheme.THEME_CATPPUCCIN_LATTE)
+        assertEquals("#8839ef".toColorInt(), map[KeyboardTheme.COLOR_ACCENT])
+        assertEquals("#eff1f5".toColorInt(), map[KeyboardTheme.COLOR_BACKGROUND])
+        assertEquals("#e6e9ef".toColorInt(), map[KeyboardTheme.COLOR_KEYS])
+        assertEquals("#ccd0da".toColorInt(), map[KeyboardTheme.COLOR_FUNCTIONAL_KEYS])
+        assertEquals("#e6e9ef".toColorInt(), map[KeyboardTheme.COLOR_SPACEBAR])
+        assertEquals("#4c4f69".toColorInt(), map[KeyboardTheme.COLOR_TEXT])
+        assertEquals("#6c6f85".toColorInt(), map[KeyboardTheme.COLOR_HINT_TEXT])
+    }
+
+    @Test
+    fun availableDefaultColorsOnlyExpectedThemes() {
         val dayPresets = KeyboardTheme.getAvailableDefaultColors(prefs, isNight = false)
-        assertTrue(dayPresets.contains(KeyboardTheme.THEME_GBOARD))
         assertTrue(dayPresets.contains(KeyboardTheme.THEME_GBOARD_DARK))
-        assertTrue(dayPresets.contains(KeyboardTheme.THEME_GBOARD_DYNAMIC))
+        assertTrue(dayPresets.contains(KeyboardTheme.THEME_DYNAMIC))
+        assertTrue(dayPresets.contains(KeyboardTheme.THEME_CLOUDY))
+        assertTrue(dayPresets.contains(KeyboardTheme.THEME_CATPPUCCIN_MOCHA))
+        assertEquals(7, dayPresets.size, "Only the kept themes plus Catppuccin should be listed")
+        assertFalse(dayPresets.contains("light"))
+        assertFalse(dayPresets.contains("dark"))
+        assertFalse(dayPresets.contains("forest"))
+        assertFalse(dayPresets.contains("gboard"))
 
         val nightPresets = KeyboardTheme.getAvailableDefaultColors(prefs, isNight = true)
-        assertTrue(!nightPresets.contains(KeyboardTheme.THEME_GBOARD))
-        assertTrue(nightPresets.contains(KeyboardTheme.THEME_GBOARD_DARK))
-        assertTrue(nightPresets.contains(KeyboardTheme.THEME_GBOARD_DYNAMIC))
+        assertEquals(dayPresets, nightPresets, "Day and night must expose the same themes")
     }
 
     @Test
@@ -99,37 +115,59 @@ class GboardThemeTest {
             return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05)
         }
 
-        val light = KeyboardTheme.getGboardLightColors(KeyboardTheme.STYLE_ROUNDED, true)
-        assertTrue(contrast(light.get(ColorType.KEY_TEXT), light.get(ColorType.KEY_BACKGROUND)) >= 4.5)
-        assertTrue(contrast(light.get(ColorType.KEY_TEXT), light.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)) >= 4.5)
-        assertTrue(contrast(light.get(ColorType.ACTION_KEY_ICON), light.get(ColorType.ACTION_KEY_BACKGROUND)) >= 3.0)
-
         val dark = KeyboardTheme.getGboardDarkColors(KeyboardTheme.STYLE_ROUNDED, true)
         assertTrue(contrast(dark.get(ColorType.KEY_TEXT), dark.get(ColorType.KEY_BACKGROUND)) >= 4.5)
         assertTrue(contrast(dark.get(ColorType.KEY_TEXT), dark.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)) >= 4.5)
         assertTrue(contrast(dark.get(ColorType.ACTION_KEY_ICON), dark.get(ColorType.ACTION_KEY_BACKGROUND)) >= 3.0)
+
+        listOf(
+            KeyboardTheme.THEME_CATPPUCCIN_LATTE,
+            KeyboardTheme.THEME_CATPPUCCIN_FRAPPE,
+            KeyboardTheme.THEME_CATPPUCCIN_MACCHIATO,
+            KeyboardTheme.THEME_CATPPUCCIN_MOCHA,
+        ).forEach { theme ->
+            val settings = KeyboardTheme.getPresetColorSettings(theme, false, context)
+            val colors = KeyboardTheme.readUserColorTheme(
+                themeStyle = KeyboardTheme.STYLE_ROUNDED,
+                hasBorders = false,
+                colorSettings = settings,
+                context = context,
+                isNight = false,
+                backgroundImage = null
+            )
+            assertTrue(
+                contrast(colors.get(ColorType.KEY_TEXT), colors.get(ColorType.KEY_BACKGROUND)) >= 4.5,
+                "$theme key text must contrast with key background"
+            )
+            assertTrue(
+                contrast(colors.get(ColorType.KEY_TEXT), colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)) >= 4.5,
+                "$theme key text must contrast with functional key background"
+            )
+        }
     }
 
     @Test
     fun getPresetColorSettingsComplete() {
-        val gboardSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_GBOARD, false, context)
-        assertTrue(gboardSettings.isNotEmpty())
-        gboardSettings.forEach {
-            assertTrue(it.auto == false, "Setting ${it.name} should not be auto")
-            assertTrue(it.color != null, "Setting ${it.name} color should not be null")
-        }
-
-        val lightSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_LIGHT, false, context)
-        assertTrue(lightSettings.isNotEmpty())
-        lightSettings.forEach {
-            assertTrue(it.auto == false, "Setting ${it.name} should not be auto")
-            assertTrue(it.color != null, "Setting ${it.name} color should not be null")
+        listOf(
+            KeyboardTheme.THEME_GBOARD_DARK,
+            KeyboardTheme.THEME_CLOUDY,
+            KeyboardTheme.THEME_CATPPUCCIN_LATTE,
+            KeyboardTheme.THEME_CATPPUCCIN_FRAPPE,
+            KeyboardTheme.THEME_CATPPUCCIN_MACCHIATO,
+            KeyboardTheme.THEME_CATPPUCCIN_MOCHA,
+        ).forEach { theme ->
+            val settings = KeyboardTheme.getPresetColorSettings(theme, false, context)
+            assertTrue(settings.isNotEmpty(), "$theme must expose preset color settings")
+            settings.forEach {
+                assertTrue(it.auto == false, "$theme setting ${it.name} should not be auto")
+                assertTrue(it.color != null, "$theme setting ${it.name} color should not be null")
+            }
         }
     }
 
     @Test
     fun readUserColorThemeWithCustomFunctionalKeys() {
-        val presetSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_GBOARD, false, context)
+        val presetSettings = KeyboardTheme.getPresetColorSettings(KeyboardTheme.THEME_CATPPUCCIN_MOCHA, false, context)
         val colors = KeyboardTheme.readUserColorTheme(
             themeStyle = KeyboardTheme.STYLE_ROUNDED,
             hasBorders = false,
@@ -138,8 +176,7 @@ class GboardThemeTest {
             isNight = false,
             backgroundImage = null
         )
-        assertEquals("#AECBFA".toColorInt(), colors.get(ColorType.ACTION_KEY_BACKGROUND))
-        assertEquals("#202124".toColorInt(), colors.get(ColorType.ACTION_KEY_ICON))
-        assertEquals("#E9E9E9".toColorInt(), colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND))
+        assertEquals("#cba6f7".toColorInt(), colors.get(ColorType.ACTION_KEY_BACKGROUND))
+        assertEquals("#45475a".toColorInt(), colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND))
     }
 }

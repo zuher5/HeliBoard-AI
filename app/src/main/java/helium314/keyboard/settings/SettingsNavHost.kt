@@ -153,10 +153,7 @@ fun SettingsNavHost(
             SecondaryLayoutScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Colors + "{theme}") {
-            ColorsScreen(isNight = false, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
-        }
-        composable(SettingsDestination.ColorsNight + "{theme}") {
-            ColorsScreen(isNight = true, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
+            ColorsScreen(theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
         composable(SettingsDestination.Subtype + "{subtype}") {
             SubtypeScreen(initialSubtype = it.arguments?.getString("subtype")!!.toSettingsSubtype(), onClickBack = ::goBack)
@@ -182,7 +179,6 @@ object SettingsDestination {
     const val Debug = "debug"
     const val Appearance = "appearance"
     const val Colors = "colors/"
-    const val ColorsNight = "colors_night/"
     const val PersonalDictionaries = "personal_dictionaries"
     const val PersonalDictionary = "personal_dictionary/"
     const val Languages = "languages"

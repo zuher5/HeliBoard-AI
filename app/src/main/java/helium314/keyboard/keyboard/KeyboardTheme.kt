@@ -50,44 +50,21 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         const val STYLE_ROUNDED = "Rounded"
 
         // new themes that are just colors
-        const val THEME_GBOARD = "gboard"
         const val THEME_GBOARD_DARK = "gboard_dark"
-        const val THEME_GBOARD_DYNAMIC = "gboard_dynamic"
-        const val THEME_LIGHT = "light"
-        const val THEME_HOLO_WHITE = "holo_white"
-        const val THEME_DARK = "dark"
-        const val THEME_DARKER = "darker"
-        const val THEME_BLACK = "black"
         const val THEME_DYNAMIC = "dynamic"
-        const val THEME_BLUE_GRAY = "blue_gray"
-        const val THEME_BROWN = "brown"
-        const val THEME_CHOCOLATE = "chocolate"
         const val THEME_CLOUDY = "cloudy"
-        const val THEME_FOREST = "forest"
-        const val THEME_INDIGO = "indigo"
-        const val THEME_OCEAN = "ocean"
-        const val THEME_PINK = "pink"
-        const val THEME_SAND = "sand"
-        const val THEME_VIOLETTE = "violette"
+        const val THEME_CATPPUCCIN_LATTE = "catppuccin_latte"
+        const val THEME_CATPPUCCIN_FRAPPE = "catppuccin_frappe"
+        const val THEME_CATPPUCCIN_MACCHIATO = "catppuccin_macchiato"
+        const val THEME_CATPPUCCIN_MOCHA = "catppuccin_mocha"
         fun getAvailableDefaultColors(prefs: SharedPreferences, isNight: Boolean) = listOfNotNull(
-            if (!isNight) THEME_GBOARD else null,
             THEME_GBOARD_DARK,
-            THEME_GBOARD_DYNAMIC,
-            if (!isNight) THEME_LIGHT else null, THEME_DARK,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) THEME_DYNAMIC else null,
-            if (prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE) == STYLE_HOLO) THEME_HOLO_WHITE else null,
-            THEME_DARKER,
-            THEME_BLACK,
-            if (!isNight) THEME_BLUE_GRAY else null,
-            if (!isNight) THEME_BROWN else null,
-            THEME_CHOCOLATE,
             THEME_CLOUDY,
-            THEME_FOREST,
-            if (!isNight) THEME_INDIGO else null,
-            if (!isNight) THEME_PINK else null,
-            THEME_OCEAN,
-            if (!isNight) THEME_SAND else null,
-            THEME_VIOLETTE
+            THEME_CATPPUCCIN_LATTE,
+            THEME_CATPPUCCIN_FRAPPE,
+            THEME_CATPPUCCIN_MACCHIATO,
+            THEME_CATPPUCCIN_MOCHA
         )
         val STYLES = arrayOf(STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED)
 
@@ -142,10 +119,8 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             val prefs = context.prefs()
             val isNight = SettingsActivity.forceNight
                 ?: (ResourceUtils.isNight(context.resources) && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT))
-            val themeName = SettingsActivity.forceTheme ?: if (isNight)
-                prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
-            else
-                prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)
+            val themeName = SettingsActivity.forceTheme
+                ?: prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)
             val themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
 
             return getThemeColors(themeName!!, themeStyle!!, context, prefs, isNight)
@@ -155,114 +130,57 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
             val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
             return when (themeName) {
-                THEME_GBOARD -> if (isNight) getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
-                    else getGboardLightColors(themeStyle, hasBorders, backgroundImage)
                 THEME_GBOARD_DARK -> getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
-                THEME_GBOARD_DYNAMIC -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
-                    else if (isNight) getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
-                    else getGboardLightColors(themeStyle, hasBorders, backgroundImage)
-                }
                 THEME_DYNAMIC -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
-                    else getThemeColors(THEME_LIGHT, themeStyle, context, prefs, isNight)
+                    else getGboardDarkColors(themeStyle, hasBorders, backgroundImage)
                 }
-                THEME_LIGHT -> DefaultColors(
+                THEME_CATPPUCCIN_LATTE -> DefaultColors(
                     themeStyle,
                     hasBorders,
-                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
-                    ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_background_functional_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
-                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
+                    "#8839ef".toColorInt(),
+                    "#eff1f5".toColorInt(),
+                    "#e6e9ef".toColorInt(),
+                    "#ccd0da".toColorInt(),
+                    "#e6e9ef".toColorInt(),
+                    "#4c4f69".toColorInt(),
+                    "#6c6f85".toColorInt(),
                     keyboardBackground = backgroundImage
                 )
-                THEME_DARK -> DefaultColors(
+                THEME_CATPPUCCIN_FRAPPE -> DefaultColors(
                     themeStyle,
                     hasBorders,
-                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
-                    "#263238".toColorInt(),
-                    "#364248".toColorInt(),
-                    "#2d393f".toColorInt(),
-                    "#364248".toColorInt(),
-                    ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
-                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                    "#ca9ee6".toColorInt(),
+                    "#303446".toColorInt(),
+                    "#414559".toColorInt(),
+                    "#51576d".toColorInt(),
+                    "#292c3c".toColorInt(),
+                    "#c6d0f5".toColorInt(),
+                    "#a5adce".toColorInt(),
                     keyboardBackground = backgroundImage
                 )
-                THEME_HOLO_WHITE -> DefaultColors(
+                THEME_CATPPUCCIN_MACCHIATO -> DefaultColors(
                     themeStyle,
                     hasBorders,
-                    Color.WHITE,
-                    "#282828".toColorInt(),
-                    Color.WHITE, // drawable is transparent
-                    "#444444".toColorInt(), // should be 222222, but the key drawable is already grey
-                    Color.WHITE,
-                    Color.WHITE,
-                    "#282828".toColorInt(),
-                    Color.WHITE,
-                    "#80FFFFFF".toColorInt(),
+                    "#c6a0f6".toColorInt(),
+                    "#24273a".toColorInt(),
+                    "#363a4f".toColorInt(),
+                    "#494d64".toColorInt(),
+                    "#1e2030".toColorInt(),
+                    "#cad3f5".toColorInt(),
+                    "#a5adcb".toColorInt(),
                     keyboardBackground = backgroundImage
                 )
-                THEME_DARKER -> DefaultColors(
+                THEME_CATPPUCCIN_MOCHA -> DefaultColors(
                     themeStyle,
                     hasBorders,
-                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
-                    ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
-                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
-                    ContextCompat.getColor(context, R.color.key_background_functional_lxx_dark_border),
-                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
-                    ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
-                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
-                    keyboardBackground = backgroundImage
-                )
-                THEME_BLACK -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
-                    ContextCompat.getColor(context, R.color.background_amoled_black),
-                    ContextCompat.getColor(context, R.color.background_amoled_dark),
-                    ContextCompat.getColor(context, R.color.background_amoled_dark),
-                    ContextCompat.getColor(context, R.color.background_amoled_dark),
-                    ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
-                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
-                    keyboardBackground = backgroundImage
-                )
-                THEME_BLUE_GRAY -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(120, 144, 156),
-                    Color.rgb(236, 239, 241),
-                    Color.WHITE,
-                    Color.rgb(207, 216, 220),
-                    Color.WHITE,
-                    Color.BLACK,
-                    Color.BLACK,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_BROWN -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(141, 110, 99),
-                    Color.rgb(239, 235, 233),
-                    Color.WHITE,
-                    Color.rgb(215, 204, 200),
-                    Color.WHITE,
-                    Color.BLACK,
-                    Color.BLACK,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_CHOCOLATE -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(80, 128, 255),
-                    Color.rgb(140, 112, 94),
-                    Color.rgb(193, 163, 146),
-                    Color.rgb(168, 127, 103),
-                    Color.rgb(193, 163, 146),
-                    Color.WHITE,
-                    Color.WHITE,
+                    "#cba6f7".toColorInt(),
+                    "#1e1e2e".toColorInt(),
+                    "#313244".toColorInt(),
+                    "#45475a".toColorInt(),
+                    "#181825".toColorInt(),
+                    "#cdd6f4".toColorInt(),
+                    "#a6adc8".toColorInt(),
                     keyboardBackground = backgroundImage
                 )
                 THEME_CLOUDY -> DefaultColors(
@@ -273,80 +191,6 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.rgb(117, 128, 142),
                     Color.rgb(99, 109, 121),
                     Color.rgb(117, 128, 142),
-                    Color.WHITE,
-                    Color.WHITE,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_FOREST -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(75, 110, 75),
-                    Color.rgb(181, 125, 88),
-                    Color.rgb(228, 212, 191),
-                    Color.rgb(212, 186, 153),
-                    Color.rgb(228, 212, 191),
-                    Color.rgb(0, 50, 0),
-                    Color.rgb(0, 50, 0),
-                    Color.rgb(0, 50, 0),
-                    Color.rgb(0, 80, 0),
-                    keyboardBackground = backgroundImage
-                )
-                THEME_INDIGO -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(92, 107, 192),
-                    Color.rgb(232, 234, 246),
-                    Color.WHITE,
-                    Color.rgb(197, 202, 233),
-                    Color.WHITE,
-                    Color.BLACK,
-                    Color.BLACK,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_OCEAN -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(255, 124, 0),
-                    Color.rgb(89, 109, 155),
-                    Color.rgb(132, 157, 212),
-                    Color.rgb(81, 116, 194),
-                    Color.rgb(132, 157, 212),
-                    Color.WHITE,
-                    Color.WHITE,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_PINK -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(236, 64, 122),
-                    Color.rgb(252, 228, 236),
-                    Color.WHITE,
-                    Color.rgb(248, 187, 208),
-                    Color.WHITE,
-                    Color.BLACK,
-                    Color.BLACK,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_SAND -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(110, 155, 255),
-                    Color.rgb(242, 232, 218),
-                    Color.WHITE,
-                    Color.rgb(234, 211, 185),
-                    Color.WHITE,
-                    Color.BLACK,
-                    Color.BLACK,
-                    keyboardBackground = backgroundImage
-                )
-                THEME_VIOLETTE -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Color.rgb(255, 96, 255),
-                    Color.rgb(112, 112, 174),
-                    Color.rgb(150, 150, 216),
-                    Color.rgb(123, 123, 206),
-                    Color.rgb(150, 150, 216),
                     Color.WHITE,
                     Color.WHITE,
                     keyboardBackground = backgroundImage
@@ -362,24 +206,6 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                 }
             }
         }
-
-        fun getGboardLightColors(themeStyle: String, hasBorders: Boolean, backgroundImage: Drawable? = null) = DefaultColors(
-            themeStyle = themeStyle,
-            hasKeyBorders = hasBorders,
-            accent = "#AECBFA".toColorInt(),
-            background = "#F7F7F7".toColorInt(),
-            keyBackground = "#FFFFFF".toColorInt(),
-            functionalKey = "#E9E9E9".toColorInt(),
-            spaceBar = "#FFFFFF".toColorInt(),
-            keyText = "#202124".toColorInt(),
-            keyHintText = "#5F6368".toColorInt(),
-            suggestionText = "#202124".toColorInt(),
-            spaceBarText = "#5F6368".toColorInt(),
-            gesture = "#1A73E8".toColorInt(),
-            keyboardBackground = backgroundImage,
-            actionKeyIcon = "#202124".toColorInt(),
-            keepFunctionalKeyWithoutBorders = true,
-        )
 
         fun getGboardDarkColors(themeStyle: String, hasBorders: Boolean, backgroundImage: Drawable? = null) = DefaultColors(
             themeStyle = themeStyle,
