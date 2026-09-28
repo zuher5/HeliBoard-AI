@@ -22,14 +22,9 @@
     <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
     <string name="label_search_key">Nadi</string>
     <string name="user_dict_settings_add_shortcut_option_name">Anegzum:</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Axuxi</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Aqehwi</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lexla</string>
     <string name="version">Lqem</string>
     <string name="dialog_close">Mdel</string>
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Seṛǧu</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Aceɛlal</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Berrik</string>
     <string name="settings_screen_about">Ɣef</string>
     <string name="settings_screen_advanced">Iɣewwaren leqqayen</string>
     <string name="settings_screen_theme">Asentel</string>
@@ -86,7 +81,6 @@
     <string name="voice" tools:keep="@string/voice">Anekcam n taɣect</string>
     <string name="language_and_layouts_title">Tutlayin akked tneɣrufin</string>
     <string name="more_keys_strip_description">Tiqeffalin nniḍen</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Aberkan</string>
     <string name="select_color_key">Aḍris n tqeffalin</string>
     <string name="button_load_custom">Ɛebbi afaylu</string>
     <string name="button_select_language">Fren tutlayt</string>
@@ -100,11 +94,9 @@
     <string name="settings_category_experimental">Armitan</string>
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Ṛǧu</string>
     <string name="settings_category_space">Tallunt</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Ijdi</string>
     <string name="subtype_mns">Mansi</string>
     <string name="theme_style">Aɣanib</string>
     <string name="settings_screen_toolbar">Afeggag n ifecka</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ubrik</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="dictionary_category_title">Imawalen nniḍen</string>
     <string name="emoji" tools:keep="@string/emoji">Imujit</string>

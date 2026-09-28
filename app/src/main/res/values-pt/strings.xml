@@ -334,28 +334,14 @@
     <string name="no_dictionary_message">"Sem um dicionário, apenas obterá sugestões de texto digitado anteriormente.&lt;br&gt; \n        Pode descarregar dicionários %1$s, ou verificar se um dicionário para \"%2$s\" pode ser descarregado diretamente %3$s."</string>
     <string name="theme_navbar">Cor barra de navegação</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Cores dinâmicas</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Preto</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nublado</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Branco</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
     <string name="select_color_spacebar_background">Fundo da barra de espaços</string>
     <string name="more_colors">Mostrar mais cores</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Claro</string>
     <string name="main_colors">Mostrar apenas cores principais</string>
     <string name="user_dict_add_word_button">Adicionar uma palavra</string>
     <string name="theme_style">Estilo</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arredondado</string>
     <string name="theme_colors">Cores</string>
-    <string name="theme_colors_night">Cores (noite)</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Escuro</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mais escuro</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Azul Acinzentado</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Castanho</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Floresta</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="auto_user_color">Escolher cor automaticamente</string>
     <string name="all_colors">Mostrar todas as cores</string>
     <string name="select_color_background">Fundo do teclado</string>
@@ -374,7 +360,6 @@
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="icon_style">Estilo do ícone</string>
     <string name="user_dict_settings_add_weight_value">Peso:</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="user_dict_word_already_present">Essa palavra já existe no dicionário do utilizador %s. Por favor digite outra.</string>
     <string name="all_colors_warning">Esta definição expõe todas as cores usadas internamente. A lista de cores pode mudar a qualquer hora. O padrão provém das cores normais, e todos os nomes não serão traduzidos.</string>
     <string name="get_colors_message">Podes encontrar e partilhar cores em %s.</string>

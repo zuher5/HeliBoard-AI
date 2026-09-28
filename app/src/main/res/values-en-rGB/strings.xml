@@ -141,7 +141,6 @@
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Wait"</string>
     <string name="theme_colors">Colours</string>
-    <string name="theme_colors_night">Colours (night)</string>
     <string name="theme_navbar">Colour navigation bar</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamic colours</string>
     <string name="auto_user_color">Choose colour automatically</string>
@@ -160,7 +159,6 @@
     <string name="customize_icons_reset_message">Really reset all customised icons?</string>
     <string name="license">Open-source licence</string>
     <string name="gnu_gpl">GNU General Public Licence v3.0</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blue Grey</string>
     <string name="language_switch_key_behavior">Language switch key behaviour</string>
     <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
     <string name="suggest_emojis">Suggest emojis</string>

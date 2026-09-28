@@ -245,7 +245,6 @@
     <string name="day_or_night_image">Säti pilt päeva või öörežiimi jaoks?</string>
     <string name="day_or_night_day">Päeval</string>
     <string name="day_or_night_night">Öösel</string>
-    <string name="theme_colors_night">Värvid (öösel)</string>
     <string name="key_borders">Klahvide äärejooned</string>
     <string name="theme_colors">Värvid</string>
     <string name="day_night_mode">Automaatne päeva- ja öörežiim</string>
@@ -277,33 +276,24 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numbriklahvistik (rõhtne)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Sümbolid (araabia keele jaoks)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Sümbolid</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Hologrammi valge</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numbriklahvistik</string>
     <string name="layout_number" tools:keep="@string/layout_number">Numbrid</string>
     <string name="select_color_suggestion">Soovituste riba tekst</string>
     <string name="select_color_key_background">Klahvi taust</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pilvine</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigosinine</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojide alumine rida</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Lõikelaua alumine rida</string>
     <string name="day_night_mode_summary">Välimus järgib süsteemi seadistusi</string>
     <string name="theme_navbar">Navigatsiooniriba värv</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ookeanisinine</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roosa</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Liivakarva</string>
     <string name="about_github_link">Vaata GitHubis</string>
     <string name="text_tap_languages">Seadistuste avamiseks klõpsi keelel</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefoni sümbolid</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tume</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Must</string>
     <string name="edit_layout">Kalvistiku paigutuse muutmiseks klõpsi</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Täiendavad sümbolid</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Sinu määratud</string>
     <string name="all_colors">Näita kõiki värve</string>
     <string name="auto_user_color">Vali värv automaatselt</string>
     <string name="main_colors">Näita vaid põhivärve</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolaadipruun</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Punakassinine</string>
     <string name="select_color_spacebar_text">Tühikuklahvi tekst</string>
     <string name="action_none">Määramata</string>
     <string name="show_vertical_space_swipe">Püstise tühikuklahvi viipežest</string>
@@ -313,13 +303,8 @@
     <string name="auto_show_toolbar_summary">Näita tööriistariba niipea, kui hakkad andmeid sisestama või valid teksti</string>
     <string name="auto_hide_toolbar">Peida tööriistariba automaatselt</string>
     <string name="auto_hide_toolbar_summary">Peida tööriistariba niipea, kui soovitused on olemas</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Hele</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tumedam</string>
     <string name="select_color_functional_key_background">Funktsiooniklahvi taust</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Sinakashall</string>
     <string name="select_color_accent">Aktsentvärv</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Pruun</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Mets</string>
     <string name="hidden_features_summary">Näita funktsionaalsusi, mida niisama ei märka</string>
     <string name="space_swipe_toggle_numpad_entry">Lülita numbriklahvistik sisse/välja</string>
     <string name="switch_keyboard_after">Vaheta põhiklahvistikule peale…</string>

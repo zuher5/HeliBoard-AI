@@ -156,7 +156,6 @@
     <string name="hint_source">Vælg hint-kilde</string>
     <string name="down" tools:keep="@string/down">Ned</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Mørk</string>
     <string name="prefs_space_bar_text">Brugerdefineret tekst på mellemrumstast</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionelle taster</string>
     <string name="dictionary_file_wrong_script">Fejl: Scriptet er ikke kompatibelt med dette tastatur</string>
@@ -186,7 +185,6 @@
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="user_dict_settings_add_weight_value">Vægt:</string>
     <string name="user_dict_word_already_present">Dette ord findes allerede i brugerordbogen %s. Skriv venligst et andet.</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Lys</string>
     <string name="vibrate_in_dnd_mode">Vibrer i Forstyr ikke-tilstand</string>
     <string name="disable_personalized_dicts_message">Advarsel: Deaktivering af denne indstilling rydder indlærte data</string>
     <string name="show_popup_keys_all">Tilføj alle tilgængelige varianter</string>
@@ -210,7 +208,6 @@
     <string name="setup_step3_action">Konfigurer tastaturet</string>
     <string name="user_dict_add_word_button">Tilføj et ord</string>
     <string name="theme_style">Stil</string>
-    <string name="theme_colors_night">Farver (nat)</string>
     <string name="layout_error">Layoutfejl: %s</string>
     <string name="auto_correct_shortcuts">Auto-korrektur genveje</string>
     <string name="auto_correct_shortcuts_summary">Når aktiveret, kan genveje udvides af autokorrektur</string>
@@ -230,7 +227,6 @@
     <string name="button_load_custom">Indlæs fil</string>
     <string name="customize_background_image_landscape">Indstil baggrundsbillede (liggende)</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamiske farver</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo-hvid</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Afrundet</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionelle taster (stor skærm)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (arabisk)</string>
@@ -248,8 +244,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Talrække</string>
     <string name="prefs_key_emoji_max_sdk">Tilsidesæt Emoji-version</string>
     <string name="theme_colors">Farver</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mørkere</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Sort</string>
     <string name="prefs_font_scale">Tastaturets skriftstørrelse</string>
     <string name="prefs_emoji_font_scale">Skriftstørrelse i emoji-visning</string>
     <string name="replace_dictionary_message">Erstat brugertilføjet ordbog \"%1$s\"?\n\nNuværende ordbog:\n%2$s\n\nNy ordbog:\n%3$s</string>
@@ -277,7 +271,6 @@
     <string name="settings_screen_appearance">Udseende</string>
     <string name="select_color_key">Tastetekst</string>
     <string name="save_log">Gem logfil</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brun</string>
     <string name="all_colors_warning">Denne indstilling viser alle farver, der bruges internt. Listen over farver kan ændres når som helst. Standardfarven er tilfældig, og navnene bliver ikke oversat.</string>
     <string name="select_color_accent">Accent</string>
     <string name="settings_screen_about">Om</string>
@@ -288,8 +281,6 @@
     <string name="all_colors">Vis alle farver</string>
     <string name="select_color_background">Tastaturbaggrund</string>
     <string name="select_color_key_hint">Tekst til tastehint</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
     <string name="more_colors">Vis flere farver</string>
     <string name="select_color_key_background">Tastebaggrund</string>
     <string name="select_color_functional_key_background">Baggrund til funktionelle taster</string>
@@ -304,11 +295,7 @@
     <string name="action_none">Ingen</string>
     <string name="customize_icons">Tilpas ikoner</string>
     <string name="customize_icons_reset_message">Nulstil alle tilpassede ikoner?</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chokolade</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Overskyet</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skov</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Hav</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pink</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="settings_screen_toolbar">Værktøjslinje</string>
     <string name="hidden_features_title">Beskrivelse af skjulte funktioner</string>

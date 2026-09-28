@@ -98,7 +98,6 @@
     <string name="theme_style">Стиль теми</string>
     <string name="style_name_Rounded">Закруглений</string>
     <string name="theme_colors">Кольори теми</string>
-    <string name="theme_colors_night">Кольори теми (темна тема)</string>
     <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_akkhor_bn_BD">%s (Аккгор)</string>
@@ -116,10 +115,6 @@
     <string name="enable_clipboard_history_summary">Якщо вимкнено, клавіша буфера обміну вставляє вміст, якщо він є</string>
     <string name="clipboard_history_retention_time">Час зберігання історії</string>
     <string name="theme_navbar">Колір навігаційної панелі</string>
-    <string name="theme_name_light">Світла</string>
-    <string name="theme_name_dark">Темна</string>
-    <string name="theme_name_darker">Сіра</string>
-    <string name="theme_name_black">Чорна</string>
     <string name="theme_name_user">Користувацька</string>
     <string name="auto_user_color">Автоматичний вибір кольору</string>
     <string name="select_color_background">Фон клавіатури</string>
@@ -186,17 +181,7 @@
     <string name="disable_personalized_dicts_message">Попередження: Вимкнення цього параметра призведе до видалення отриманих даних</string>
     <string name="language_switch_key_switch_both">Зміна обох</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Хмарний</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Ліс</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Індиго</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Рожевий</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Віолетта</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Коричневий</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Біла</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамічні кольори</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пісок</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Сіро-блакитний</string>
     <string name="var_toolbar_direction_summary">Зворотній напрямок, якщо вибрано підтип клавіатури з листом праворуч наліво</string>
     <string name="var_toolbar_direction">Змінний напрямок панелі інструментів</string>
     <string name="prefs_long_press_symbol_for_numpad">Тривале натискання символів для цифрової клавіатури</string>

@@ -141,7 +141,6 @@
     <string name="label_wait_key">"Czekaj"</string>
     <string name="prefs_always_show_suggestions">Zawsze pokazuj sugestie</string>
     <string name="internal_dictionary_summary">Główny słownik wewnętrzny</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ciemne</string>
     <string name="main_colors">Pokaż tylko główne kolory</string>
     <string name="up" tools:keep="@string/up">W górę</string>
     <string name="voice" tools:keep="@string/voice">Pisanie głosowe</string>
@@ -157,9 +156,7 @@
     <string name="user_dict_word_already_present">To słowo znajduje się już w słowniku: %s. Wpisz inne.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Zaokrąglony</string>
     <string name="button_backup">Kopia</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Czarne</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Czekoladowe</string>
     <string name="remove_dictionary_message">Na pewno usunąć słownik \"%s\" dodany przez użytkownika?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pochmurne</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
@@ -170,14 +167,12 @@
     <string name="add_to_personal_dictionary">Dodawaj słowa do słownika osobistego</string>
     <string name="customize_background_image">Ustaw obraz jako tło klawiatury</string>
     <string name="edit_layout">Dotknij, aby edytować układ</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Różowe</string>
     <string name="language_and_layouts_title">Języki i układy</string>
     <string name="file_read_error">Nie można odczytać pliku</string>
     <string name="dictionary_link_text">tutaj</string>
     <string name="dictionary_file_error">Błąd: wybrany plik nie jest prawidłowym plikiem słownika</string>
     <string name="hidden_features_text">chronionej pamięci urządzenia</string>
     <string name="theme_navbar">Koloruj pasek nawigacyjny</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Leśne</string>
     <string name="load_gesture_library_message">Będziesz potrzebować biblioteki dla \\\'%s\\\'. Niekompatybilne biblioteki mogą powodować awarie podczas pisania gestami.
 \n
 \nUwaga: dodawanie zewnętrznego kodu może stanowić zagrożenie bezpieczeństwa. Korzystaj z biblioteki pochodzącej tylko z zaufanego źródła.</string>
@@ -188,9 +183,7 @@
     <string name="localized_number_row_summary">Preferuj liczby lokalne zamiast łacińskich</string>
     <string name="checksum_mismatch_message">Nieznany plik biblioteki. Czy na pewno pochodzi z zaufanego źródła i jest przeznaczony dla \\\'%s\\\'?</string>
     <string name="hidden_features_message">► Długie naciśnięcie przypiętych klawiszy paska narzędzi zapewnia dodatkową funkcję: &lt;br&gt; \n\t• schowek &amp;#65515; wklej &lt;br&gt; \n\t• w lewo/w prawo &amp;#65515; przed słowo/za słowo &lt;br&gt; \n\t• w górę/w dół &amp;#65515; strona w górę/w dół &lt;br&gt; \n\t• przed słowo/za słowo &amp;#65515; na początek linii/na koniec linii &lt;br&gt; \n\t• strona w górę/w dół &amp;#65515; na początek strony/na koniec strony &lt;br&gt; \n\t• skopiuj &amp;#65515; wytnij &lt;br&gt; \n\t• wybierz słowo &amp;#8596; zaznacz wszystko &lt;br&gt; \n\t• cofnij &amp;#8596; ponów &lt;br&gt; &lt;br&gt; \n► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt; \n\t• Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt; \n\t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt; \n► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt; \n► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt; \n► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt; \n\t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj Shift lub klawisz symboli, naciśnij jeden lub więcej klawiszy, a następnie puść Shift lub klawisz symboli, aby powrócić do poprzedniej klawiatury. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt; \n► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt; \n► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt; \n► Przesuń w lewo w widoku schowka, aby usunąć wpis (jeśli nie jest przypięty) &lt;br&gt; &lt;br&gt; \n► Zaznacz tekst i naciśnij Shift, aby przełączać się między wielkimi i małymi literami. &lt;br&gt; &lt;br&gt; \n► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt; \n\t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt; \n► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: &lt;br&gt; \n\t• Od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania; &lt;br&gt; \n\t• Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Tryb debugowania / aplikacja debug&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Przytrzymaj sugestię, aby wyświetlić słownik źródłowy. &lt;br&gt; &lt;br&gt; \n► Korzystając z aplikacji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt; \n\t• W przypadku aplikacji release należy kilkukrotnie dotknąć jej wersję w sekcji &lt;i&gt;O aplikacji&lt;/i&gt;, a następnie w &lt;i&gt;Ustawieniach zaawansowanych&lt;/i&gt; znaleźć ustawienia debugowania.&lt;br&gt; \n\t• Po włączeniu opcji &lt;i&gt;Pokaż informacje o sugestii&lt;/i&gt;, sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy. &lt;br&gt; &lt;br&gt; \n► W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt; \n► Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt; \n► Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć).</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Niebiesko-szare</string>
     <string name="select_color_spacebar_text">Tekst spacji</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Jasne</string>
     <string name="user_dict_add_word_button">Dodaj słowo</string>
     <string name="select_color_suggestion">Tekst paska sugestii</string>
     <string name="show_popup_keys_normal">Pokaż warianty zdefiniowane w językach klawiatury</string>
@@ -199,7 +192,6 @@
     <string name="replace_dictionary">Zastąp słownik</string>
     <string name="select_color_background">Tło klawiatury</string>
     <string name="clipboard" tools:keep="@string/clipboard">Schowek</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indygo</string>
     <string name="select_color_accent">Akcent</string>
     <string name="about_github_link">Zobacz na GitHubie</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Rząd numeryczny</string>
@@ -214,23 +206,19 @@
     <string name="select_color_key">Tekst klawiszy</string>
     <string name="load_gesture_library">Dodaj bibliotekę pisania gestami</string>
     <string name="select_color_spacebar_background">Tło spacji</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Bardzo ciemne</string>
     <string name="day_or_night_image">Ustawić obraz na tryb dzienny czy nocny?</string>
     <string name="auto_user_color">Wybierz kolor automatycznie</string>
     <string name="settings_screen_about">O aplikacji</string>
     <string name="down" tools:keep="@string/down">W dół</string>
     <string name="toolbar_keys">Wybierz klawisze paska narzędzi</string>
     <string name="license">Licencje open source</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Niebieskie</string>
     <string name="backup_error">Błąd podczas tworzenia kopii zapasowej: %s</string>
     <string name="show_popup_hints_summary">Wyświetlaj wskazówki, jeśli długie naciśnięcie klawisza uruchamia dodatkową funkcję</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Piaskowe</string>
     <string name="backup_restore_title">Kopia i przywracanie</string>
     <string name="full_left" tools:keep="@string/full_left">Na początek</string>
     <string name="theme_style">Styl</string>
     <string name="select_word" tools:keep="@string/select_word">Zaznacz słowo</string>
     <string name="hidden_features_summary">Pokaż funkcje, które mogą zostać niezauważone</string>
-    <string name="theme_colors_night">Kolory (tryb nocny)</string>
     <string name="left" tools:keep="@string/left">W lewo</string>
     <string name="all_colors">Pokaż wszystkie kolory</string>
     <string name="delete_layout">Na pewno chcesz usunąć układ %s?</string>
@@ -240,7 +228,6 @@
     <string name="setup_step3_action">Skonfiguruj klawiaturę</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbole</string>
     <string name="add_new_dictionary_title">Dodaj słownik z pliku</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brązowe</string>
     <string name="replace_dictionary_message">Na pewno zastąpić słownik \"%1$s\" dodany przez użytkownika?
 \n
 \nObecny słownik:
@@ -249,7 +236,6 @@
 \nNowy słownik:
 \n%3$s</string>
     <string name="url_detection_title">Wykrywaj adresy URL</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fiołkowe</string>
     <string name="full_right" tools:keep="@string/full_right">Na koniec</string>
     <string name="localized_number_row">Lokalny rząd numeryczny</string>
     <string name="show_popup_keys_all">Pokaż wszystkie dostępne warianty</string>
@@ -279,7 +265,6 @@
     <string name="save_log">Zapisz dziennik zdarzeń</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Układ</string>
     <string name="more_autocorrect_summary">Włącza autokorektę, nawet jeśli nie jest to wyraźnie wymagane przez pole wprowadzania</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Białe Holo</string>
     <string name="language_switch_key_switch_both">Zmień oba</string>
     <string name="available_dictionary_experimental">%s (eksperymentalny)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>

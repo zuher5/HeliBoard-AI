@@ -140,7 +140,6 @@
     <string name="label_wait_key">"Warten"</string>
     <string name="prefs_always_show_suggestions">Immer Vorschläge anzeigen</string>
     <string name="internal_dictionary_summary">Internes Hauptwörterbuch</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dunkel</string>
     <string name="main_colors">Nur Hauptfarben anzeigen</string>
     <string name="up" tools:keep="@string/up">Hoch</string>
     <string name="voice" tools:keep="@string/voice">Spracheingabe</string>
@@ -157,9 +156,7 @@
     <string name="user_dict_word_already_present">Dieses Wort ist bereits im Benutzer-Wörterbuch %s vorhanden. Bitte gib ein anderes Wort ein.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Abgerundet</string>
     <string name="button_backup">Sicherung</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Schwarz</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Schokolade</string>
     <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%s“ wirklich entfernt werden?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Wolkig</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
@@ -170,14 +167,12 @@
     <string name="add_to_personal_dictionary">Wörter zum persönlichen Wörterbuch hinzufügen</string>
     <string name="customize_background_image">Hintergrundbild festlegen</string>
     <string name="edit_layout">Tippen, um das Rohlayout zu bearbeiten</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pink</string>
     <string name="language_and_layouts_title">Sprachen &amp; Layouts</string>
     <string name="file_read_error">Datei kann nicht gelesen werden</string>
     <string name="dictionary_link_text">hier</string>
     <string name="dictionary_file_error">Fehler: Ausgewählte Datei ist keine gültige Wörterbuchdatei</string>
     <string name="hidden_features_text">gerätegeschützter Speicher</string>
     <string name="theme_navbar">Navigationsleiste einfärben</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Wald</string>
     <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen beim Gesten-Tippen führen. \n \nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
     <string name="load_gesture_library_button_delete">Bibliothek löschen</string>
@@ -185,9 +180,7 @@
     <string name="dictionary_load_error">Fehler beim Laden der Wörterbuchdatei</string>
     <string name="localized_number_row_summary">Lokalisierte Zahlen gegenüber lateinischen bevorzugen</string>
     <string name="checksum_mismatch_message">Unbekannte Bibliotheksdatei. Bist du sicher, dass du sie von einer vertrauenswürdigen Quelle erhalten hast und sie für „%s“ ist?</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau-Grau</string>
     <string name="select_color_spacebar_text">Leertastenbeschriftung</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Hell</string>
     <string name="user_dict_add_word_button">Wort hinzufügen</string>
     <string name="select_color_suggestion">Textfarbe Wortvorschlag</string>
     <string name="show_popup_keys_normal">In den Tastatursprachen definierte Varianten anzeigen</string>
@@ -196,7 +189,6 @@
     <string name="replace_dictionary">Wörterbuch ersetzen</string>
     <string name="select_color_background">Tastaturhintergrund</string>
     <string name="clipboard" tools:keep="@string/clipboard">Zwischenablage</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="select_color_accent">Akzent</string>
     <string name="about_github_link">Auf GitHub ansehen</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zahlenzeile</string>
@@ -211,23 +203,19 @@
     <string name="select_color_key">Tastenbeschriftung</string>
     <string name="load_gesture_library">Gesten-Tippen-Bibliothek laden</string>
     <string name="select_color_spacebar_background">Leertastenhintergrund</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dunkler</string>
     <string name="day_or_night_image">Bild für den Tag- oder Nachtmodus festlegen?</string>
     <string name="auto_user_color">Farbe automatisch wählen</string>
     <string name="settings_screen_about">Über</string>
     <string name="down" tools:keep="@string/down">Runter</string>
     <string name="toolbar_keys">Symbolleistentasten wählen</string>
     <string name="license">Open-Source-Lizenz</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ozean</string>
     <string name="backup_error">Sicherungsfehler: %s</string>
     <string name="show_popup_hints_summary">Hinweis anzeigen, wenn durch langes Drücken einer Funktionstaste ein Popup geöffnet wird</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
     <string name="backup_restore_title">Sichern und Wiederherstellen</string>
     <string name="full_left" tools:keep="@string/full_left">Ganz links</string>
     <string name="theme_style">Stil</string>
     <string name="select_word" tools:keep="@string/select_word">Wort auswählen</string>
     <string name="hidden_features_summary">Funktionen anzeigen, die möglicherweise unbemerkt bleiben</string>
-    <string name="theme_colors_night">Farben (Nacht)</string>
     <string name="left" tools:keep="@string/left">Links</string>
     <string name="all_colors">Alle Farben zeigen</string>
     <string name="delete_layout">Benutzerdefiniertes Layout %s wirklich löschen?</string>
@@ -237,10 +225,8 @@
     <string name="setup_step3_action">Tastatur konfigurieren</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbole</string>
     <string name="add_new_dictionary_title">Wörterbuch aus Datei hinzufügen</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Braun</string>
     <string name="replace_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%1$s“ wirklich ersetzt werden? \n \nAktuelles Wörterbuch: \n%2$s \n \nNeues Wörterbuch: \n%3$s</string>
     <string name="url_detection_title">URL-Erkennung</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violett</string>
     <string name="full_right" tools:keep="@string/full_right">Ganz rechts</string>
     <string name="localized_number_row">Zahlenzeile lokalisieren</string>
     <string name="show_popup_keys_all">Alle verfügbaren Varianten hinzufügen</string>
@@ -268,7 +254,6 @@
     <string name="save_log">Protokoll speichern</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="more_autocorrect_summary">Autokorrektur, auch wenn dies vom Eingabefeld nicht explizit angefordert wird</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo-Weiß</string>
     <string name="language_switch_key_switch_both">Beides wechseln</string>
     <string name="hidden_features_message">► Durch langes Drücken der angehefteten Tasten in der Symbolleiste erhält du zusätzliche Funktionen: &lt;br&gt; \n\t•Zwischenablage &amp;#65515; einfügen &lt;br&gt; \n\t• nach links/rechts bewegen &amp;#65515; Wort links/rechts &lt;br&gt; \n\t• aufwärts/abwärts bewegen &amp;#65515; Seite auf/ab &lt;br&gt; \n\t• Wort links/rechts &amp;#65515; Zeilenanfang/-ende &lt;br&gt; \n\t• Seite auf/ab &amp;#65515; Seite Anfang/Ende &lt;br&gt; \n\t• kopieren. &amp;#65515; ausschneiden &lt;br&gt; \n\t• Wort wählen &amp;#8596; alle auswählen &lt;br&gt; \n\t• rückgängig &amp;#8596; wiederherstellen. &lt;br&gt; &lt;br&gt; \n► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf die Komma-Taste, um die Zwischenablage-Ansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder die Sprache zu wechseln.: &lt;br&gt; \n\t• Die Emoji-Ansicht und die Sprachumschaltung werden ausgeblendet, wenn du die entsprechende Taste aktiviert hast.; &lt;br&gt; \n\t• Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an der gleichen Position (z.B. \'q\' beim Dvorak-Layout). &lt;br&gt; &lt;br&gt; \n► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den Notizen hinzugefügt. &lt;br&gt; &lt;br&gt; \n► Drücke auf das Symbol Inkognito, um die Symbolleiste aufzurufen. &lt;br&gt; &lt;br&gt; \n► Gleitende Tasteneingabe: Streiche von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; \n\t• Dies funktioniert auch für die Taste \'?123\', um ein einzelnes Symbol von der Symboltastatur einzugeben, und für verwandte Tasten. &lt;br&gt; &lt;br&gt; \n► Halte die Umschalt- oder Symboltaste gedrückt, drücke eine oder mehrere Tasten, und lasse dann die Umschalt- oder Symboltaste los, um zur vorherigen Tastatur zurückzukehren.. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und eine Löschtaste, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; \n► Wische von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lasse den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Eintrag in der Zwischenablage, um ihn anzuheften (er bleibt in der Zwischenablage, bis du die Anheftung aufhebst). &lt;br&gt; &lt;br&gt; \n► Wische in der Zwischenablageansicht nach links, um einen Eintrag zu entfernen (außer wenn er angeheftet ist) &lt;br&gt; &lt;br&gt; \n► Markiere den Text und drücke die Umschalttaste, um zwischen Groß- und Kleinschreibung sowie Großschreibung zu wechseln. &lt;br&gt; &lt;br&gt; \n► Du kannst Wörterbücher hinzufügen, indem du sie in einem Datei-Explorer öffnest: &lt;br&gt; \n\t• Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt;, was bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; \n► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: &lt;br&gt; \n\t• Ab Android 7 befindet sich die gemeinsam genutzte Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z. B. beim Booten; &lt;br&gt; \n\t• Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, wobei dies vom jeweiligen Gerät und der Android-Version abhängen kann. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug-Modus / Debug-APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Drücke lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen. &lt;br&gt; &lt;br&gt; \n► Wenn du die Debug-APK verwendest, kannst du die Debug-Einstellungen in den erweiterten Einstellungen finden, obwohl die Nützlichkeit begrenzt ist, außer für die Ausgabe von Wörterbüchern in das Protokoll. &lt;br&gt; \n\t• Für eine Release-APK musst du die Version in &lt;i&gt;About&lt;/i&gt; mehrmals antippen, dann findest du Debug-Einstellungen in &lt;i&gt;Erweiterte Einstellungen&lt;/i&gt;. &lt;br&gt; \n\t• Wenn du die Option &lt;i&gt;Informationen zu Vorschlägen anzeigen&lt;/i&gt; aktivierst, werden die Vorschläge mit kleinen Zahlen versehen, die die interne Bewertung und das Quellenwörterbuch anzeigen. &lt;br&gt; &lt;br&gt; \n► Im Falle eines Anwendungsabsturzes wirst du beim Öffnen der Einstellungen gefragt, ob du die Absturzprotokolle erhalten möchtest. &lt;br&gt; &lt;br&gt; \n► Bei mehrsprachiger Eingabe zeigt die Leertaste einen Vertrauenswert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; \n► Bei den Vorschlägen werden oben einige kleine Zahlen angezeigt, die den internen Punktestand und das Quellenwörterbuch anzeigen (kann deaktiviert werden).</string>
     <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;\n                  Du kannst Wörterbücher %1$s herunterladen oder %3$s überprüfen, ob ein Wörterbuch für „%2$s“ direkt heruntergeladen werden kann."</string>

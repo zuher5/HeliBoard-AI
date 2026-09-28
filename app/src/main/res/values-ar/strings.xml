@@ -146,12 +146,8 @@
     <string name="localized_number_row">صف الأرقام باللغة المحلية</string>
     <string name="all_colors">أظهِر كافة الألوان</string>
     <string name="user_dict_add_word_button">أضف كلمة</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">بنّي</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">سحابي</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">غابة</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">رمل</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">مخصص</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">أزرق رمادي</string>
     <string name="select_color_background">خلفية لوحة المفاتيح</string>
     <string name="select_color_key">نص الأزرار</string>
     <string name="auto_user_color">اختيار تلقائي للون</string>
@@ -202,12 +198,7 @@
     <string name="button_select_language">اختر اللغة</string>
     <string name="replace_dictionary">استبدل القاموس</string>
     <string name="no_dictionary_dont_show_again_button">لا تظهره مرة أخرى</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">فاتح</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">داكن</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">أغمق</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">ألوان ديناميكية</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">محيط</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">وردي</string>
     <string name="disable_personalized_dicts_message">تحذير: سيؤدي تعطيل هذا الإعداد إلى محُ البيانات التي تم تعلمها</string>
     <string name="add_to_personal_dictionary">أضف كلمات إلى القاموس الشخصي</string>
     <string name="select_color_key_hint">نص تلميح رئيسي</string>
@@ -216,7 +207,6 @@
     <string name="add_to_personal_dictionary_summary">استخدم القاموس الشخصي للجهاز لتخزين الكلمات التي تم تعلمها</string>
     <string name="more_autocorrect_summary">التصحيح التلقائي حتى عندما لا يطلبه حقل الإدخال بشكل صريح</string>
     <string name="backup_restore_message">حفظ أو تحميل من الملف. تحذير: ستؤدي الاستعادة إلى استبدال البيانات الموجودة</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">النيلي</string>
     <string name="subtype_xdq">كايتاج</string>
     <string name="add_dictionary">حدّد القاموس الذي تريد إضافته. يمكن تنزيل القواميس بتنسيق .dict ‏%s.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">الرموز</string>
@@ -228,7 +218,6 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة الأرقام (أفقي)</string>
     <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
     <string name="dictionary_file_error">خطأ: الملف المحدد ليس ملف قاموس صالح</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">أسود</string>
     <string name="show_horizontal_space_swipe">إيماءة التمرير بشريط المسافة الأفقي</string>
     <string name="show_vertical_space_swipe">إيماءة التمرير بشريط المسافة العمودي</string>
     <string name="action_none">لا شيء</string>
@@ -269,14 +258,10 @@
 \nقاموس جديد:
 \n%3$s</string>
     <string name="dictionary_load_error">حدث خطأ أثناء تحميل ملف القاموس</string>
-    <string name="theme_colors_night">الألوان (الليل)</string>
     <string name="select_color_accent">اللون الثانوي</string>
     <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
     <string name="select_color_suggestion">نص شريط الاقتراح</string>
     <string name="main_colors">أظهِر الألوان الرئيسية فقط</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">البنفسج</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شوكولاتة</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">هولو الأبيض</string>
     <string name="theme_navbar">شريط التنقل الملون</string>
     <string name="hidden_features_text">تخزين محمي بالجهاز</string>
     <string name="hidden_features_summary">أظهِر الميزات التي قد تمر دون أن يلاحظها أحد</string>

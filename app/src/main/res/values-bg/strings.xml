@@ -268,13 +268,10 @@
     <string name="select_color_spacebar_text">Текст с интервал</string>
     <string name="dictionary_file_error">Грешка: Избраният файл не е валиден речников файл</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Дефиниран от потребителя</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Тъмна</string>
     <string name="show_horizontal_space_swipe">Хоризонтален жест за плъзгане с интервал</string>
     <string name="dictionary_file_wrong_script">Грешка: скриптът не е съвместим с тази клавиатура</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Гора</string>
     <string name="settings_screen_toolbar">Лента с инструменти</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачно</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Виолетово</string>
     <string name="dialog_close">Затвори</string>
     <string name="theme_navbar">Цветна лента за навигация</string>
     <string name="auto_user_color">Изберете цвят автоматично</string>
@@ -288,8 +285,6 @@
     <string name="var_toolbar_direction_summary">Обратна посока, когато е избран подтип клавиатура отдясно наляво</string>
     <string name="auto_show_toolbar">Автоматично показване на лентата с инструменти</string>
     <string name="dictionary_load_error">Грешка при зареждането на речниковия файл</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Синьо сиво</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Кафяво</string>
     <string name="save_log">Запазване на дневника</string>
     <string name="select_color_suggestion">Текст на лентата с предложения</string>
     <string name="select_color_key_background">Клавиши фон</string>
@@ -300,18 +295,11 @@
     <string name="gnu_gpl">Общ публичен лиценз на GNU v3.0</string>
     <string name="auto_hide_toolbar">Автоматично скриване на лентата с инструменти</string>
     <string name="dictionary_link_text">тук</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Черена</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамични цветове</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
     <string name="theme_colors">Цветове</string>
-    <string name="theme_colors_night">Цветове (нощ)</string>
     <string name="user_dict_add_word_button">Добавете дума</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Светла</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Холо бяло</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">По-тъмна</string>
     <string name="theme_style">Стил</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Закръглена</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколадово</string>
     <string name="select_color_background">Фон на клавиатурата</string>
     <string name="select_color_functional_key_background">Функционален клавишен фон</string>
     <string name="select_color_spacebar_background">Фон на интервала</string>
@@ -327,9 +315,7 @@
     <string name="hidden_features_summary">Покажете функции, които може да останат незабелязани</string>
     <string name="available_dictionary_experimental">%s (експериментално)</string>
     <string name="day_night_mode_summary">Външният вид ще следва системните настройки</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Розово</string>
     <string name="more_colors">Покажи още цветове</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Раздел</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Въвеждане</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Промяна</string>
@@ -352,7 +338,6 @@
     <string name="user_dict_word_already_present">Тази дума вече присъства в %s потребителския речник на. Моля, въведете друга.</string>
     <string name="auto_hide_toolbar_summary">Скрийте лентата с инструменти, когато предложенията станат налични</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Пространство (оформление с числа)</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пясък</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Изтриване</string>
     <string name="subtype_probhat_bn_BD">%s (Пробхат)</string>
     <string name="abbreviation_unit_minutes">%s мин</string>

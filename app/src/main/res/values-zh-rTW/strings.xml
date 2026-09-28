@@ -105,7 +105,6 @@
     <string name="label_wait_key">"等待"</string>
     <string name="theme_style">樣式</string>
     <string name="dictionary_settings_category">字典</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">紫羅蘭</string>
     <string name="settings_screen_appearance">外觀</string>
     <string name="ime_settings">ZeeBoard 設定</string>
     <string name="settings_category_suggestions">建議</string>
@@ -130,23 +129,12 @@
     <string name="day_or_night_day">日</string>
     <string name="day_or_night_night">夜</string>
     <string name="version">版本</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">淺色</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">深色</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">更深色</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">巧克力色</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">森林</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">海洋</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">粉紅色</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">使用者定義</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">棕色</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">多雲</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">黑色</string>
     <string name="dialog_close">關閉</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">圓角</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">靛藍色</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙</string>
     <string name="left" tools:keep="@string/left">左</string>
     <string name="right" tools:keep="@string/right">右</string>
     <string name="down" tools:keep="@string/down">下</string>

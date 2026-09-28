@@ -177,13 +177,8 @@
     <string name="button_title_add_custom_layout">Přidat vlastní rozložení</string>
     <string name="setup_step3_action">Konfigurace klávesnice</string>
     <string name="button_select_language">Výběr jazyka</string>
-    <string name="theme_colors_night">Barvy (noční)</string>
     <string name="theme_colors">Barvy</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Černý</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Hnědý</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Čokoládový</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamické barvy</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigový</string>
     <string name="select_color_key_hint">Text tipů klávesy</string>
     <string name="select_color_suggestion">Text návrhové lišty</string>
     <string name="select_color_key_background">Pozadí klávesy</string>
@@ -210,9 +205,6 @@
     <string name="dictionary_settings_category">Slovníky</string>
     <string name="internal_dictionary_summary">Interní hlavní slovník</string>
     <string name="user_dict_word_already_present">Toto slovo se již nachází v uživatelském slovníku %s. Zadejte prosím jiné.</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lesní</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceánový</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Růžový</string>
     <string name="hidden_features_summary">Zobrazit funkce, které mohou zůstat nepovšimnuty</string>
     <string name="hidden_features_text">chráněné úložiště zařízení</string>
     <string name="space_swipe_move_cursor_entry">Přesunout kurzor</string>
@@ -229,9 +221,7 @@
     <string name="theme_style">Styl</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Zaoblený</string>
     <string name="theme_navbar">Obarvit navigační panel</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tmavší</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Oblačný</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Písečný</string>
     <string name="select_color_background">Pozadí klávesnice</string>
     <string name="select_color_key">Text klávesy</string>
     <string name="select_color_accent">Akcent</string>
@@ -258,10 +248,6 @@
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="button_load_custom">Načíst soubor</string>
     <string name="user_dict_add_word_button">Přidat slovo</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Světlý</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bílá</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tmavý</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Modrošedý</string>
     <string name="settings_screen_about">O aplikaci</string>
     <string name="version">Verze</string>
     <string name="show_horizontal_space_swipe">Vodorovné gesto přejetí mezerníku</string>
@@ -291,7 +277,6 @@
     <string name="dialog_close">Zavřít</string>
     <string name="text_tap_languages">Klepnutím na jazyk otevřete nastavení</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fialový</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Uživatelsky definovaný</string>
     <string name="auto_user_color">Vybrat barvu automaticky</string>
     <string name="main_colors">Zobrazit pouze hlavní barvy</string>

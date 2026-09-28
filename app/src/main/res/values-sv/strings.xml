@@ -178,25 +178,11 @@
     <string name="more_autocorrect_summary">Autokorrigera även när det inte uttryckligen begärs av inmatningsfältet</string>
     <string name="disable_personalized_dicts_message">Varning: Inaktivering av denna inställning kommer att rensa inlärda data</string>
     <string name="text_tap_languages">Tryck på språket för att öppna inställningar</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blågrått</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brunt</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Ljust</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamiska färger</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Mörkt</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mörkare</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Svart</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Choklad</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Molnigt</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skog</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="theme_style">Stil</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Avrundad</string>
     <string name="theme_colors">Färger</string>
-    <string name="theme_colors_night">Färger (natt)</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Hav</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violett</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Användardefinierat</string>
     <string name="prefs_narrow_key_gaps">Smala tangentmellanrum</string>
     <string name="prefs_bottom_padding_scale">Skala för avstånd till nederkant</string>

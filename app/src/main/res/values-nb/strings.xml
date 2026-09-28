@@ -168,9 +168,6 @@
     <string name="dictionary_link_text">her</string>
     <string name="add_dictionary">Velg ordbok å legge til. Ordbøker i formatet .dict kan lastes ned %s.</string>
     <string name="dictionary_file_error">Feil: Valgt fil er ikke en gyldig ordbok-fil</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Hav</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="auto_user_color">Velg farge automatisk</string>
     <string name="main_colors">Vis kun hovedfarger</string>
     <string name="all_colors">Vis alle farger</string>
@@ -247,19 +244,8 @@
     <string name="theme_style">Stil</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Avrundet</string>
     <string name="theme_colors">Farger</string>
-    <string name="theme_colors_night">Farger (natt)</string>
     <string name="theme_navbar">Farge navigasjonslinje</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Lys</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo hvit</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Mørk</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Svart</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamiske farger</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blågrå</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brun</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Sjokolade</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skog</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fiolett</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Brukerdefinert</string>
     <string name="select_color_background">Tastaturbakgrunn</string>
     <string name="select_color_key">Tastetekst</string>
@@ -284,7 +270,6 @@
     <string name="abbreviation_unit_minutes">%s min</string>
     <string name="button_title_add_custom_layout">Legg til tilpasset oppsett</string>
     <string name="message_add_custom_layout">Velg en fil i et kompatibelt format. Informasjon om formatene er tilgjengelig %s.</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mørkere</string>
     <string name="save_log">Lagre logg</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="no_dictionary_message">Uten ordbok vil du kun få forslag til tekst som du tidligere har skrevet.&lt;br&gt;

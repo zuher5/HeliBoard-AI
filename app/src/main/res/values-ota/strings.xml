@@ -52,18 +52,7 @@
     <string name="user_dict_settings_add_locale_option_name">دیل:</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">یووارلادلمش</string>
     <string name="theme_colors">رنگلر</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">آچیق</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">قویو</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">دها قویو</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">سیاه</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">قهوەرنگی</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">چوقولاتە</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">گولگەلی</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">آچیق ماوی</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">اوقیانوس</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">پنبە</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">قوم</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">منكشە</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">قوللانیجی تنعیملی</string>
     <string name="select_color_accent">اورگو</string>
     <string name="settings_screen_about">حقڭدە</string>
@@ -81,7 +70,6 @@
     <string name="label_wait_key" tools:keep="@string/label_wait_key">بكلە</string>
     <string name="action_none">یوق</string>
     <string name="theme_style">ستیل</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">اورمان</string>
     <string name="subtype_locale">دیل</string>
     <string name="day_or_night_night">گجە</string>
     <string name="user_dict_settings_add_shortcut_option_name">قیصەیول:</string>

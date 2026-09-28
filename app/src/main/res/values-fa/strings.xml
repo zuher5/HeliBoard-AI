@@ -357,24 +357,9 @@
     <string name="icon_style">سبک آیکون‌ها</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">گرد</string>
     <string name="theme_colors">رنگ‌ها</string>
-    <string name="theme_colors_night">رنگ‌ها (شب)</string>
     <string name="theme_navbar">رنگی کردن نوار ناوبری (Navigation bar)</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">روشن</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">سفید هولو</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">تیره</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">تیره‌تر</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">سیاه</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">رنگ‌های پویا</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">آبی-خاکستری</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">قهوه‌ای</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شکلاتی</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">ابری</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">جنگلی</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">نیلی</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">اقیانوسی</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">صورتی</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">شنی</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">بنفش</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">سفارشی</string>
     <string name="auto_user_color">انتخاب خودکار رنگ</string>
     <string name="main_colors">فقط نمایش رنگ‌های اصلی</string>

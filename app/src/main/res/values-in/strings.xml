@@ -230,20 +230,9 @@
     <string name="user_dict_add_word_button">Tambahkan kata</string>
     <string name="theme_style">Gaya</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Bulat</string>
-    <string name="theme_colors_night">Warna (mode malam)</string>
     <string name="theme_navbar">Bilah navigasi warna</string>
-    <string name="theme_name_gboard" tools:keep="@string/theme_name_gboard">Gboard</string>
     <string name="theme_name_gboard_dark" tools:keep="@string/theme_name_gboard_dark">Gboard Gelap</string>
-    <string name="theme_name_gboard_dynamic" tools:keep="@string/theme_name_gboard_dynamic">Gboard Dinamis</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Gelap gulita</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Warna dinamis</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Biru Abu-abu</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Coklat</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cokelat</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Laut</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Merah muda</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Pasir</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Tema yang ditentukan pengguna</string>
     <string name="replace_dictionary_message">Yakin ingin mengganti kamus bawaan pengguna \"%1$s\"?
 \n
@@ -253,16 +242,12 @@
 \nKamus baru:
 \n%3$s</string>
     <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;\n        Anda bisa mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Hitam</string>
     <string name="setup_step3_action">Mengonfigurasi papan ketik</string>
     <string name="no_dictionary_dont_show_again_button">Jangan tampilkan lagi</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Cerah</string>
     <string name="user_dict_settings_add_weight_value">Berat:</string>
     <string name="user_dict_word_already_present">Kata ini sudah ada dalam kamus pengguna %s. Silakan ketik kata yang lain.</string>
     <string name="theme_colors">Warna</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Gelap</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Berawan</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Hutan</string>
     <string name="action_none">Tidak ada</string>
     <string name="space_swipe_move_cursor_entry">Gerakkan Kursor</string>
     <string name="auto_user_color">Pilih warna secara otomatis</string>
@@ -291,8 +276,6 @@
     <string name="hidden_features_summary">Tampilkan fitur yang mungkin luput dari perhatian</string>
     <string name="show_horizontal_space_swipe">Gerakan geser bilah spasi horizontal</string>
     <string name="show_vertical_space_swipe">Gerakan geser bilah spasi vertikal</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Putih</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Ungu lembayung</string>
     <string name="gnu_gpl">Lisensi Publik Umum GPU v3.0</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="close_history" tools:keep="@string/close_history">Tutup riwayat papan klip</string>

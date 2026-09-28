@@ -146,12 +146,8 @@
     <string name="dictionary_file_error">错误：所选文件不是有效的字典文件</string>
     <string name="theme_style">样式</string>
     <string name="theme_navbar">彩色导航栏</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">浅色</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙滩</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">紫罗兰</string>
     <string name="settings_screen_toolbar">工具栏</string>
     <string name="customize_currencies">自定义货币</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">黑色</string>
     <string name="customize_currencies_detail">设置主要货币符号和最多 6 个次要货币符号，用空格隔开</string>
     <string name="select_color_spacebar_text">空格键文本</string>
     <string name="select_color_spacebar_background">空格键背景</string>
@@ -161,7 +157,6 @@
     <string name="day_or_night_night">夜间</string>
     <string name="internal_dictionary_summary">内部主字典</string>
     <string name="user_dict_settings_add_weight_value">权重：</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">粉红色</string>
     <string name="select_color_key_hint">按键提示文本</string>
     <string name="select_color_accent">强调</string>
     <string name="language_switch_key_behavior">语言切换键行为</string>
@@ -207,7 +202,6 @@
     <string name="dictionary_load_error">加载字典文件时出错</string>
     <string name="dictionary_file_wrong_script">错误：脚本与此键盘不兼容</string>
     <string name="theme_colors">配色</string>
-    <string name="theme_colors_night">配色（夜间）</string>
     <string name="close_history" tools:keep="@string/close_history">关闭剪贴板历史</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_extended">%s（扩展）</string>
@@ -216,9 +210,6 @@
     <string name="replace_dictionary">替换字典</string>
     <string name="remove_dictionary_message">确定要移除用户添加的字典“%s”？</string>
     <string name="add_dictionary">选择要添加的字典。可以下载 .dict 格式的字典 %s。</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">全息白</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">深色</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">更暗</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">动态配色</string>
     <string name="save_log">保存日志</string>
     <string name="license">开放源代码许可</string>
@@ -271,15 +262,9 @@
     <string name="setup_step3_action">配置键盘</string>
     <string name="user_dict_word_already_present">此字词已存在于 %s 用户字典中。请再输入一个。</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">圆形</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">海洋</string>
     <string name="auto_user_color">自动选择颜色</string>
     <string name="main_colors">仅显示主要颜色</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">蓝灰色</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">棕色</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">巧克力色</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">多云</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">森林</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">靛蓝</string>
     <string name="select_color_functional_key_background">功能键背景</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="subtype_xdq">凯塔格语</string>

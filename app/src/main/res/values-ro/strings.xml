@@ -202,14 +202,8 @@
     <string name="no_dictionary_dont_show_again_button">Nu mai afișa din nou</string>
     <string name="dictionary_link_text">aici</string>
     <string name="dictionary_file_error">Eroare: fișierul selectat nu este un fișier de dicționar valid</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Neagră</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Culori dinamice</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Gri albastru</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Maro</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Ciocolată</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Noros</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Pădure</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="select_color_background">Fundalul tastaturii</string>
     <string name="hidden_features_title">Descrierea caracteristicilor ascunse</string>
     <string name="hidden_features_summary">Afișează caracteristici care pot trece neobservate</string>
@@ -222,19 +216,13 @@
     <string name="user_dict_word_already_present">Acest cuvânt este deja prezent în dicționarul utilizatorului %s. Introdu altul.</string>
     <string name="theme_colors">Culori</string>
     <string name="theme_navbar">Bară de navigare colorată</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Luminoasă</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo alb</string>
-    <string name="theme_colors_night">Culori (noapte)</string>
     <string name="key_borders">Chenar taste</string>
     <string name="day_night_mode">Mod automat zi/noapte</string>
     <string name="day_night_mode_summary">Aspectul va urma setările sistemului</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roz</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Nisip</string>
     <string name="all_colors">Afișează toate culorile</string>
     <string name="auto_user_color">Alege culoarea automat</string>
     <string name="gnu_gpl">Licență GNU General Public v3.0</string>
     <string name="layout_error">Eroare de aspect: %s</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="add_new_dictionary_title">Adaugă dicționar din fișier</string>
     <string name="delete_layout">Ștergi cu adevărat aspectul personalizat %s?</string>
     <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textele introduse anterior.&lt;br&gt;\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru \"%2$s\" poate fi descărcat direct %3$s."</string>
@@ -242,11 +230,9 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definită de utilizator</string>
     <string name="dictionary_settings_category">Dicționare</string>
     <string name="internal_dictionary_summary">Dicționar principal intern</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ocean</string>
     <string name="select_color_suggestion">Text bandă de sugestii</string>
     <string name="hidden_features_text">stocarea protejată a dispozitivului</string>
     <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”? \n \nDicționarul curent: \n%2$s \n \nDicționarul nou: \n%3$s</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mai întunecată</string>
     <string name="main_colors">Afișează numai culorile principale</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rotunjit</string>
     <string name="theme_style">Stil</string>
@@ -267,7 +253,6 @@
     <string name="full_right" tools:keep="@string/full_right">Dreapta integral</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="add_dictionary">Selectează un dicționar de adăugat. Dicționarele în format .dict pot fi descărcate %s.</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Întunecată</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>

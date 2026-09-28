@@ -247,24 +247,9 @@
     <string name="theme_style">Estilo</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arredondado</string>
     <string name="theme_colors">Cores</string>
-    <string name="theme_colors_night">Cores (noite)</string>
     <string name="theme_navbar">Cor da barra de navegação</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Claro</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo White</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Escuro</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mais escuro</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Preto</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Cores dinâmicas</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Cinza azul</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrom</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nublado</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Configurado pelo usuário</string>
     <string name="auto_user_color">Escolher cor automaticamente</string>
     <string name="main_colors">Mostrar somente cores principais</string>

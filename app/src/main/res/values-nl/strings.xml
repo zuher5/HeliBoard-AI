@@ -139,9 +139,6 @@
     <string name="label_pause_key">"Pauze"</string>
     <string name="label_wait_key">"Wacht"</string>
     <string name="one_handed" tools:keep="@string/one_handed">Bediening met één hand</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roze</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Zand</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="prefs_narrow_key_gaps">Smalle toetsruimte</string>
     <string name="setup_step3_action">Het toetsenbord configureren</string>
     <string name="split_spacer_scale">Scheidingsruimte</string>
@@ -197,7 +194,6 @@
     <string name="button_load_custom">Bestand laden</string>
     <string name="file_read_error">Kan bestand niet lezen</string>
     <string name="remove_dictionary_message">Gebruikerswoordenboek \"%s\" verwijderen?</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Zwart</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbolen</string>
     <string name="available_dictionary_experimental">%s (experimenteel)</string>
     <string name="dictionary_file_wrong_script">Fout: script niet compatibel met dit toetsenbord</string>
@@ -257,15 +253,7 @@
     <string name="theme_style">Stijl</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Afgerond</string>
     <string name="theme_colors">Kleuren</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Licht</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Wit</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Donker</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Donkerder</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamische kleuren</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blauwgrijs</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Bruin</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolade</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bos</string>
     <string name="theme_navbar">Navigatiebalk kleuren</string>
     <string name="auto_user_color">Kleuren automatisch kiezen</string>
     <string name="main_colors">Alleen hoofdkleuren weergeven</string>
@@ -302,9 +290,6 @@
     <string name="show_popup_hints">Functionele hints weergeven</string>
     <string name="restore_error">Fout bij terugzetten van de back-up: %s</string>
     <string name="add_dictionary">Selecteer een woordenboek om toe te voegen. Woordenboeken in .dict-indeling kunnen %s worden gedownload.</string>
-    <string name="theme_colors_night">Kleuren (nacht)</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceaan</string>
     <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt; \n\t• klembord &amp;#65515; plakken&lt;br&gt; \n\t• links/rechts verplaatsen &amp;#65515; woord links/rechts verplaatsen &lt;br&gt; \n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt; \n\t• woord links/rechts &amp;#65515; regel begin/einde &lt;br&gt; \n\t• pagina omhoog/omlaag &amp;#65515; pagina begin/einde &lt;br&gt; \n\t• kopiëren &amp;#65515; knippen &lt;br&gt; \n\t• woord selecteren &amp;#8596; alles selecteren&lt;br&gt; \n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt; \n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt; \n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt; \n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt; \n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt; \n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt; \n► Druk op het Incognito-pictogram om toegang te krijgen tot de werkbalk. &lt;br&gt; &lt;br&gt; \n► Vegende toetsinvoer: Veeg van shift naar een andere toets om een enkele hoofdletter te typen: &lt;br&gt; \n\t• Dit werkt ook voor de \\\'?123\\\'-toets om een enkel symbool te typen vanaf het toetsenbord van de symbolen en voor gerelateerde toetsen. &lt;br&gt; &lt;br&gt; \n► Houd de shift- of symbolentoets ingedrukt, druk op een of meer toetsen en laat vervolgens de shift- of symbolentoets los om terug te keren naar het vorige toetsenbord. &lt;br&gt; &lt;br&gt; \n► Druk lang op een suggestie in de suggestiestrip om meer suggesties te tonen en een verwijderknop om deze suggestie te verwijderen. &lt;br&gt; &lt;br&gt; \n► Veeg omhoog van een suggestie om meer suggesties te openen en geef de suggestie om het te selecteren vrij. &lt;br&gt; &lt;br&gt; \n► Druk lang op een item in de klembordgeschiedenis om het vast te pinnen (in het klembord bewaren totdat je het losmaakt). &lt;br&gt; &lt;br&gt; \n► Veeg links in de klembordweergave om een item te verwijderen (behalve wanneer het vastgemaakt is) &lt;br&gt; &lt;br&gt; \n► Selecteer tekst en druk op shift om te schakelen tussen hoofdletters, kleine letters en hoofdletters. &lt;br&gt; &lt;br&gt; \n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt; \n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt; \n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt; \n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, bv. bij het opstarten; &lt;br&gt; \n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt; \n► Bij gebruik van een Debug APK, kunt u foutopsporingsinstellingen vinden in de geavanceerde voorkeuren, hoewel het nut beperkt is, behalve voor het dumpen van woordenboeken in het logboek. &lt;br&gt; \n\t• Voor een release-APK moet je meermaals op de versie tikken in &lt;i&gt;Over&lt;/i&gt;, dan kunt u debug-instellingen vinden in&lt;i&gt;Geavanceerde voorkeuren&lt;/i&gt;. &lt;br&gt; \n\t• Bij het inschakelen van &lt;i&gt;Suggestie-informatie tonen&lt;/i&gt;, zullen suggesties enkele kleine cijfers bevatten met een interne score en een bronwoordenboek. &lt;br&gt; &lt;br&gt; \n► In het geval van een applicatiecrash, wordt u gevraagd of u de crashlogboeken wilt wanneer u de instellingen opent. &lt;br&gt; &lt;br&gt; \n► Bij het gebruik van meertalig typen zal de spatiebalk een betrouwbaarheidswaarde tonen die wordt gebruikt voor het bepalen van de momenteel gebruikte taal. &lt;br&gt; &lt;br&gt; \n► Suggesties hebben een aantal kleine cijfers bovenaan met een interne score en een bronwoordenboek (kan worden uitgeschakeld).</string>
     <string name="prefs_always_show_suggestions_summary">Verzoeken van andere apps om suggesties uit te schakelen negeren (kan problemen veroorzaken)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functietoetsen</string>

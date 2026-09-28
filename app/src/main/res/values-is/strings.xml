@@ -207,18 +207,12 @@
     <string name="abbreviation_unit_minutes">%s mín</string>
     <string name="language_switch_key_behavior">Hegðun lykils til að breyta tungumáli</string>
     <string name="settings_no_limit">Engin takmörk</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dekkra</string>
     <string name="add_to_personal_dictionary">Bæta orðum við einkaorðasafn</string>
     <string name="enable_clipboard_history">Virkja klippispjaldsferil</string>
     <string name="backup_restore_title">Öryggisafrit og endurheimta</string>
     <string name="backup_error">Villa í öryggisafriti: %s</string>
     <string name="restore_error">Villa við endurheimtingu frá öryggisafriti: %s</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dökkt</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Djúpfjólublátt</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Úthaf</string>
-    <string name="theme_colors_night">Litir (nótt)</string>
     <string name="select_color_key">Texti á lykli</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sandur</string>
     <string name="show_horizontal_space_swipe">Bendistroka fyrir lárétta bilslá</string>
     <string name="select_color_background">Bakgrunnur lyklaborðs</string>
     <string name="settings_screen_about">Um hugbúnaðinn</string>
@@ -229,15 +223,11 @@
     <string name="delete_layout">Virkilega eyða sérsniðnu framsetningunni %s?</string>
     <string name="button_title_add_custom_layout">Bæta við sérsniðinni framsetningu</string>
     <string name="more_autocorrect">Fleiri sjálfvirkar leiðréttingar</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brúnt</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Bleikt</string>
     <string name="show_vertical_space_swipe">Bendistroka fyrir lóðrétta bilslá</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Ljósfjólublátt</string>
     <string name="var_toolbar_direction">Breytileg stefna verkfærastiku</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Skýjað</string>
     <string name="auto_correction_confidence">Nákvæmni sjálfvirkar leiðréttingar</string>
     <string name="gesture_floating_preview_dynamic_summary">Færa forskoðun á meðan bendingu stendur</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Svart</string>
     <string name="auto_correct_shortcuts">Styttingar fyrir sjálfvirka leiðréttingu</string>
     <string name="gesture_floating_preview_static_summary">Sjá tillögu að orði á meðan bendingu stendur</string>
     <string name="gesture_trail_fadeout_duration">Líftími bendingaslóðar</string>
@@ -249,7 +239,6 @@
     <string name="prefs_narrow_key_gaps">Mjó bil milli lykla</string>
     <string name="suggest_clipboard_content">Stinga upp á efni af klippispjaldi</string>
     <string name="layout_error">Villa í framsetningu: %s</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Ljóst</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Breytilegir litir</string>
     <string name="select_color_key_background">Bakgrunnur lykils</string>
     <string name="select_color_spacebar_background">Bakgrunnur bilslár</string>
@@ -280,13 +269,10 @@
     <string name="select_color_gesture">Innsláttur með bendingum</string>
     <string name="version">Útgáfa</string>
     <string name="dialog_close">Loka</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blágrátt</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Skilgreint af notanda</string>
     <string name="main_colors">Sýna einungis aðalliti</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Súkkulaði</string>
     <string name="select_color_key_hint">Ábendingartexti lykils</string>
     <string name="select_color_spacebar_text">Texti bilslár</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skógur</string>
     <string name="label_bin" tools:keep="@string/label_bin">Rusl</string>
     <string name="space_swipe_toggle_numpad_entry">Víxla talnaborði af/á</string>
     <string name="customize_icons_reset_message">Viltu í alvörunni endurstilla allar sérsniðnar táknmyndir?</string>
@@ -324,7 +310,6 @@
     <string name="after_emoji">Velja tjáningartákn í tjáningartáknasýn</string>
     <string name="remove_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%s\"?</string>
     <string name="add_dictionary">Veldu orðasafn til að bæta við. Orðasöfn á .dict sniði er hægt að sækja %s.</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Geislandi hvítt</string>
     <string name="day_night_mode_summary">Útlit mun fylgja kerfisstillingum</string>
     <string name="remove_redundant_popups">Fjarlægja ónotaða smáglugga</string>
     <string name="replace_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%1$s\"?\n\nFyrirliggjandi orðasafn:\n%2$s\n\nNýtt orðasafn:\n%3$s</string>

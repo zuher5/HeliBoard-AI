@@ -106,7 +106,6 @@
     <string name="toast_msg_clipboard_copy">Nội dung đã sao chép</string>
     <string name="version">Phiên bản</string>
     <string name="about_github_link">Xem trên GitHub</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Cát</string>
     <string name="day_night_mode">Tự động chọn ngày/đêm</string>
     <string name="spell_checker_service_name">Kiểm tra lỗi chính tả</string>
     <string name="prefs_always_show_suggestions">Luôn hiển thị gợi ý</string>
@@ -142,11 +141,6 @@
     <string name="day_or_night_night">Đêm</string>
     <string name="button_select_language">Chọn ngôn ngữ</string>
     <string name="user_dict_settings_add_weight_value">Độ nặng:</string>
-    <string name="theme_colors_night">Màu (chế độ đêm)</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Màu sáng</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Xanh xám</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Nâu</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Sô cô la</string>
     <string name="auto_user_color">Tự động chọn màu</string>
     <string name="get_layouts_message">Bạn có thể tìm và chia sẻ bố cục tại %s.</string>
     <string name="settings_screen_about">Giới thiệu</string>
@@ -168,12 +162,10 @@
     <string name="day_or_night_day">Ngày</string>
     <string name="button_backup">Lưu trữ</string>
     <string name="theme_colors">Màu sắc</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Hồng</string>
     <string name="main_colors">Chỉ hiển thị màu chính</string>
     <string name="get_colors_message">Bạn có thể tìm và chia sẻ màu sắc tại %s.</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Thay đổi kích thước chế độ 1 tay</string>
     <string name="add_new_dictionary_title">Thêm từ điển từ file</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Màu tối hơn</string>
     <string name="number_row_summary">Luôn hiển thị số hàng</string>
     <string name="center_suggestion_text_to_enter">Luôn hiển thị chữ được gợi ý ở giữa</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Ký hiệu (tiếng Ả Rập)</string>
@@ -185,7 +177,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Số hàng</string>
     <string name="custom_font">Cài đặt phông chữ tuỳ chỉnh từ tập tin</string>
     <string name="add_dictionary">Chọn từ điển để thêm. File từ điển có dạng .dict có thể tải %s.</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Màu tối</string>
     <string name="prefs_font_scale">Tỉ lệ phông chữ của bàn phím</string>
     <string name="language_and_layouts_title">Ngôn ngữ và bố cục</string>
     <string name="number_row">Số hàng</string>
@@ -217,11 +208,7 @@
     <string name="dictionary_file_error">Lỗi: File đã chọn không phải là file từ điển</string>
     <string name="user_dict_word_already_present">Từ này đã có ở từ điển người dùng %s. Xin hãy nhập từ khác.</string>
     <string name="user_dict_add_word_button">Thêm một từ</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Đen</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Mây</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Rừng</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Màu chàm</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Xanh đại dương</string>
     <string name="select_color_background">Hình nền bàn phím</string>
     <string name="no_dictionary_message">"Nếu không có từ điển, bạn sẽ chỉ thấy gợi ý cho chữ mà bạn đã nhập trước đó.&lt;br&gt;\n        Bạn có thể tải từ điển %1$s, hoặc kiểm tra từ điển \"%2$s\" được tải trực tiếp %3$s."</string>
     <string name="add_to_personal_dictionary_summary">Sử dụng từ điển cá nhân trên thiết bị để lưu trữ từ</string>

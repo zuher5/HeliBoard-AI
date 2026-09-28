@@ -350,24 +350,9 @@
     <string name="icon_style">Stil ikona</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Okruglo</string>
     <string name="theme_colors">Boje</string>
-    <string name="theme_colors_night">Boje (noćno)</string>
     <string name="theme_navbar">Oboji navigacijsku traku</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Svijetlo</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bijelo</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tamno</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tamnije</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Crno</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dinamičke boje</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Plavo-sivo</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Smeđe</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Čokoladno</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Oblačno</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Šuma</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceanski</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rozo</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Pjesak</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Ljubičasto</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Korisnički definirano</string>
     <string name="auto_user_color">Odaberi boju automatski</string>
     <string name="main_colors">Prikaži samo glavne boje</string>

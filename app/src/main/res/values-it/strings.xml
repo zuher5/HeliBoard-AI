@@ -210,7 +210,6 @@
     <string name="setup_step3_action">Configura la tastiera</string>
     <string name="day_or_night_night">Scuro</string>
     <string name="prefs_bottom_padding_scale">Spaziatura dal bordo inferiore</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Scuro</string>
     <string name="main_colors">Mostra solo i colori principali</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colori dinamici</string>
     <string name="settings_screen_appearance">Aspetto</string>
@@ -219,47 +218,35 @@
     <string name="select_color_functional_key_background">Sfondo dei tasti funzione</string>
     <string name="user_dict_word_already_present">La parola si trova già nel dizionario utente %s.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrotondato</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Nero</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cioccolato</string>
     <string name="remove_dictionary_message">Vuoi davvero rimuovere il dizionario \"%s\"?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nuvola</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dictionary_file_wrong_script">Errore: script non compatibile con questa tastiera</string>
     <string name="hidden_features_title">Descrizione delle funzionalità nascoste</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="dictionary_link_text">qui</string>
     <string name="dictionary_file_error">Errore: Il file non è un dizionario valido</string>
     <string name="hidden_features_text">spazio di archiviazione protetto</string>
     <string name="theme_navbar">Colora la barra di navigazione</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
     <string name="add_dictionary">Scegli un dizionario da aggiungere. I dizionari in formato .dict possono essere scaricati %s.</string>
     <string name="dictionary_load_error">Errore nel caricamento del dizionario</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Livido</string>
     <string name="select_color_spacebar_text">Testo della barra spaziatrice</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Chiaro</string>
     <string name="user_dict_add_word_button">Aggiungi una parola</string>
     <string name="select_color_suggestion">Testo dei suggerimenti</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Personalizzato (tema chiaro)</string>
     <string name="replace_dictionary">Sostituisci dizionario</string>
     <string name="select_color_background">Sfondo della tastiera</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indaco</string>
     <string name="about_github_link">Visualizza su GitHub</string>
     <string name="version">Versione</string>
     <string name="button_select_language">Scegli la lingua</string>
     <string name="select_color_key">Caratteri dei tasti</string>
     <string name="select_color_spacebar_background">Sfondo della barra spaziatrice</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Molto scuro</string>
     <string name="auto_user_color">Scegli automaticamente</string>
     <string name="settings_screen_about">Informazioni</string>
     <string name="license">Licenza open-source</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sabbia</string>
     <string name="theme_style">Stile dei tasti</string>
     <string name="hidden_features_summary">Mostra le funzionalità che potrebbero passare inosservate</string>
-    <string name="theme_colors_night">Tema scuro</string>
     <string name="all_colors">Mostra tutti i colori</string>
     <string name="select_color_key_hint">Testo degli indicatori di popup</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrone</string>
     <string name="replace_dictionary_message">Vuoi davvero sostituire il dizionario aggiunto dall\'utente \"%1$s\"?
 \n
 \nDizionario attuale:
@@ -267,7 +254,6 @@
 \n
 \nNuovo dizionario:
 \n%3$s</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetto</string>
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti in base al testo immesso in precedenza.&lt;br&gt;\n\n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">Non mostrare più</string>
@@ -275,7 +261,6 @@
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
     <string name="text_tap_languages">Tocca la lingua per impostazioni</string>
     <string name="save_log">Salva log</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bianco</string>
     <string name="internal_dictionary_summary">Dizionario interno principale</string>
     <string name="add_new_dictionary_title">Aggiungi un dizionario da file</string>
     <string name="available_dictionary_experimental">%s (sperimentale)</string>

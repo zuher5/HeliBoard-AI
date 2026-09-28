@@ -344,27 +344,12 @@
     <string name="icon_style">படவுரு பாணி</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">வட்டமானது</string>
     <string name="theme_colors">நிறங்கள்</string>
-    <string name="theme_colors_night">நிறங்கள் (இரவு)</string>
     <string name="key_borders">முக்கிய எல்லைகள்</string>
     <string name="day_night_mode">தானியங்கு பகல்/இரவு பயன்முறை</string>
     <string name="day_night_mode_summary">தோற்றம் கணினி அமைப்புகளைப் பின்பற்றும்</string>
     <string name="theme_navbar">வண்ண வழிசெலுத்தல் பட்டி</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">ஒளி</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">ஓலோ ஒயிட்</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">இருள்</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">இருண்டது</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">கருப்பு</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">மாறும் நிறங்கள்</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">நீல சாம்பல்</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">பழுப்பு</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">சாக்லேட்</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">மேகமூட்டம்</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">காடு</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">இண்டிகோ</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">பெருங்கடல்</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">இளஞ்சிவப்பு</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">மணல்</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">வயலட்</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">பயனர் வரையறுக்கப்பட்ட</string>
     <string name="auto_user_color">தானாக நிறத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="main_colors">முக்கிய வண்ணங்களை மட்டும் காட்டு</string>

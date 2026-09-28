@@ -344,27 +344,12 @@
     <string name="icon_style">Piktogramų stilius</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Apvalinta</string>
     <string name="theme_colors">Spalvos</string>
-    <string name="theme_colors_night">Spalvos (nakties)</string>
     <string name="key_borders">Klavišų ribos</string>
     <string name="day_night_mode">Auto dienos/nakties režimas</string>
     <string name="day_night_mode_summary">Bus pritaikoma sistemos nustatymai</string>
     <string name="theme_navbar">Spalvų keitimo juosta</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Šviesi</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo balta</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tamsi</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tamsesnė</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Juoda</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dinaminės spalvos</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Mėlynai pilka</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Ruda</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolado</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Debesuota</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Miškas</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">indigo</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Vandenyno</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rožinė</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Smėlio</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetinė</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Naudotojo pasirinkta</string>
     <string name="auto_user_color">Pasirinkti spalvą automatiškai</string>
     <string name="main_colors">Rodyti tik pagrindines spalvas</string>

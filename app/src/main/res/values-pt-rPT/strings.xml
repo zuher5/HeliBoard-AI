@@ -211,16 +211,10 @@
     <string name="subtype_mns">Mansi</string>
     <string name="customize_currencies">Personalizar moedas</string>
     <string name="dictionary_file_wrong_script">Erro: escrita não compatível com este teclado</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Branco Holo</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mais escuro</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Preto</string>
     <string name="select_color_key_hint">Texto da dica da tecla</string>
     <string name="select_color_suggestion">Texto da faixa de sugestão</string>
     <string name="select_color_key_background">Fundo da tecla</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Escuro</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Cores dinâmicas</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
     <string name="main_colors">Mostrar apenas cores principais</string>
     <string name="custom_subtype">Subtipo personalizado</string>
     <string name="day_or_night_night">Noturno</string>
@@ -235,7 +229,6 @@
     <string name="select_color_background">Fundo do teclado</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de emojis</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior da área de transferência</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="prefs_always_show_suggestions_except_web_text">Não mostrar sempre sugestões para campos de edição web</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Os campos de edição na Web (encontrados principalmente nos navegadores) são uma causa muito comum de problemas com a configuração de mostrar sempre sugestões</string>
     <string name="url_detection_title">Deteção de URL</string>
@@ -247,7 +240,6 @@
     <string name="customize_background_image">Definir imagem de fundo</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Não-conector de zero largura</string>
     <string name="close_history" tools:keep="@string/close_history">Fechar histórico da área de transferência</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Claro</string>
     <string name="select_color_accent">Destaque</string>
     <string name="button_title_add_custom_layout">Adicionar esquema personalizado</string>
     <string name="button_select_language">Selecionar idioma</string>
@@ -280,8 +272,6 @@
     <string name="page_end" tools:keep="@string/page_end">Fim da página</string>
     <string name="page_up" tools:keep="@string/page_up">Página para cima</string>
     <string name="add_new_dictionary_title">Adicionar dicionário de um ficheiro</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nublado</string>
     <string name="prefs_long_press_symbol_for_numpad">Prima continuamente a tecla de símbolos para o teclado numérico</string>
     <string name="load">Carregar</string>
@@ -314,7 +304,6 @@
     <string name="settings_screen_toolbar">Barra de Ferramentas</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (ativado)</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
     <string name="user_dict_word_already_present">Esta palavra já está presente no dicionário do utilizador %s. Digite outra.</string>
     <string name="select_color_spacebar_text">Texto da barra de espaço</string>
     <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas se a entrada começar ou o texto for selecionado</string>
@@ -328,8 +317,6 @@
     <string name="one_handed" tools:keep="@string/one_handed">Modo de uma mão</string>
     <string name="full_left" tools:keep="@string/full_left">Tudo à esquerda</string>
     <string name="full_right" tools:keep="@string/full_right">Tudo à direita</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Cinza azul</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Castanho</string>
     <string name="show_horizontal_space_swipe">Deslizar horizontal na barra de espaço</string>
     <string name="no_dictionary_dont_show_again_button">Não mostrar novamente</string>
     <string name="dictionary_load_error">Erro ao carregar ficheiro de dicionário</string>
@@ -342,7 +329,6 @@
     <string name="user_dict_add_word_button">Adicionar palavra</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arredondado</string>
     <string name="theme_colors">Cores</string>
-    <string name="theme_colors_night">Cores (noite)</string>
     <string name="license">Licença de código aberto</string>
     <string name="switch_keyboard_after">Voltar ao teclado principal após…</string>
     <string name="after_emoji">Selecionar emoji no ecrã de emojis</string>
@@ -370,7 +356,6 @@
     <string name="after_symbol_and_space">Premir Enter ou Espaço após outras teclas no ecrã de símbolos</string>
     <string name="day_or_night_image">Definir imagem para o modo diurno ou noturno?</string>
     <string name="day_or_night_day">Diurno</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="action_none">Nenhuma</string>
     <string name="space_swipe_move_cursor_entry">Mover cursor</string>
     <string name="space_swipe_toggle_numpad_entry">Mudar para teclado numérico</string>

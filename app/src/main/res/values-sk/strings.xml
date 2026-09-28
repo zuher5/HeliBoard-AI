@@ -364,27 +364,12 @@
     <string name="icon_style">Štýl ikony</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Zaoblené</string>
     <string name="theme_colors">Farby</string>
-    <string name="theme_colors_night">Farby (v noci)</string>
     <string name="key_borders">Okraje kláves</string>
     <string name="day_night_mode">Automatický režim deň/noc</string>
     <string name="day_night_mode_summary">Vzhľad sa prispôsobí systémovým nastaveniam</string>
     <string name="theme_navbar">Farebný navigačný panel</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Svetlý</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo biela</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tmavý</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tmavšia</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Čierna</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamické farby</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Modrosivá</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Hnedá</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Čokoládová</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Oblačná</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lesná</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceánová</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Ružová</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Piesková</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fialová</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definované používateľom</string>
     <string name="auto_user_color">Automaticky vybrať farbu</string>
     <string name="main_colors">Zobraziť len hlavné farby</string>

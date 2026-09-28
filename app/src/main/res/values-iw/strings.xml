@@ -147,8 +147,6 @@
     <string name="gesture_fast_typing_cooldown_instant">תמיד התחלה מיידית</string>
     <string name="replace_dictionary">החלפת המילון</string>
     <string name="dictionary_file_error">שגיאה: הקובץ שנבחר אינו קובץ מילון תקף</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">סגול</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">שחור</string>
     <string name="action_none">ללא</string>
     <string name="var_toolbar_direction">כיוון משתנה של סרגל הכלים</string>
     <string name="auto_show_toolbar">הצגה אוטומטית של סרגל הכלים</string>
@@ -200,9 +198,6 @@
     <string name="day_or_night_day">יום</string>
     <string name="layout_number" tools:keep="@string/layout_number">מספרים</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">מקלדת מספרים</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">לבן שלם Holo</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">כהה</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">כהה יותר</string>
     <string name="split_spacer_scale">מרחק הפיצול</string>
     <string name="language_switch_key_switch_both">מעבר שניהם</string>
     <string name="button_backup">גיבוי</string>
@@ -221,7 +216,6 @@
     <string name="close_history" tools:keep="@string/close_history">סגירת היסטוריית הלוח</string>
     <string name="clipboard_toolbar_keys">בחירת כפתורי סרגל הכלים של הלוח</string>
     <string name="edit_layout">לחיצה לעריכת פריסת בסיס</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">שוקולד</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">סימנים</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">סימנים (ערבית)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">סימנים נוספים</string>
@@ -300,19 +294,10 @@
     <string name="auto_hide_toolbar_summary">הסתרת סרגל הכלים כאשר יש הצעות זמינות</string>
     <string name="layout_error">שגיאת פריסה: %s</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">כחול אפור</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">חום</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">סגרירי</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">אוקיאנוס</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">ורוד</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">חול</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">בהגדרת המשתמש</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">יער</string>
-    <string name="theme_colors_night">צבעים (לילה)</string>
     <string name="theme_navbar">צבע סרגל הניווט</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">בהיר</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">צבעים חיים</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">אינדיגו</string>
     <string name="hidden_features_text">אחסון מוגן של המכשיר</string>
     <string name="hidden_features_summary">הצגת תכונות שעשויות לחמוק מתשומת הלב</string>
     <string name="more_colors">הצגת יותר צבעים</string>

@@ -106,7 +106,6 @@
     <string name="label_wait_key">"Odota"</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Numerorivi</string>
     <string name="add_new_dictionary_title">Lisää sanakirja tiedostosta</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tumma</string>
     <string name="theme_colors">Värit</string>
     <string name="restore_error">Virhe varmuuskopiota palauttaessa: %s</string>
     <string name="load_gesture_library_button_load">Lataa kirjasto</string>
@@ -159,7 +158,6 @@
     <string name="prefs_narrow_key_gaps">Kapeat näppäinvälit</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Leikepöydän alarivi</string>
     <string name="user_dict_add_word_button">Lisää sana</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Vaalea</string>
     <string name="auto_show_toolbar_summary">Näytä työkalupalkki jos syöte aloitetaan tai tekstiä valitaan</string>
     <string name="space_swipe_toggle_numpad_entry">Numeronäppäimistö päällä/pois</string>
     <string name="android_spell_checker_settings">HeliBoard-oikoluvun asetukset</string>
@@ -175,9 +173,7 @@
     <string name="layout_error">Asetteluvirhe: %s</string>
     <string name="layout_number" tools:keep="@string/layout_number">Numerot</string>
     <string name="main_colors">Näytä vain päävärit</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tummempi</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pilvinen</string>
-    <string name="theme_colors_night">Värit (yö)</string>
     <string name="day_night_mode_summary">Ulkoasu seuraa järjestelmän asetuksia</string>
     <string name="select_color_background">Näppäimistön tausta</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
@@ -207,11 +203,6 @@
     <string name="available_dictionary_experimental">%s (kokeellinen)</string>
     <string name="dictionary_file_error">Virhe: valittu tiedosto ei ole kelvollinen sanakirjatiedosto</string>
     <string name="dictionary_link_text">tästä</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Siniharmaa</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Musta</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Suklaa</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Metsä</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Meri</string>
     <string name="all_colors">Näytä kaikki värit</string>
     <string name="select_color_accent">Korostus</string>
     <string name="more_colors">Näytä enemmän värejä</string>
@@ -225,9 +216,6 @@
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Vaihda yksikätisen tilan reunaa</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Äänisyöte poistettu käytöstä</string>
     <string name="customize_icons">Mukauta kuvakkeita</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pinkki</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Hiekka</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetti</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Käyttäjän määrittämä</string>
     <string name="auto_user_color">Valitse väri automaattisesti</string>
     <string name="icon_style">Kuvaketyyli</string>
@@ -241,7 +229,6 @@
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynaamiset värit</string>
     <string name="settings_no_limit">Ei rajoitusta</string>
     <string name="pinned_toolbar_keys">Valitse kiinnitetyt työkalupalkin näppäimet</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Ruskea</string>
     <string name="switch_language">Vaihda kieltä</string>
     <string name="prefs_force_incognito_mode_summary">Poista käytöstä sanojen oppiminen</string>
     <string name="right" tools:keep="@string/right">Oikea</string>

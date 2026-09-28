@@ -132,7 +132,6 @@
     <string name="theme_style">Стиль темы</string>
     <string name="style_name_Rounded">Закруглённый</string>
     <string name="theme_colors">Цвета темы</string>
-    <string name="theme_colors_night">Цвета (ночная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет соответствовать настройкам системы</string>
     <string name="autospace_after_punctuation_summary">Автоматически вставлять пробел после знаков препинания при наборе нового слова</string>
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
@@ -147,10 +146,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Долгое нажатие клавиши пробела вызывает меню выбора метода ввода</string>
     <string name="theme_navbar">Цвет панели навигации</string>
     <string name="auto_correction_confidence">Точность автоисправления</string>
-    <string name="theme_name_light">Светлая</string>
-    <string name="theme_name_dark">Тёмная</string>
-    <string name="theme_name_darker">Серая</string>
-    <string name="theme_name_black">Чёрная</string>
     <string name="theme_name_user">Пользовательская</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>
     <string name="select_color_background">Фон клавиатуры</string>
@@ -192,38 +187,31 @@
     <string name="subtype_generic_sebeolsik_390">%s (Себольсик 390)</string>
     <string name="add_to_personal_dictionary_summary">Использовать личный словарь устройства для хранения изученных слов</string>
     <string name="subtype_generic_sebeolsik_final">%s (Себольсик финальная)</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачная</string>
     <string name="day_or_night_day">День</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Язык (приоритет)</string>
     <string name="add_to_personal_dictionary">Добавить слова в личный словарь</string>
     <string name="customize_background_image">Установить фоновое изображение</string>
     <string name="edit_layout">Нажмите, чтобы отредактировать базовую раскладку</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Розовая</string>
     <string name="language_and_layouts_title">Языки и раскладки</string>
     <string name="hidden_features_text">защищённое хранилище устройства</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
     <string name="load_gesture_library_message">Вам потребуется библиотека для \"%s\". Несовместимые библиотеки могут приводить к аварийному завершению работы при вводе с помощью жестов. \n\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеки только из надёжных источников.</string>
     <string name="load_gesture_library_button_delete">Удалить</string>
     <string name="localized_number_row_summary">Предпочитать локализованные числа вместо латинских</string>
     <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили это из надёжного источника и оно предназначено для \"%s\"?</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Серо-голубой</string>
     <string name="user_dict_add_word_button">Добавить слово</string>
     <string name="select_color_suggestion">Текст в строке подсказок</string>
     <string name="show_popup_keys_normal">Показать варианты, определённые в языках клавиатуры</string>
     <string name="show_popup_keys_more">Добавить распространённые варианты</string>
     <string name="replace_dictionary">Заменить словарь</string>
     <string name="clipboard" tools:keep="@string/clipboard">Буфер обмена</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд с цифрами</string>
     <string name="popup_order">Выберите порядок всплывающих клавиш</string>
     <string name="hint_source">Выберите источник подсказки</string>
     <string name="button_select_language">Выберите язык</string>
     <string name="day_or_night_image">Установить изображение для дневного или ночного режима?</string>
     <string name="toolbar_keys">Выбрать клавиши панели инструментов</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
     <string name="show_popup_hints_summary">Показывать подсказку, если долгое нажатие на функциональную клавишу открывает всплывающее окно</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Песок</string>
     <string name="select_word" tools:keep="@string/select_word">Выбрать слово</string>
     <string name="all_colors">Показывать все цвета</string>
     <string name="delete_layout">Вы действительно хотите удалить пользовательскую раскладку %s?</string>
@@ -232,8 +220,6 @@
     <string name="setup_step3_action">Настройка клавиатуры</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Символы</string>
     <string name="add_new_dictionary_title">Добавить словарь из файла</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Коричневый</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Фиалка</string>
     <string name="localized_number_row">Локализовать ряд с цифрами</string>
     <string name="show_popup_keys_all">Добавить все доступные варианты</string>
     <string name="more_autocorrect">Больше автоисправлений</string>
@@ -252,7 +238,6 @@
     <string name="save_log">Сохранить журнал</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
     <string name="more_autocorrect_summary">Автоматически исправлять даже если поле ввода не требует этого</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo (белая)</string>
     <string name="language_switch_key_switch_both">Смена обоих</string>
     <string name="up" tools:keep="@string/up">Вверх</string>
     <string name="remove_dictionary_message">Вы действительно хотите удалить пользовательский словарь \"%s\"?</string>

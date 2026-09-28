@@ -278,7 +278,6 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tecles funcionals (Més símbols)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_generic_student">%s (Estudiant)</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau Gris</string>
     <string name="dialog_close">Tancar</string>
     <string name="gnu_gpl">Llicència pública general GNU v3.0</string>
     <string name="var_toolbar_direction">Direcció variable de la barra d\'eines</string>
@@ -294,11 +293,7 @@
     <string name="select_color_background">Fons del teclat</string>
     <string name="select_color_key">Text de la tecla</string>
     <string name="show_horizontal_space_swipe">Gest de lliscar la barra espaiadora horitzontal</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Ennuvolat</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bosc</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="settings_screen_about">Quant a</string>
     <string name="version">Versió</string>
     <string name="about_github_link">Veure a GitHub</string>
@@ -332,11 +327,7 @@
     <string name="user_dict_add_word_button">Afegeix una paraula</string>
     <string name="theme_colors">Colors</string>
     <string name="theme_navbar">Barra de navegació en color</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Blanc</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Fosc</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Més fosc</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colors dinàmics</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marró</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definit per l\'usuari</string>
     <string name="auto_user_color">Tria el color automàticament</string>
     <string name="more_colors">Mostra més colors</string>
@@ -355,20 +346,14 @@
     <string name="long_press_code">Codi de pressió llarg</string>
     <string name="toast_msg_clipboard_copy">Contingut copiat</string>
     <string name="dictionary_file_error">Error: el fitxer seleccionat no és un fitxer de diccionari vàlid</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceà</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sorra</string>
     <string name="customize_toolbar_key_code_reset_message">Esborrar realment tots els codis de tecla personalitzats?</string>
     <string name="customize_icons">Personalitza les icones</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">Negre</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab.</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Esborra</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Majs.</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">MAJS.</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Intro</string>
     <string name="icon_style">Estil d\'icona</string>
-    <string name="theme_colors_night">Colors (nit)</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">Clar</string>
     <string name="license">Llicència de codi obert</string>
     <string name="select_color_functional_key_background">Fons de la tecla funcional</string>
     <string name="hidden_features_message">► Si premeu llargament les tecles de la barra d\'eines fixades, s\'ofereix una funcionalitat addicional:&lt;br&gt;\n\t • porta-retalls &amp;#65515; enganxa &lt;br&gt;\n\t • moure a l\'esquerra/dreta &amp;#65515; paraula esquerra/dreta &lt;br&gt;\n\t • moure amunt/avall &amp;#65515; pàgina amunt/avall&lt;br&gt;\n\t • paraula esquerra/dreta &amp;#65515; inici/final de línia&lt;br&gt;\n\t • pàgina amunt/avall &amp;#65515; inici/final de la pàgina&lt;br&gt;\n\t • còpia &amp;#65515; talla&lt;br&gt;\n\t • selecciona la paraula &amp;#8596; selecciona-ho tot&lt;br&gt;\n\t • desfer &amp;#8596; refer&lt;br&gt;&lt;br&gt;\n► Prémer llargament les tecles de la barra d\'eines de la tira de suggeriments les fixa a la tira de suggeriments.&lt;br&gt;&lt;br&gt;\n► Manteniu premuda la tecla de coma per accedir a la vista del porta-retalls, la vista d\'emoji, el mode d\'una mà, la configuració o canviar l\'idioma:&lt;br&gt;\n\t • La visualització d\'emoji i el canvi d\'idioma desapareixeran si teniu activada la tecla corresponent;&lt;br&gt;\n\t • Per a algunes disposicions no és la tecla de coma, sinó la tecla a la mateixa posició (per exemple, és \'q\' per a la disposició Dvorak).&lt;br&gt;&lt;br&gt;\n► Quan el mode d\'incògnit està activat, no s\'aprendran paraules ni s\'afegiran emojis als recents.&lt;br&gt;&lt;br&gt;\n► Premeu la icona d\'incògnit per accedir a la barra d\'eines.&lt;br&gt;&lt;br&gt;\n► Entrada de tecla lliscant: llisca des de majúscules a una altra tecla per escriure una sola tecla en majúscula:&lt;br&gt;\n\t • Això també funciona per a la tecla \'?123\' per escriure un sol símbol des del teclat de símbols i per a tecles relacionades.&lt;br&gt;&lt;br&gt;\n► Manteniu premuda la tecla majúscules o símbol, premeu una o més tecles i, a continuació, deixeu anar la tecla majúscules o símbol per tornar al teclat anterior.&lt;br&gt;&lt;br&gt;\n► Premeu llargament un suggeriment a la banda de suggeriments per mostrar més suggeriments i un botó d\'eliminació per eliminar aquest suggeriment.&lt;br&gt;&lt;br&gt;\n► Feu lliscar el dit cap amunt des d\'un suggeriment per obrir-ne més i deixeu anar el suggeriment per seleccionar-lo.&lt;br&gt;&lt;br&gt;\n► Premeu llargament una entrada a l\'historial del porta-retalls per fixar-la (mantingueu-la al porta-retalls fins que no la desfixeu).&lt;br&gt;&lt;br&gt;\n► Feu lliscar el dit cap a l\'esquerra a la vista del porta-retalls per eliminar una entrada (excepte quan estigui fixada)&lt;br&gt;&lt;br&gt;\n► Seleccioneu text i premeu majúscules per canviar entre les majúscules, les minúscules i les majúscules.&lt;br&gt;&lt;br&gt;\n► Podeu afegir diccionaris obrint-los en un explorador de fitxers:&lt;br&gt;\n\t • Això només funciona amb &lt;i&gt;URIs de contingut&lt;/i&gt; i no amb &lt;i&gt;URIs d\'arxiu&lt;/i&gt;, el que significa que pot ser que no funcioni amb alguns exploradors de fitxers.&lt;br&gt;&lt;br&gt;\n► Per als usuaris que fan còpies de seguretat manuals amb accés root:&lt;br&gt;\n\t • A partir d\'Android 7, el fitxer de preferències compartides no es troba a la ubicació predeterminada, perquè l\'aplicació utilitza %s. Això és necessari perquè la configuració es pugui llegir abans de desbloquejar el dispositiu, p. a l\'arrencada; br&gt;\n\t • El fitxer es troba a /data/user_de/0/package_id/shared_prefs/ tot i que això pot dependre del dispositiu i de la versió d\'Android.&lt;br&gt;&lt;br&gt;\n&lt;i&gt;&lt;b&gt;Mode de depuració/APK de depuració&lt;/b&gt;&lt;/i&gt; &lt;br&gt;&lt;br&gt;\n► Premeu llargament un suggeriment per mostrar el diccionari d\'origen.&lt;br&gt;&lt;br&gt;\n► Quan utilitzeu l\'APK de depuració, podeu trobar la configuració de depuració a les Preferències avançades, tot i que la utilitat és limitada excepte per abocar diccionaris al registre.&lt;br&gt;\n\t • Per a una versió APK, cal que toqueu la versió a &lt;i&gt;Quant a&lt;/i&gt; diverses vegades i, a continuació, podeu trobar la configuració de depuració a &lt;i&gt;Preferències avançades&lt;/i&gt;.&lt;br&gt;\n\t • Quan activeu &lt;i&gt;Mostra informació de suggeriments&lt;/i&gt;, els suggeriments tindran alguns nombres minúsculs a la part superior que mostren una puntuació interna i un diccionari font.&lt;br&gt;&lt;br&gt;\n► En cas d\'error de l\'aplicació, se us demanarà si voleu els registres d\'error quan obriu la configuració.&lt;br&gt;&lt;br&gt;\n► Quan utilitzeu l\'escriptura multilingüe, la barra espaiadora mostrarà un valor de confiança utilitzat per determinar l\'idioma utilitzat actualment.&lt;br&gt;&lt;br&gt;\n► Els suggeriments tindran alguns nombres minúsculs a la part superior que mostren una puntuació interna i un diccionari font (es pot desactivar).</string>

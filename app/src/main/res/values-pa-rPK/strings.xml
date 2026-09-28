@@ -44,7 +44,6 @@
     <string name="settings_screen_gesture">سنکیت نال اینپُٹ کرن</string>
     <string name="edit_personal_dictionary">نجی لغت</string>
     <string name="layout_number" tools:keep="@string/layout_number">نمبر</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">ہلکا</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">اشارے</string>
     <string name="label_done_key">نبڑیا</string>
     <string name="action_none">کوئی نہیں</string>
@@ -54,12 +53,9 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">ورتݨ والے دی چوݨ</string>
     <string name="label_send_key">بھیجو</string>
     <string name="label_search_key">کھوجو</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">چاکلیٹ</string>
     <string name="use_contacts_dict">رابطیاں دے ناں لیاوݨے</string>
     <string name="vibrate_on_keypress">چوہݨ توں تھڑکݨا</string>
     <string name="sound_on_keypress">چوہݨ توں آواز</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">کالا</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">نھیرے توں نھیرا</string>
     <string name="android_spell_checker_settings">‫HeliBoard لفظ جوڑ دیاں سیٹنگاں‬</string>
     <string name="subtype_es_US">سپینی (امریکی)</string>
     <string name="subtype_en_US">انگریزی (امریکی)</string>
@@ -72,16 +68,12 @@
     <string name="redo" tools:keep="@string/redo">فر کرو</string>
     <string name="left" tools:keep="@string/left">کبے</string>
     <string name="theme_style">طنز</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">بھورا</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">جامنی</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">وکھالا</string>
     <string name="subtype_sr_Latn">سربیائی (لاطینی)</string>
     <string name="dialog_close">بند کرو</string>
     <string name="clipboard" tools:keep="@string/clipboard">کلپ بورڈ</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">سمندری</string>
     <string name="day_or_night_night">رات</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">فون</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">نھیرا</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">بدلوائی</string>
     <string name="version">ورژن</string>
     <string name="label_wait_key" tools:keep="@string/label_wait_key">اڈیکو</string>
@@ -90,10 +82,6 @@
     <string name="label_next_key">اگے</string>
     <string name="label_previous_key">پچھے</string>
     <string name="settings_screen_about">بارے</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">جنگلی</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">ریتلی</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">نیل</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">گلابی</string>
     <string name="subtype_en_GB">انگریزی (برطانوی)</string>
     <string name="theme_colors">رنگ</string>
     <string name="day_or_night_day">دن</string>

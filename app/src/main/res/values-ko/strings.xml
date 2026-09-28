@@ -338,23 +338,9 @@
     <string name="icon_style">아이콘 스타일</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">둥글게</string>
     <string name="theme_colors">색상</string>
-    <string name="theme_colors_night">색상 (밤)</string>
     <string name="theme_navbar">내비게이션 바에 색상 적용</string>
-    <string name="theme_name_light" tools:keep="@string/theme_name_light">밝게</string>
-    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">어둡게</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">더 어둡게</string>
-    <string name="theme_name_black" tools:keep="@string/theme_name_black">검정</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">동적 색상</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">청회색</string>
-    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">갈색</string>
-    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">초콜릿</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">구름</string>
-    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">숲</string>
-    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">남색</string>
-    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">바다</string>
-    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">분홍</string>
-    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">모래</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">자주색</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">사용자 정의</string>
     <string name="auto_user_color">자동으로 색상 선택</string>
     <string name="main_colors">주요 색만 표시</string>
@@ -463,7 +449,6 @@
     <string name="edit_layout">눌러서 레이아웃 원본 편집</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">기호 (아랍)</string>
     <string name="user_dict_word_already_present">%s 사용자 사전에 이미 있는 단어입니다. 다른 단어를 입력하세요.</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo 하양</string>
     <string name="var_toolbar_direction">가변 도구 모음 방향</string>
     <string name="spell_check_suggestions">맞춤법 제안 표시</string>
     <string name="spell_check_suggestions_summary">빨간 밑줄이 있는 단어를 선택할 때 제안을 표시합니다. 앱을 기본 맞춤법 검사기로 설정해야 합니다.</string>
