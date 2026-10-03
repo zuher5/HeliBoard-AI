@@ -685,8 +685,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     fun showVoiceStatus(
         message: String,
         isProcessing: Boolean,
-        onConfirm: (() -> Unit)?,
-        onCancel: (() -> Unit)?
+        onConfirm: Runnable? = null,
+        onCancel: Runnable? = null
     ) {
         if (isTranslateLanguageSelectorVisible) hideTranslateLanguageSelector()
         // Hide other views like translate selector does
@@ -699,7 +699,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         voiceStatusText.text = message
         voiceVisualizer.setMode(if (isProcessing) VoiceVisualizerView.Mode.PROCESSING else VoiceVisualizerView.Mode.RECORDING)
         voiceCancelButton.setOnClickListener {
-            onCancel?.invoke() ?: hideVoiceStatus()
+            onCancel?.run() ?: hideVoiceStatus()
         }
         voiceStatusContainer.isVisible = true
         isVoiceStatusVisible = true
