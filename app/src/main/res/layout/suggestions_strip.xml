@@ -96,5 +96,38 @@
                 style="?attr/suggestionWordStyle"
                 android:contentDescription="@string/close_translate_language_selector" />
         </LinearLayout>
+        <!-- Voice input status strip (recording/processing + waveform) -->
+        <LinearLayout
+            android:id="@+id/voice_status_container"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/voice_status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                style="?attr/suggestionWordStyle" />
+            <helium314.keyboard.latin.suggestions.VoiceVisualizerView
+                android:id="@+id/voice_visualizer"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <ImageButton
+                android:id="@+id/voice_cancel_button"
+                android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+                android:layout_height="@dimen/config_suggestions_strip_edge_key_width"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:background="@drawable/toolbar_key_background"
+                style="?attr/suggestionWordStyle"
+                android:src="@drawable/ic_close"
+                android:contentDescription="@string/voice_input_cancel_description" />
+        </LinearLayout>
     </LinearLayout>
 </merge>

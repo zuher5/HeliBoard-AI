@@ -35,6 +35,7 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.voice.VoiceVisualizerView
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
@@ -255,7 +256,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {
-        if (isTranslateLanguageSelectorVisible) return
+        if (isTranslateLanguageSelectorVisible || isVoiceStatusVisible) return
         clear()
         setRtl(isRtlLanguage)
         suggestedWords = suggestions
@@ -268,6 +269,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     fun setExternalSuggestionView(view: View?, addCloseButton: Boolean) {
         if (isTranslateLanguageSelectorVisible) hideTranslateLanguageSelector()
+        if (isVoiceStatusVisible) return
         clear()
         isExternalSuggestionVisible = true
 
@@ -670,6 +672,49 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         val settingsValues = Settings.getValues()
         toolbarExpandKey.isVisible = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
+        setToolbarVisibility(wasToolbarVisibleBeforeTranslate)
+    }
+
+    // ------------------------------------------------------------------ voice input status
+
+    private val voiceStatusContainer: View = findViewById(R.id.voice_status_container)
+    private val voiceStatusText: TextView = findViewById(R.id.voice_status_text)
+    private val voiceVisualizer: VoiceVisualizerView = findViewById(R.id.voice_visualizer)
+    private val voiceCancelButton: ImageButton = findViewById(R.id.voice_cancel_button)
+    private var isVoiceStatusVisible = false
+
+    fun showVoiceStatus(
+        message: String,
+        isProcessing: Boolean,
+        onConfirm: (() -> Unit)?,
+        onCancel: (() -> Unit)?
+    ) {
+        if (isTranslateLanguageSelectorVisible) hideTranslateLanguageSelector()
+        // Hide other views like translate selector does
+        suggestionsStrip.isVisible = false
+        wasToolbarVisibleBeforeTranslate = toolbarContainer.isVisible
+        toolbarContainer.isVisible = false
+        pinnedKeys.isVisible = false
+        toolbarExpandKey.isVisible = false
+
+        voiceStatusText.text = message
+        voiceVisualizer.setMode(if (isProcessing) VoiceVisualizerView.Mode.PROCESSING else VoiceVisualizerView.Mode.RECORDING)
+        voiceCancelButton.setOnClickListener {
+            onCancel?.invoke() ?: hideVoiceStatus()
+        }
+        voiceStatusContainer.isVisible = true
+        isVoiceStatusVisible = true
+    }
+
+    fun hideVoiceStatus() {
+        if (!isVoiceStatusVisible) return
+        voiceStatusContainer.isVisible = false
+        isVoiceStatusVisible = false
+        voiceVisualizer.setMode(VoiceVisualizerView.Mode.IDLE)
+
+        val settingsValues = Settings.getValues()
+        toolbarExpandKey.isVisible = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
+        suggestionsStrip.isVisible = true
         setToolbarVisibility(wasToolbarVisibleBeforeTranslate)
     }
 

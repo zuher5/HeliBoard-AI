@@ -1,7 +1,3 @@
-/*
- * Copyright (C) 2026 LeanBitLab
- * SPDX-License-Identifier: GPL-3.0-only
- */
 package helium314.keyboard.latin.utils
 
 import android.content.SharedPreferences
@@ -27,12 +23,12 @@ object TranslationUtils {
         currentHistory.removeAll { it.second.equals(code, ignoreCase = true) || it.first.equals(name, ignoreCase = true) }
         currentHistory.add(0, name to code)
         val serialized = currentHistory.joinToString("\n") { "${it.second}|${it.first}" }
-
+        
         // Also un-remove if user explicitly saved it again
         val removed = getRemovedLanguages(prefs).toMutableSet()
         removed.remove(code.lowercase())
         removed.remove(name.lowercase())
-
+        
         prefs.edit()
             .putString("pref_translation_language_history", serialized)
             .putString("pref_removed_translation_languages", removed.joinToString(","))
@@ -43,10 +39,10 @@ object TranslationUtils {
         val currentHistory = getLanguageHistory(prefs).toMutableList()
         currentHistory.removeAll { it.second.equals(code, ignoreCase = true) || it.first.equals(code, ignoreCase = true) }
         val serialized = currentHistory.joinToString("\n") { "${it.second}|${it.first}" }
-
+        
         val removed = getRemovedLanguages(prefs).toMutableSet()
         removed.add(code.lowercase())
-
+        
         prefs.edit()
             .putString("pref_translation_language_history", serialized)
             .putString("pref_removed_translation_languages", removed.joinToString(","))

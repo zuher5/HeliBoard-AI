@@ -1302,6 +1302,37 @@ New dictionary:
     <string name="ai_translate_model_name">Translation model (optional)</string>
     <string name="ai_translate_model_name_summary">Leave empty to use the AI model above</string>
     <string name="ai_translate_model_auto">Auto (use AI model)</string>
+
+    <!-- Translation plugin / settings (ported from LeanType) -->
+    <string name="load_translation_plugin">Load translation plugin</string>
+    <string name="load_translation_plugin_summary">Download or provide an APK plugin to enable offline translation engine</string>
+    <string name="load_translation_plugin_button_delete">Delete plugin</string>
+    <string name="load_translation_plugin_success">Translation plugin imported successfully</string>
+    <string name="load_translation_plugin_failed">Failed to load translation plugin APK</string>
+    <string name="translate_loading">Translating…</string>
+    <string name="translate_error">Translation failed: %s</string>
+    <string name="translate_target_language_title">Translation target language</string>
+    <string name="translate_target_language_summary">Select the language to translate to</string>
+    <string name="translation_settings_title">Translation</string>
+    <string name="translation_engine_title">Translation Engine</string>
+    <string name="translation_engine_summary">Select backend for translation (Plugin or AI)</string>
+    <string name="pref_translation_mode_title">Translation Mode</string>
+    <string name="pref_translation_mode_summary">Choose between on-device offline translation and online translation</string>
+    <string name="pref_translation_mode_auto">Auto (Offline first, Online fallback)</string>
+    <string name="pref_translation_mode_offline_only">Offline Only (On-device plugin models)</string>
+    <string name="pref_translation_mode_online_only">Online Only (AI)</string>
+    <string name="offline_translation_models_title">Offline Translation Models</string>
+    <string name="offline_translation_models_summary">Download and manage on-device language models (~30 MB each)</string>
+    <string name="translation_model_not_downloaded">Offline model not downloaded. Download in Settings → Translation.</string>
+    <string name="translation_specific_model_not_downloaded">%s model not downloaded. Download in Settings → Translation.</string>
+    <string name="translation_switching_to_ai">%s model not found in plugin. Switching to AI…</string>
+    <string name="translation_plugin_fallback_to_ai">Plugin unavailable. Switching to AI…</string>
+    <string name="translate_source_language_title">Translation source language</string>
+    <string name="translate_source_language_summary">Select the source language or auto detect</string>
+    <string name="translate_language_auto">Auto Detect</string>
+    <string name="translate_language_keyboard">Default</string>
+    <string name="libraries_status_active">Active</string>
+    <string name="libraries_status_not_installed">Not installed</string>
     <string name="ai_cloud_max_tokens">Maximum output tokens</string>
     <string name="ai_cloud_max_tokens_summary">Maximum number of tokens the AI may output per request</string>
     <string name="ai_openai_endpoint">API endpoint (base URL)</string>
@@ -1317,6 +1348,25 @@ New dictionary:
     <string name="translate_in_progress">Translating…</string>
     <string name="proofread_in_progress">Proofreading…</string>
     <string name="translate_no_text">No text to translate.</string>
+
+    <!-- Voice input -->
+    <string name="voice_status_listening">Listening…</string>
+    <string name="voice_status_processing">Processing…</string>
+    <string name="voice_input_cancel_description">Cancel voice input</string>
+    <string name="voice_error_permission">Microphone permission is required for voice input.</string>
+    <string name="voice_error_no_api_key">No AI API key configured. Set it in Settings → AI Integration.</string>
+    <string name="voice_error_record_start">Failed to start audio recording.</string>
+    <string name="voice_error_timeout">Transcription timed out (25s).</string>
+    <string name="voice_provider_title">Voice input provider</string>
+    <string name="voice_provider_online">Online (AI transcription)</string>
+    <string name="voice_provider_system">System (shortcut IME, e.g. Gboard voice)</string>
+    <string name="voice_language_title">Voice input language</string>
+    <string name="voice_language_follow_keyboard">Follow keyboard language</string>
+    <string name="voice_language_auto">Auto-detect</string>
+    <string name="voice_smart_punctuation">Smart punctuation</string>
+    <string name="voice_smart_punctuation_summary">Keep punctuation from transcription</string>
+    <string name="voice_max_duration_title">Maximum recording duration (seconds)</string>
+    <string name="voice_settings_title">Voice input</string>
     <string name="proofread_no_text">No text to proofread.</string>
 
     <string-array name="translate_language_codes">

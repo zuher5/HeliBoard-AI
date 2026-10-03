@@ -47,6 +47,8 @@ import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
+import helium314.keyboard.latin.voice.VoiceConstants;
+import helium314.keyboard.latin.voice.VoiceInputManager;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
@@ -187,6 +189,9 @@ public class LatinIME extends InputMethodService implements
     private GestureConsumer mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
 
     private final ClipboardHistoryManager mClipboardHistoryManager = new ClipboardHistoryManager(this);
+
+    private VoiceInputManager mVoiceInputManager;
+    private VoiceInputManager.VoiceState mLastVoiceState = VoiceInputManager.VoiceState.IDLE;
 
     public static final class UIHandler extends LeakGuardHandlerWrapper<LatinIME> {
         private static final int MSG_UPDATE_SHIFT_STATE = 0;
@@ -692,6 +697,10 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onDestroy() {
+        if (mVoiceInputManager != null) {
+            mVoiceInputManager.release();
+            mVoiceInputManager = null;
+        }
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
         mSettings.onDestroy();
@@ -1411,7 +1420,7 @@ public class LatinIME extends InputMethodService implements
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
-            mRichImm.switchToShortcutIme(this);
+            handleVoiceInput();
         }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
@@ -1592,6 +1601,69 @@ public class LatinIME extends InputMethodService implements
     public void showTranslateLanguageSelector() {
         if (mSuggestionStripView != null) {
             mSuggestionStripView.showTranslateLanguageSelector();
+        }
+    }
+
+    /**
+     * Handles the VOICE_INPUT toolbar/key event.
+     * Provider "system" (or missing permission / API key) falls back to the
+     * system shortcut IME (e.g. Gboard voice). Provider "online" records audio
+     * and transcribes via the configured AI provider (Groq Whisper).
+     */
+    public void handleVoiceInput() {
+        final String provider = KtxKt.prefs(this)
+                .getString(VoiceConstants.PREF_VOICE_PROVIDER, VoiceConstants.VOICE_PROVIDER_DEFAULT);
+        if (VoiceConstants.VOICE_PROVIDER_SYSTEM.equals(provider)) {
+            mRichImm.switchToShortcutIme(this);
+            return;
+        }
+        if (mVoiceInputManager == null) {
+            mVoiceInputManager = new VoiceInputManager(this);
+            mVoiceInputManager.setListener(new VoiceInputManager.VoiceInputListener() {
+                @Override
+                public void onStateChanged(final VoiceInputManager.VoiceState state) {
+                    onVoiceStateChanged(state);
+                }
+
+                @Override
+                public void onError(final String message) {
+                    KeyboardSwitcher.getInstance().showToast(message, true);
+                }
+            });
+        }
+        if (mVoiceInputManager.isRecording()) {
+            mVoiceInputManager.stopVoice();
+            return;
+        }
+        if (!mVoiceInputManager.canStartVoice()) {
+            android.widget.Toast.makeText(this,
+                    getString(R.string.voice_error_permission), android.widget.Toast.LENGTH_LONG).show();
+            return;
+        }
+        mVoiceInputManager.startVoice();
+    }
+
+    private void onVoiceStateChanged(final VoiceInputManager.VoiceState state) {
+        if (state == mLastVoiceState) return;
+        mLastVoiceState = state;
+        if (mSuggestionStripView != null) {
+            switch (state) {
+                case RECORDING:
+                    mSuggestionStripView.showVoiceStatus(
+                            getString(R.string.voice_status_listening), false,
+                            () -> { if (mVoiceInputManager != null) mVoiceInputManager.stopVoice(); },
+                            () -> { if (mVoiceInputManager != null) mVoiceInputManager.cancelVoice(); });
+                    break;
+                case PROCESSING_FINAL:
+                    mSuggestionStripView.showVoiceStatus(
+                            getString(R.string.voice_status_processing), true,
+                            null,
+                            () -> { if (mVoiceInputManager != null) mVoiceInputManager.cancelVoice(); });
+                    break;
+                default:
+                    mSuggestionStripView.hideVoiceStatus();
+                    break;
+            }
         }
     }
 

@@ -165,6 +165,14 @@ class ProofreadService(private val context: Context) {
         getPrefs().edit().putString(Settings.PREF_TRANSLATION_TARGET_LANGUAGE, language.trim()).apply()
     }
 
+    fun getSourceLanguage(): String =
+        getPrefs().getString("translation_source_language", "auto")?.takeIf { it.isNotBlank() } ?: "auto"
+
+    fun setSourceLanguage(language: String) {
+        getPrefs().edit().putString("translation_source_language", language.trim()).apply()
+    }
+
+
     private fun getTargetLanguageName(): String {
         val target = getTargetLanguage().trim()
         val names = context.resources.getStringArray(R.array.translate_language_names)
@@ -198,6 +206,82 @@ class ProofreadService(private val context: Context) {
         val systemPrompt = getTranslateSystemPrompt(targetName)
         chatRequest(prompt = text, provider = provider, model = model, temperature = 0.2f, systemPrompt = systemPrompt)
             .mapCatching { cleanTranslationOutput(text, it) }
+    }
+
+    // ------------------------------------------------------------------------------------ voice transcription
+
+    /**
+     * Transcribes WAV audio via the active AI provider.
+     * Groq: whisper-large-v3-turbo through /openai/v1/audio/transcriptions (multipart).
+     * Gemini / [OI]-compatible: chat-style audio input is not supported here, so
+     * Groq is used as fallback when its key exists; otherwise the call fails.
+     */
+    suspend fun transcribeAudio(audioBytes: ByteArray, language: String? = null): Result<String> = withContext(Dispatchers.IO) {
+        val groqKey = getApiKey(AiProvider.GROQ)
+        if (groqKey.isNullOrBlank()) {
+            return@withContext Result.failure(AiException(context.getString(R.string.voice_error_no_api_key)))
+        }
+        transcribeAudioGroq(groqKey, audioBytes, language)
+    }
+
+    private fun transcribeAudioGroq(token: String, audioBytes: ByteArray, language: String?): Result<String> {
+        val model = "whisper-large-v3-turbo"
+        val endpoint = "https://api.groq.com/openai/v1/audio/transcriptions"
+        return try {
+            val boundary = "----VoiceBoundary" + System.currentTimeMillis()
+            val url = URL(endpoint)
+            val connection = url.openConnection() as HttpURLConnection
+            try {
+                connection.connectTimeout = 10_000
+                connection.readTimeout = 25_000
+                connection.requestMethod = "POST"
+                connection.doOutput = true
+                connection.setRequestProperty("Authorization", "Bearer $token")
+                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=$boundary")
+
+                connection.outputStream.use { out ->
+                    // model part
+                    out.writePart(boundary, "model", model)
+                    // language part ("auto" means omit)
+                    if (!language.isNullOrBlank() && language != "auto") {
+                        out.writePart(boundary, "language", language)
+                    }
+                    // response_format part
+                    out.writePart(boundary, "response_format", "json")
+                    // file part
+                    val fileHeader = "--$boundary\r\n" +
+                        "Content-Disposition: form-data; name=\"file\"; filename=\"audio.wav\"\r\n" +
+                        "Content-Type: audio/wav\r\n\r\n"
+                    out.write(fileHeader.toByteArray())
+                    out.write(audioBytes)
+                    out.write("\r\n--$boundary--\r\n".toByteArray())
+                    out.flush()
+                }
+
+                val code = connection.responseCode
+                val stream = if (code in 200..299) connection.inputStream else connection.errorStream
+                val body = stream?.bufferedReader()?.use { it.readText() } ?: ""
+                if (code in 200..299) {
+                    val text = JSONObject(body).optString("text", "").trim()
+                    if (text.isEmpty()) Result.failure(AiException("Empty transcription response"))
+                    else Result.success(text)
+                } else {
+                    Result.failure(AiException("Transcription HTTP $code: ${body.take(200)}"))
+                }
+            } finally {
+                connection.disconnect()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Groq transcription failed", e)
+            Result.failure(AiException(e.message ?: "Transcription failed"))
+        }
+    }
+
+    private fun java.io.OutputStream.writePart(boundary: String, name: String, value: String) {
+        val part = "--$boundary\r\n" +
+            "Content-Disposition: form-data; name=\"$name\"\r\n\r\n" +
+            "$value\r\n"
+        write(part.toByteArray())
     }
 
     // ------------------------------------------------------------------------------------ custom AI
@@ -456,6 +540,7 @@ class ProofreadService(private val context: Context) {
         private const val KEY_OPENAI_KEY = "openai_api_key"
         private const val KEY_OPENAI_MODEL = "openai_model_name"
         private const val KEY_OPENAI_ENDPOINT = "openai_endpoint"
+        const val PREF_TRANSLATION_TARGET_LANGUAGE_NAME = "translation_target_language_name"
 
         private const val GEMINI_CHAT_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
         private const val GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
