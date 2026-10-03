@@ -350,6 +350,40 @@ class VoiceInputManager(private val ims: LatinIME) {
         return true
     }
 
+    private fun stopAudioLoop() {
+        if (!isRecording.getAndSet(false)) return
+        Log.i(TAG, "stopAudioLoop() executing")
+
+        try {
+            audioRecord?.stop()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping AudioRecord", e)
+        }
+
+        audioThread?.let { thread ->
+            try {
+                thread.join(1000)
+                if (thread.isAlive) {
+                    Log.w(TAG, "VoiceAudioThread hung. Skipping release() to avoid native proxy crash.")
+                    audioThread = null
+                    audioRecord = null
+                    return
+                }
+            } catch (e: InterruptedException) {
+                Thread.currentThread().interrupt()
+                Log.w(TAG, "Interrupted while joining audioThread", e)
+            }
+        }
+        audioThread = null
+
+        try {
+            audioRecord?.release()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error releasing AudioRecord", e)
+        }
+        audioRecord = null
+    }
+
     private fun syncRecognizedText(rawText: String, isFinal: Boolean) {
         val ic = ims.currentInputConnection
         if (ic == null) {

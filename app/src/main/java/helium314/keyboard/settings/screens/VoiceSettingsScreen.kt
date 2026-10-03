@@ -46,80 +46,78 @@ fun VoiceSettingsScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(vertical = 8.dp)
         ) {
-            PreferenceCategory(stringResource(R.string.voice_settings_title)) {
-                Column {
-                    // Provider: online (AI) or system (shortcut IME)
-                    val providerItems = listOf(
-                        stringResource(R.string.voice_provider_online) to VoiceConstants.VOICE_PROVIDER_ONLINE,
-                        stringResource(R.string.voice_provider_system) to VoiceConstants.VOICE_PROVIDER_SYSTEM
+            PreferenceCategory(stringResource(R.string.voice_settings_title))
+
+            // Provider: online (AI) or system (shortcut IME)
+            val providerItems = listOf(
+                stringResource(R.string.voice_provider_online) to VoiceConstants.VOICE_PROVIDER_ONLINE,
+                stringResource(R.string.voice_provider_system) to VoiceConstants.VOICE_PROVIDER_SYSTEM
+            )
+            val providerSetting = remember {
+                Setting(
+                    ctx,
+                    VoiceConstants.PREF_VOICE_PROVIDER,
+                    R.string.voice_provider_title
+                ) { setting ->
+                    ListPreference(
+                        setting = setting,
+                        items = providerItems,
+                        default = VoiceConstants.VOICE_PROVIDER_DEFAULT
                     )
-                    val providerSetting = remember {
-                        Setting(
-                            ctx,
-                            VoiceConstants.PREF_VOICE_PROVIDER,
-                            R.string.voice_provider_title
-                        ) { setting ->
-                            ListPreference(
-                                setting = setting,
-                                items = providerItems,
-                                default = VoiceConstants.VOICE_PROVIDER_DEFAULT
-                            )
-                        }
-                    }
-                    providerSetting.Preference()
-
-                    // Language
-                    val languageItems = listOf(
-                        stringResource(R.string.voice_language_follow_keyboard) to VoiceConstants.VOICE_LANG_FOLLOW_KEYBOARD,
-                        stringResource(R.string.voice_language_auto) to VoiceConstants.VOICE_LANG_AUTO
-                    )
-                    val languageSetting = remember {
-                        Setting(
-                            ctx,
-                            VoiceConstants.PREF_VOICE_LANGUAGE,
-                            R.string.voice_language_title
-                        ) { setting ->
-                            ListPreference(
-                                setting = setting,
-                                items = languageItems,
-                                default = VoiceConstants.VOICE_LANG_FOLLOW_KEYBOARD
-                            )
-                        }
-                    }
-                    languageSetting.Preference()
-
-                    // Smart punctuation
-                    val smartPunctSetting = remember {
-                        Setting(
-                            ctx,
-                            VoiceConstants.PREF_VOICE_SMART_PUNCTUATION,
-                            R.string.voice_smart_punctuation,
-                            R.string.voice_smart_punctuation_summary
-                        ) { setting ->
-                            SwitchPreference(
-                                setting,
-                                default = true
-                            )
-                        }
-                    }
-                    smartPunctSetting.Preference()
-
-                    // Max duration
-                    val maxDurationSetting = remember {
-                        Setting(
-                            ctx,
-                            VoiceConstants.PREF_VOICE_MAX_DURATION_SECONDS,
-                            R.string.voice_max_duration_title
-                        ) { setting ->
-                            TextInputPreference(
-                                setting = setting,
-                                default = VoiceConstants.VOICE_MAX_DURATION_DEFAULT_SECONDS.toString()
-                            )
-                        }
-                    }
-                    maxDurationSetting.Preference()
                 }
             }
+            providerSetting.Preference()
+
+            // Language
+            val languageItems = listOf(
+                stringResource(R.string.voice_language_follow_keyboard) to VoiceConstants.VOICE_LANG_FOLLOW_KEYBOARD,
+                stringResource(R.string.voice_language_auto) to VoiceConstants.VOICE_LANG_AUTO
+            )
+            val languageSetting = remember {
+                Setting(
+                    ctx,
+                    VoiceConstants.PREF_VOICE_LANGUAGE,
+                    R.string.voice_language_title
+                ) { setting ->
+                    ListPreference(
+                        setting = setting,
+                        items = languageItems,
+                        default = VoiceConstants.VOICE_LANG_FOLLOW_KEYBOARD
+                    )
+                }
+            }
+            languageSetting.Preference()
+
+            // Smart punctuation
+            val smartPunctSetting = remember {
+                Setting(
+                    ctx,
+                    VoiceConstants.PREF_VOICE_SMART_PUNCTUATION,
+                    R.string.voice_smart_punctuation,
+                    R.string.voice_smart_punctuation_summary
+                ) { setting ->
+                    SwitchPreference(
+                        setting,
+                        default = true
+                    )
+                }
+            }
+            smartPunctSetting.Preference()
+
+            // Max duration
+            val maxDurationSetting = remember {
+                Setting(
+                    ctx,
+                    VoiceConstants.PREF_VOICE_MAX_DURATION_SECONDS,
+                    R.string.voice_max_duration_title
+                ) { setting ->
+                    TextInputPreference(
+                        setting = setting,
+                        default = VoiceConstants.VOICE_MAX_DURATION_DEFAULT_SECONDS.toString()
+                    )
+                }
+            }
+            maxDurationSetting.Preference()
 
             Text(
                 text = "Online voice input sends recorded audio to the configured AI provider (Settings → AI Integration). Provider \"System\" switches to the system voice IME (e.g. Gboard).",

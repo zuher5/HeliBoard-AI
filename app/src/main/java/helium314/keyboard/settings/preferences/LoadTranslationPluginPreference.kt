@@ -334,8 +334,9 @@ fun TranslationModePreference() {
     )
     val setting = remember {
         helium314.keyboard.settings.Setting(
-            key = "pref_translation_mode",
-            title = ctx.getString(R.string.pref_translation_mode_title)
+            ctx,
+            "pref_translation_mode",
+            R.string.pref_translation_mode_title
         ) {
             ListPreference(
                 setting = it,
@@ -351,7 +352,7 @@ fun TranslationModePreference() {
 @Composable
 fun TranslationEnginePreference() {
     val ctx = LocalContext.current
-    val isOfflineFlavor = helium314.keyboard.latin.BuildConfig.FLAVOR == "offline"
+    val isOfflineFlavor = false
     val items = if (isOfflineFlavor) {
         listOf(
             "Translation Plugin (ML Kit)" to "plugin",

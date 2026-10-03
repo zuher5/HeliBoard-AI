@@ -78,7 +78,7 @@ object TranslationLoader {
                     val totalBytes = redirectConn.contentLengthLong
                     redirectConn.inputStream.use { input ->
                         java.io.FileOutputStream(tempFile).use { output ->
-                            helium314.keyboard.latin.common.FileUtils.copyStreamWithProgress(input, output, totalBytes, onProgress = onProgress)
+                            copyStreamWithProgress(input, output, totalBytes, onProgress)
                         }
                     }
                     redirectConn.disconnect()
@@ -90,6 +90,26 @@ object TranslationLoader {
             }
         }
         return false
+    }
+
+    private fun copyStreamWithProgress(
+        input: java.io.InputStream,
+        output: java.io.OutputStream,
+        totalBytes: Long,
+        onProgress: ((Float) -> Unit)? = null
+    ) {
+        val buffer = ByteArray(32768)
+        var bytesRead: Int
+        var totalRead = 0L
+        while (input.read(buffer).also { bytesRead = it } != -1) {
+            output.write(buffer, 0, bytesRead)
+            totalRead += bytesRead
+            if (totalBytes > 0L) {
+                val progress = (totalRead.toFloat() / totalBytes.toFloat()).coerceIn(0f, 1f)
+                onProgress?.invoke(progress)
+            }
+        }
+        output.flush()
     }
 
     private fun getNativeLibDir(context: Context, apkFile: File): File {

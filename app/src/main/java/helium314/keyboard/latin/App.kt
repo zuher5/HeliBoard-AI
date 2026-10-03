@@ -12,12 +12,24 @@ import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.prefs
+import androidx.work.Configuration
+import helium314.keyboard.latin.work.PluginWorkerFactory
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class App : Application() {
+class App : Application(), Configuration.Provider {
+
+    override val workManagerConfiguration: Configuration
+        get() {
+            val delegating = androidx.work.DelegatingWorkerFactory()
+            delegating.addFactory(pluginWorkerFactory)
+            return Configuration.Builder()
+                .setWorkerFactory(delegating)
+                .build()
+        }
+
     override fun onCreate() {
         super.onCreate()
         DebugFlags.init(this)
@@ -48,6 +60,7 @@ class App : Application() {
     }
 
     companion object {
+        val pluginWorkerFactory = PluginWorkerFactory()
         // used so JniUtils can access application once
         private var app: App? = null
         fun getApp(): App? {

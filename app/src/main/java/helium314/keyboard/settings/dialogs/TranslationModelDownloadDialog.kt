@@ -68,7 +68,7 @@ fun TranslationModelDownloadDialog(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val isOffline = BuildConfig.FLAVOR == "offline"
+    val isOffline = false
     var searchQuery by remember { mutableStateOf("") }
     
     val downloadedMap = remember { mutableStateMapOf<String, Boolean>() }

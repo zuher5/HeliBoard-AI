@@ -43,7 +43,7 @@ fun ThreeButtonAlertDialog(
     onNeutral: () -> Unit = { },
     checkOk: () -> Boolean = { true },
     confirmButtonText: String? = stringResource(android.R.string.ok),
-    cancelButtonText: String = stringResource(android.R.string.cancel),
+    cancelButtonText: String? = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
     reducePadding: Boolean = false,
     properties: DialogProperties = DialogProperties()
@@ -98,7 +98,8 @@ fun ThreeButtonAlertDialog(
                                 onClick = onNeutral
                             ) { Text(neutralButtonText) }
                         Spacer(Modifier.weight(1f))
-                        TextButton(onClick = onDismissRequest) { Text(cancelButtonText) }
+                        if (cancelButtonText != null)
+                            TextButton(onClick = onDismissRequest) { Text(cancelButtonText) }
                         if (confirmButtonText != null)
                             TextButton(
                                 enabled = checkOk(),
