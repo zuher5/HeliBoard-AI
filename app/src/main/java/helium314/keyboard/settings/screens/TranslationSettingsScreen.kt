@@ -58,7 +58,7 @@ fun TranslationSettingsScreen(
                     )
                 ) {
                     Column {
-                        PreferenceCategory("Plugin Management")
+                        PreferenceCategory(stringResource(R.string.translation_section_plugin), showDivider = false)
 
                         LoadTranslationPluginPreference(
                             title = "Translation Plugin",
@@ -101,7 +101,7 @@ fun TranslationSettingsScreen(
                         )
                     ) {
                         Column {
-                            PreferenceCategory("Offline Models")
+                            PreferenceCategory(stringResource(R.string.translation_section_offline_models), showDivider = false)
 
                             var showModelsDialog by remember { mutableStateOf(false) }
                             Preference(

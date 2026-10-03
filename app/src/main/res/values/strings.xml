@@ -1314,6 +1314,9 @@ New dictionary:
     <string name="translate_target_language_title">Translation target language</string>
     <string name="translate_target_language_summary">Select the language to translate to</string>
     <string name="translation_settings_title">Translation</string>
+    <string name="translation_section_plugin">Plugin Management</string>
+    <string name="translation_section_general">Translation Settings</string>
+    <string name="translation_section_offline_models">Offline Models</string>
     <string name="translation_engine_title">Translation Engine</string>
     <string name="translation_engine_summary">Select backend for translation (Plugin or AI)</string>
     <string name="pref_translation_mode_title">Translation Mode</string>

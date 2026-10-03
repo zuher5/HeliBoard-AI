@@ -401,7 +401,7 @@ fun TranslationTargetLanguagePreference() {
             var listVersion by remember { mutableStateOf(0) }
 
             val items = remember(selectedLanguage, listVersion) {
-                val zipped = languageNames.zip(languageCodes).toMutableList()
+                val zipped = languageNames.zip(languageCodes).filterNot { it.second.equals("auto", ignoreCase = true) }.toMutableList()
                 val history = helium314.keyboard.latin.utils.TranslationUtils.getLanguageHistory(ctx.prefs())
                 val removed = helium314.keyboard.latin.utils.TranslationUtils.getRemovedLanguages(ctx.prefs())
                 val filteredZipped = zipped.filter { it.first.lowercase() !in removed && it.second.lowercase() !in removed }.toMutableList()
@@ -570,7 +570,7 @@ fun TranslationSourceLanguagePreference() {
             var listVersion by remember { mutableStateOf(0) }
 
             val items = remember(selectedLanguage, listVersion) {
-                val zipped = languageNames.zip(languageCodes).toMutableList()
+                val zipped = languageNames.zip(languageCodes).filterNot { it.second.equals("auto", ignoreCase = true) }.toMutableList()
                 val history = helium314.keyboard.latin.utils.TranslationUtils.getLanguageHistory(ctx.prefs())
                 val removed = helium314.keyboard.latin.utils.TranslationUtils.getRemovedLanguages(ctx.prefs())
                 val filteredZipped = zipped.filter { it.first.lowercase() !in removed && it.second.lowercase() !in removed }.toMutableList()
