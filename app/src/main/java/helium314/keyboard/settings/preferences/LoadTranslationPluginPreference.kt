@@ -125,7 +125,9 @@ fun LoadTranslationPluginPreference(
                 }
             }
         } else {
-            FeedbackManager.message(ctx, R.string.load_translation_plugin_failed)
+            val err = TranslationLoader.lastErrorMessage
+            val errMsg = if (err != null) "Failed to load plugin: $err" else ctx.getString(R.string.load_translation_plugin_failed)
+            FeedbackManager.message(ctx, errMsg)
         }
     }
 
@@ -160,7 +162,7 @@ fun LoadTranslationPluginPreference(
                     throw IOException("Failed to download translation plugin APK")
                 }
 
-                val success = TranslationLoader.importPlugin(ctx, Uri.fromFile(tempFile))
+                val success = TranslationLoader.importPlugin(ctx, tempFile)
                 tempFile.delete()
 
                 withContext(Dispatchers.Main) {
@@ -177,7 +179,9 @@ fun LoadTranslationPluginPreference(
                             }
                         }
                     } else {
-                        FeedbackManager.message(ctx, R.string.load_translation_plugin_failed)
+                        val err = TranslationLoader.lastErrorMessage
+                        val errMsg = if (err != null) "Failed to load plugin: $err" else ctx.getString(R.string.load_translation_plugin_failed)
+                        FeedbackManager.message(ctx, errMsg)
                     }
                 }
             } catch (e: Exception) {

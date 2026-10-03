@@ -234,72 +234,127 @@ object TranslationLoader {
         }
     }
 
-    fun importPlugin(context: Context, uri: Uri): Boolean {
+    var lastErrorMessage: String? = null
+        private set
+
+    fun importPlugin(context: Context, sourceFile: File): Boolean {
         try {
+            lastErrorMessage = null
             try {
                 context.codeCacheDir.deleteRecursively()
             } catch (_: Exception) {}
 
             val apkFile = File(context.filesDir, PLUGIN_FILENAME)
             if (apkFile.exists()) {
+                apkFile.setWritable(true)
                 apkFile.delete()
             }
-            context.contentResolver.openInputStream(uri)?.use { input ->
+            sourceFile.inputStream().use { input ->
                 apkFile.outputStream().use { output ->
                     input.copyTo(output)
                 }
             }
-            apkFile.setReadOnly()
-
-            // Verify the plugin loads successfully
-            ensureWorkManagerInitialized(context)
-            val nativeLibDir = getNativeLibDir(context, apkFile)
-            extractNativeLibs(apkFile, nativeLibDir)
-            val classLoader = PluginClassLoader(
-                apkFile.absolutePath,
-                context.codeCacheDir.absolutePath,
-                nativeLibDir.absolutePath,
-                context.classLoader
-            )
-            val clazz = classLoader.loadClass(PLUGIN_CLASS_NAME)
-            val provider = clazz.getDeclaredConstructor().newInstance() as ITranslationProvider
-            
-            if (provider.getInterfaceVersion() > CURRENT_INTERFACE_VERSION) {
-                Log.w(TAG, "Incompatible plugin interface version")
-                return false
-            }
-
-            val mergedContext = createMergedContext(context.applicationContext, apkFile)
-            val pluginRuntime = helium314.keyboard.latin.work.PluginRuntime(
-                classLoader = classLoader,
-                workerContext = mergedContext
-            )
-            helium314.keyboard.latin.App.pluginWorkerFactory.pluginRuntime = pluginRuntime
-
-            provider.init(mergedContext)
-            context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, true).apply()
-            activeProvider = provider
-            return true
+            return verifyAndInitPlugin(context, apkFile)
         } catch (e: Throwable) {
-            Log.e(TAG, "Failed to import translation plugin APK", e)
-            try {
-                File(context.filesDir, PLUGIN_FILENAME).delete()
-            } catch (_: Exception) {}
+            Log.e(TAG, "Failed to import translation plugin from file", e)
+            lastErrorMessage = e.message ?: "Failed to import plugin"
+            cleanupFailedImport(context)
+            return false
+        }
+    }
+
+    fun importPlugin(context: Context, uri: Uri): Boolean {
+        if (uri.scheme == "file") {
+            val path = uri.path
+            if (path != null) {
+                return importPlugin(context, File(path))
+            }
+        }
+        try {
+            lastErrorMessage = null
             try {
                 context.codeCacheDir.deleteRecursively()
             } catch (_: Exception) {}
-            try {
-                val baseDir = File(context.filesDir, "plugin_libs")
-                baseDir.listFiles()?.forEach { f ->
-                    if (f.isDirectory && (f.name.startsWith("translation_") || f.name == "translation")) {
-                        f.deleteRecursively()
-                    }
+
+            val apkFile = File(context.filesDir, PLUGIN_FILENAME)
+            if (apkFile.exists()) {
+                apkFile.setWritable(true)
+                apkFile.delete()
+            }
+            val stream = context.contentResolver.openInputStream(uri)
+                ?: throw java.io.FileNotFoundException("Could not open stream for URI: $uri")
+            stream.use { input ->
+                apkFile.outputStream().use { output ->
+                    input.copyTo(output)
                 }
-            } catch (_: Exception) {}
-            context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).apply()
-            activeProvider = null
+            }
+            return verifyAndInitPlugin(context, apkFile)
+        } catch (e: Throwable) {
+            Log.e(TAG, "Failed to import translation plugin APK from URI", e)
+            lastErrorMessage = e.message ?: "Failed to import plugin"
+            cleanupFailedImport(context)
+            return false
         }
-        return false
+    }
+
+    private fun verifyAndInitPlugin(context: Context, apkFile: File): Boolean {
+        apkFile.setReadOnly()
+
+        // Verify the plugin loads successfully
+        ensureWorkManagerInitialized(context)
+        val nativeLibDir = getNativeLibDir(context, apkFile)
+        extractNativeLibs(apkFile, nativeLibDir)
+        val classLoader = PluginClassLoader(
+            apkFile.absolutePath,
+            context.codeCacheDir.absolutePath,
+            nativeLibDir.absolutePath,
+            context.classLoader
+        )
+        val clazz = classLoader.loadClass(PLUGIN_CLASS_NAME)
+        val provider = clazz.getDeclaredConstructor().newInstance() as ITranslationProvider
+
+        if (provider.getInterfaceVersion() > CURRENT_INTERFACE_VERSION) {
+            val msg = "Incompatible plugin interface version: ${provider.getInterfaceVersion()} > $CURRENT_INTERFACE_VERSION"
+            Log.w(TAG, msg)
+            lastErrorMessage = msg
+            cleanupFailedImport(context)
+            return false
+        }
+
+        val mergedContext = createMergedContext(context.applicationContext, apkFile)
+        val pluginRuntime = helium314.keyboard.latin.work.PluginRuntime(
+            classLoader = classLoader,
+            workerContext = mergedContext
+        )
+        helium314.keyboard.latin.App.pluginWorkerFactory.pluginRuntime = pluginRuntime
+
+        provider.init(mergedContext)
+        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, true).apply()
+        cachedClassLoader = classLoader
+        cachedApkModified = apkFile.lastModified()
+        activeProvider = provider
+        return true
+    }
+
+    private fun cleanupFailedImport(context: Context) {
+        try {
+            val apk = File(context.filesDir, PLUGIN_FILENAME)
+            apk.setWritable(true)
+            apk.delete()
+        } catch (_: Exception) {}
+        try {
+            context.codeCacheDir.deleteRecursively()
+        } catch (_: Exception) {}
+        try {
+            val baseDir = File(context.filesDir, "plugin_libs")
+            baseDir.listFiles()?.forEach { f ->
+                if (f.isDirectory && (f.name.startsWith("translation_") || f.name == "translation")) {
+                    f.deleteRecursively()
+                }
+            }
+        } catch (_: Exception) {}
+        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).apply()
+        activeProvider = null
     }
 
     private fun ensureWorkManagerInitialized(context: Context) {
