@@ -74,7 +74,15 @@ Dokumen panduan arsitektur, flow integrasi, konvensi, dan workflow untuk develop
   ```
 - **GitHub Actions**:
   - Workflow file: `.github/workflows/build-debug-apk.yml` dan `build-release-apk.yml`.
-  - Berjalan otomatis setiap push ke branch `main`.
+  - Debug build: otomatis setiap push ke `main`.
+  - Release build: otomatis saat tag `v*` di-push (butuh release workflow sukses; kalau gagal, fix lalu re-tag, jangan rerun — rerun checkout tag lama).
+
+### ⚡ Aturan Debug vs Release
+- **Saat user minta "update release" / "publish release"**: semua commit terkait release WAJIB pakai marker `[release]` di commit message, contoh: `chore: bump version to 4.3.0 [release]`.
+  - Marker `[release]` membuat workflow **Build debug APK otomatis skip** (lihat `if` di `build-debug-apk.yml`).
+  - Debug build HANYA dibuat kalau user BELUM bilang update release / publish release (commit normal tanpa marker).
+- **Urutan release**: bump `versionCode`+`versionName` di `app/build.gradle.kts` → commit `[release]` → push → tag `vX.Y.Z` → push tag → pantau `Build Release APK`.
+- Jika release gagal: fix di commit baru (dengan `[release]`) → `git tag -f vX.Y.Z && git push -f origin vX.Y.Z` untuk trigger ulang.
 
 ---
 

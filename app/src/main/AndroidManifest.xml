@@ -31,6 +31,18 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             tools:remove="android:appComponentFactory"
             tools:targetApi="33">
 
+        <!-- WorkManager on-demand init: App implements Configuration.Provider, remove default initializer (lintVital) -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
         <!-- Services -->
         <service android:name="LatinIME"
                 android:label="@string/english_ime_name"

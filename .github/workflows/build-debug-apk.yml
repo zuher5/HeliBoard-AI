@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    # Skip debug build during release update (commit message contains [release])
+    if: ${{ !contains(github.event.head_commit.message, '[release]') }}
 
     runs-on: ubuntu-latest
 
