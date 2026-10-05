@@ -102,7 +102,6 @@ fun SettingsNavHost(
         composable(SettingsDestination.AI) {
             AIIntegrationScreen(onClickBack = ::goBack)
         }
-        }
         composable(SettingsDestination.Voice) {
             VoiceSettingsScreen(onClickBack = ::goBack)
         }
