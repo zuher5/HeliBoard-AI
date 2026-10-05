@@ -10,6 +10,8 @@ import androidx.test.core.app.ApplicationProvider
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.prefs
 import org.robolectric.annotation.Config
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -51,6 +53,21 @@ class GboardThemeTest {
         assertEquals("#313244".toColorInt(), map[KeyboardTheme.COLOR_SPACEBAR])
         assertEquals("#cdd6f4".toColorInt(), map[KeyboardTheme.COLOR_TEXT])
         assertEquals("#a6adc8".toColorInt(), map[KeyboardTheme.COLOR_HINT_TEXT])
+    }
+
+    @Test
+    fun catppuccinMochaDirectColors() {
+        context.prefs().edit()
+            .putString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_CATPPUCCIN_MOCHA)
+            .putBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+            .commit()
+        val colors = KeyboardTheme.getColorsForCurrentTheme(context)
+        assertEquals("#cba6f7".toColorInt(), colors.get(ColorType.ACTION_KEY_BACKGROUND))
+        assertEquals("#11111b".toColorInt(), colors.get(ColorType.ACTION_KEY_ICON))
+        assertEquals("#313244".toColorInt(), colors.get(ColorType.SPACE_BAR_BACKGROUND))
+        assertEquals("#45475a".toColorInt(), colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND))
+        assertEquals("#1e1e2e".toColorInt(), colors.get(ColorType.MAIN_BACKGROUND))
+        assertEquals("#cdd6f4".toColorInt(), colors.get(ColorType.KEY_TEXT))
     }
 
     @Test
