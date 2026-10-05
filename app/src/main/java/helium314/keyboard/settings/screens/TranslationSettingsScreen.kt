@@ -107,7 +107,19 @@ fun TranslationSettingsScreen(
                             Preference(
                                 name = stringResource(R.string.offline_translation_models_title),
                                 description = stringResource(R.string.offline_translation_models_summary),
-                                onClick = { showModelsDialog = true },
+                                onClick = {
+                                    val provider = TranslationLoader.getProvider(context)
+                                    if (provider != null) {
+                                        showModelsDialog = true
+                                    } else {
+                                        val err = TranslationLoader.lastErrorMessage
+                                        android.widget.Toast.makeText(
+                                            context,
+                                            if (err != null) "Failed to load translation provider: $err" else "Failed to load translation provider",
+                                            android.widget.Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                },
                                 icon = R.drawable.ic_translate
                             )
                             if (showModelsDialog) {
@@ -117,16 +129,6 @@ fun TranslationSettingsScreen(
                                         provider = provider,
                                         onDismissRequest = { showModelsDialog = false }
                                     )
-                                } else {
-                                    LaunchedEffect(Unit) {
-                                        val err = TranslationLoader.lastErrorMessage
-                                        android.widget.Toast.makeText(
-                                            context,
-                                            if (err != null) "Failed to load translation provider: $err" else "Failed to load translation provider",
-                                            android.widget.Toast.LENGTH_LONG
-                                        ).show()
-                                        showModelsDialog = false
-                                    }
                                 }
                             }
                         }
