@@ -708,7 +708,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val p9 = 9.dpToPx(resources)
 
         voiceConfirmButton?.let { btn ->
-            btn.background?.let { colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND) }
+            btn.isActivated = true
+            btn.background?.mutate()?.let { colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND) }
             val doneIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_DONE_KEY, context)
                 ?: ContextCompat.getDrawable(context, R.drawable.sym_keyboard_done_lxx)?.mutate()
             btn.setImageDrawable(doneIcon)
@@ -726,7 +727,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             }
         }
 
-        voiceCancelButton.background?.let { colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND) }
+        voiceCancelButton.isActivated = true
+        voiceCancelButton.background?.mutate()?.let { colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND) }
         val cancelIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase(Locale.US), context)
             ?: ContextCompat.getDrawable(context, R.drawable.ic_close)?.mutate()
         voiceCancelButton.setImageDrawable(cancelIcon)

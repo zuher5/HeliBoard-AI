@@ -251,4 +251,15 @@ class ProofreadServiceTest {
         assertEquals(ProofreadService.DEFAULT_VOICE_OPENAI_MODEL, ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.OPENAI))
         assertTrue(ProofreadService.defaultVoiceModels(ProofreadService.AiProvider.GROQ).contains("whisper-large-v3-turbo"))
     }
+
+    @Test
+    fun voiceModelFallbackWhenEmpty() {
+        val blankVal: String? = "   "
+        val resolvedGemini = blankVal?.takeIf { it.isNotBlank() } ?: ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.GEMINI)
+        val resolvedGroq = blankVal?.takeIf { it.isNotBlank() } ?: ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.GROQ)
+        val resolvedOpenAi = blankVal?.takeIf { it.isNotBlank() } ?: ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.OPENAI)
+        assertEquals(ProofreadService.DEFAULT_VOICE_GEMINI_MODEL, resolvedGemini)
+        assertEquals(GroqModels.DEFAULT_VOICE_MODEL, resolvedGroq)
+        assertEquals(ProofreadService.DEFAULT_VOICE_OPENAI_MODEL, resolvedOpenAi)
+    }
 }
