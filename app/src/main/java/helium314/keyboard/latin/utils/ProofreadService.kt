@@ -10,6 +10,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Base64
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -133,6 +134,20 @@ class ProofreadService(private val context: Context) {
         }
     }
 
+    fun getVoiceModel(provider: AiProvider = getProvider()): String {
+        val key = "${KEY_VOICE_MODEL}_${provider.name.lowercase(java.util.Locale.US)}"
+        return encryptedPrefs.getString(key, null)?.takeIf { it.isNotBlank() } ?: defaultVoiceModel(provider)
+    }
+
+    fun setVoiceModel(provider: AiProvider = getProvider(), model: String) {
+        val key = "${KEY_VOICE_MODEL}_${provider.name.lowercase(java.util.Locale.US)}"
+        encryptedPrefs.edit().apply {
+            if (model.isBlank()) remove(key)
+            else putString(key, model.trim())
+            apply()
+        }
+    }
+
     // ------------------------------------------------------------------------------------- endpoint (OpenAI only)
 
     fun getEndpoint(): String =
@@ -211,22 +226,59 @@ class ProofreadService(private val context: Context) {
     // ------------------------------------------------------------------------------------ voice transcription
 
     /**
-     * Transcribes WAV audio via the active AI provider.
-     * Groq: whisper-large-v3-turbo through /openai/v1/audio/transcriptions (multipart).
-     * Gemini / [OI]-compatible: chat-style audio input is not supported here, so
-     * Groq is used as fallback when its key exists; otherwise the call fails.
+     * Transcribes WAV audio via the active AI provider (GROQ, GEMINI, or OPENAI).
      */
     suspend fun transcribeAudio(audioBytes: ByteArray, language: String? = null): Result<String> = withContext(Dispatchers.IO) {
-        val groqKey = getApiKey(AiProvider.GROQ)
-        if (groqKey.isNullOrBlank()) {
+        val activeProvider = getProvider()
+        val provider = if (hasApiKey(activeProvider)) {
+            activeProvider
+        } else if (hasApiKey(AiProvider.GROQ)) {
+            AiProvider.GROQ
+        } else {
             return@withContext Result.failure(AiException(context.getString(R.string.voice_error_no_api_key)))
         }
-        transcribeAudioGroq(groqKey, audioBytes, language)
+
+        when (provider) {
+            AiProvider.GROQ -> {
+                val groqKey = getApiKey(AiProvider.GROQ) ?: ""
+                transcribeAudioMultipart(
+                    endpoint = "https://api.groq.com/openai/v1/audio/transcriptions",
+                    token = groqKey,
+                    model = getVoiceModel(AiProvider.GROQ),
+                    audioBytes = audioBytes,
+                    language = language
+                )
+            }
+            AiProvider.OPENAI -> {
+                val openAiKey = getApiKey(AiProvider.OPENAI)
+                val endpoint = "${getEndpoint()}/audio/transcriptions"
+                transcribeAudioMultipart(
+                    endpoint = endpoint,
+                    token = openAiKey,
+                    model = getVoiceModel(AiProvider.OPENAI),
+                    audioBytes = audioBytes,
+                    language = language
+                )
+            }
+            AiProvider.GEMINI -> {
+                val geminiKey = getApiKey(AiProvider.GEMINI) ?: ""
+                transcribeAudioGemini(
+                    apiKey = geminiKey,
+                    model = getVoiceModel(AiProvider.GEMINI),
+                    audioBytes = audioBytes,
+                    language = language
+                )
+            }
+        }
     }
 
-    private fun transcribeAudioGroq(token: String, audioBytes: ByteArray, language: String?): Result<String> {
-        val model = "whisper-large-v3-turbo"
-        val endpoint = "https://api.groq.com/openai/v1/audio/transcriptions"
+    private fun transcribeAudioMultipart(
+        endpoint: String,
+        token: String?,
+        model: String,
+        audioBytes: ByteArray,
+        language: String?
+    ): Result<String> {
         return try {
             val boundary = "----VoiceBoundary" + System.currentTimeMillis()
             val url = URL(endpoint)
@@ -236,19 +288,17 @@ class ProofreadService(private val context: Context) {
                 connection.readTimeout = 25_000
                 connection.requestMethod = "POST"
                 connection.doOutput = true
-                connection.setRequestProperty("Authorization", "Bearer $token")
+                if (!token.isNullOrBlank()) {
+                    connection.setRequestProperty("Authorization", "Bearer $token")
+                }
                 connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=$boundary")
 
                 connection.outputStream.use { out ->
-                    // model part
                     out.writePart(boundary, "model", model)
-                    // language part ("auto" means omit)
                     if (!language.isNullOrBlank() && language != "auto") {
                         out.writePart(boundary, "language", language)
                     }
-                    // response_format part
                     out.writePart(boundary, "response_format", "json")
-                    // file part
                     val fileHeader = "--$boundary\r\n" +
                         "Content-Disposition: form-data; name=\"file\"; filename=\"audio.wav\"\r\n" +
                         "Content-Type: audio/wav\r\n\r\n"
@@ -272,7 +322,79 @@ class ProofreadService(private val context: Context) {
                 connection.disconnect()
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Groq transcription failed", e)
+            Log.e(TAG, "Multipart transcription failed", e)
+            Result.failure(AiException(e.message ?: "Transcription failed"))
+        }
+    }
+
+    private fun transcribeAudioGemini(
+        apiKey: String,
+        model: String,
+        audioBytes: ByteArray,
+        language: String?
+    ): Result<String> {
+        return try {
+            val cleanModel = model.removePrefix("models/")
+            val endpoint = "https://generativelanguage.googleapis.com/v1beta/models/$cleanModel:generateContent?key=$apiKey"
+            val url = URL(endpoint)
+            val connection = url.openConnection() as HttpURLConnection
+            try {
+                connection.connectTimeout = 10_000
+                connection.readTimeout = 25_000
+                connection.requestMethod = "POST"
+                connection.doOutput = true
+                connection.setRequestProperty("Content-Type", "application/json; charset=utf-8")
+
+                val base64Audio = Base64.encodeToString(audioBytes, Base64.NO_WRAP)
+                val prompt = if (!language.isNullOrBlank() && language != "auto") {
+                    "Transcribe the following audio in language '$language' verbatim. Output ONLY the transcription text, without explanation, introductory text, formatting, quotes, or timestamps."
+                } else {
+                    "Transcribe the following audio verbatim. Output ONLY the transcription text, without explanation, introductory text, formatting, quotes, or timestamps."
+                }
+
+                val jsonBody = JSONObject().apply {
+                    val contents = JSONArray().apply {
+                        val contentObj = JSONObject().apply {
+                            val parts = JSONArray().apply {
+                                put(JSONObject().put("text", prompt))
+                                put(JSONObject().put("inlineData", JSONObject().apply {
+                                    put("mimeType", "audio/wav")
+                                    put("data", base64Audio)
+                                }))
+                            }
+                            put("parts", parts)
+                        }
+                        put(contentObj)
+                    }
+                    put("contents", contents)
+                    put("generationConfig", JSONObject().put("temperature", 0.0))
+                }
+
+                connection.outputStream.use { out ->
+                    out.write(jsonBody.toString().toByteArray(Charsets.UTF_8))
+                    out.flush()
+                }
+
+                val code = connection.responseCode
+                val stream = if (code in 200..299) connection.inputStream else connection.errorStream
+                val body = stream?.bufferedReader()?.use { it.readText() } ?: ""
+                if (code in 200..299) {
+                    val json = JSONObject(body)
+                    val candidates = json.optJSONArray("candidates")
+                    val firstCandidate = candidates?.optJSONObject(0)
+                    val parts = firstCandidate?.optJSONObject("content")?.optJSONArray("parts")
+                    val rawText = parts?.optJSONObject(0)?.optString("text", "")?.trim() ?: ""
+                    val cleaned = rawText.removeSurrounding("\"").removeSurrounding("'").trim()
+                    if (cleaned.isEmpty()) Result.failure(AiException("Empty transcription response"))
+                    else Result.success(cleaned)
+                } else {
+                    Result.failure(AiException("Gemini transcription HTTP $code: ${body.take(200)}"))
+                }
+            } finally {
+                connection.disconnect()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Gemini transcription failed", e)
             Result.failure(AiException(e.message ?: "Transcription failed"))
         }
     }
@@ -540,6 +662,9 @@ class ProofreadService(private val context: Context) {
         private const val KEY_OPENAI_KEY = "openai_api_key"
         private const val KEY_OPENAI_MODEL = "openai_model_name"
         private const val KEY_OPENAI_ENDPOINT = "openai_endpoint"
+        const val KEY_VOICE_MODEL = "ai_voice_model"
+        const val DEFAULT_VOICE_GEMINI_MODEL = "gemini-2.0-flash"
+        const val DEFAULT_VOICE_OPENAI_MODEL = "whisper-1"
         const val PREF_TRANSLATION_TARGET_LANGUAGE_NAME = "translation_target_language_name"
 
         private const val GEMINI_CHAT_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
@@ -569,6 +694,24 @@ class ProofreadService(private val context: Context) {
                 "Qwen/Qwen2.5-72B-Instruct",
                 "meta-llama/Llama-3.1-8B-Instruct",
                 "mistralai/Mistral-7B-Instruct-v0.3"
+            )
+        }
+
+        fun defaultVoiceModel(provider: AiProvider = AiProvider.GEMINI) = when (provider) {
+            AiProvider.GEMINI -> DEFAULT_VOICE_GEMINI_MODEL
+            AiProvider.GROQ -> GroqModels.DEFAULT_VOICE_MODEL
+            AiProvider.OPENAI -> DEFAULT_VOICE_OPENAI_MODEL
+        }
+
+        fun defaultVoiceModels(provider: AiProvider = AiProvider.GEMINI) = when (provider) {
+            AiProvider.GEMINI -> listOf(
+                "gemini-2.0-flash",
+                "gemini-2.5-flash",
+                "gemini-1.5-flash"
+            )
+            AiProvider.GROQ -> GroqModels.VOICE_MODELS
+            AiProvider.OPENAI -> listOf(
+                DEFAULT_VOICE_OPENAI_MODEL
             )
         }
 

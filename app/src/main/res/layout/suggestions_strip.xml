@@ -119,6 +119,16 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent" />
             <ImageButton
+                android:id="@+id/voice_confirm_button"
+                android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+                android:layout_height="@dimen/config_suggestions_strip_edge_key_width"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:background="@drawable/toolbar_key_background"
+                style="?attr/suggestionWordStyle"
+                android:src="@drawable/sym_keyboard_done_lxx"
+                android:contentDescription="@string/voice_action_done" />
+            <ImageButton
                 android:id="@+id/voice_cancel_button"
                 android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
                 android:layout_height="@dimen/config_suggestions_strip_edge_key_width"

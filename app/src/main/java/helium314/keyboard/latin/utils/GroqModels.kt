@@ -23,4 +23,11 @@ object GroqModels {
         "allam-2-7b"
     )
     const val DEFAULT_MODEL = "llama-3.1-8b-instant"
+
+    val VOICE_MODELS = listOf(
+        "whisper-large-v3-turbo",
+        "whisper-large-v3",
+        "distil-whisper-large-v3-en"
+    )
+    const val DEFAULT_VOICE_MODEL = "whisper-large-v3-turbo"
 }

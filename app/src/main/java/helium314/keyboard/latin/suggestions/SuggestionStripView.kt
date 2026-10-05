@@ -27,6 +27,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import java.util.Locale
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import helium314.keyboard.event.HapticEvent
@@ -679,6 +681,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val voiceStatusContainer: View = findViewById(R.id.voice_status_container)
     private val voiceStatusText: TextView = findViewById(R.id.voice_status_text)
     private val voiceVisualizer: VoiceVisualizerView = findViewById(R.id.voice_visualizer)
+    private val voiceConfirmButton: ImageButton? = findViewById(R.id.voice_confirm_button)
     private val voiceCancelButton: ImageButton = findViewById(R.id.voice_cancel_button)
     private var isVoiceStatusVisible = false
 
@@ -696,11 +699,44 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         pinnedKeys.isVisible = false
         toolbarExpandKey.isVisible = false
 
+        val colors = Settings.getValues().mColors
         voiceStatusText.text = message
+        voiceStatusText.setTextColor(colors.get(ColorType.KEY_TEXT))
+        voiceVisualizer.setColor(colors.get(ColorType.GESTURE_TRAIL).takeIf { it != 0 } ?: colors.get(ColorType.KEY_TEXT))
         voiceVisualizer.setMode(if (isProcessing) VoiceVisualizerView.Mode.PROCESSING else VoiceVisualizerView.Mode.RECORDING)
+
+        val p9 = 9.dpToPx(resources)
+
+        voiceConfirmButton?.let { btn ->
+            btn.background?.let { colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND) }
+            val doneIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_DONE_KEY, context)
+                ?: ContextCompat.getDrawable(context, R.drawable.sym_keyboard_done_lxx)?.mutate()
+            btn.setImageDrawable(doneIcon)
+            colors.setColor(btn, ColorType.TOOL_BAR_KEY)
+            btn.setPadding(p9, p9, p9, p9)
+            if (!isProcessing && onConfirm != null) {
+                btn.isVisible = true
+                btn.setOnClickListener {
+                    AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it, HapticEvent.KEY_PRESS)
+                    onConfirm.run()
+                }
+            } else {
+                btn.isVisible = false
+                btn.setOnClickListener(null)
+            }
+        }
+
+        voiceCancelButton.background?.let { colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND) }
+        val cancelIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase(Locale.US), context)
+            ?: ContextCompat.getDrawable(context, R.drawable.ic_close)?.mutate()
+        voiceCancelButton.setImageDrawable(cancelIcon)
+        colors.setColor(voiceCancelButton, ColorType.TOOL_BAR_KEY)
+        voiceCancelButton.setPadding(p9, p9, p9, p9)
         voiceCancelButton.setOnClickListener {
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it, HapticEvent.KEY_PRESS)
             onCancel?.run() ?: hideVoiceStatus()
         }
+
         voiceStatusContainer.isVisible = true
         isVoiceStatusVisible = true
     }

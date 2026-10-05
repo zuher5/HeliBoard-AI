@@ -1353,6 +1353,9 @@ New dictionary:
     <string name="translate_no_text">No text to translate.</string>
 
     <!-- Voice input -->
+    <string name="voice_action_done">Done</string>
+    <string name="voice_model_title">Voice model</string>
+    <string name="voice_model_custom">Custom…</string>
     <string name="voice_status_listening">Listening…</string>
     <string name="voice_status_processing">Processing…</string>
     <string name="voice_input_cancel_description">Cancel voice input</string>

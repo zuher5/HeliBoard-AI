@@ -243,4 +243,12 @@ class ProofreadServiceTest {
     fun groqDefaultModel() {
         assertEquals("llama-3.1-8b-instant", ProofreadService.defaultModel(ProofreadService.AiProvider.GROQ))
     }
+
+    @Test
+    fun defaultVoiceModelsTest() {
+        assertEquals(ProofreadService.DEFAULT_VOICE_GEMINI_MODEL, ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.GEMINI))
+        assertEquals(GroqModels.DEFAULT_VOICE_MODEL, ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.GROQ))
+        assertEquals(ProofreadService.DEFAULT_VOICE_OPENAI_MODEL, ProofreadService.defaultVoiceModel(ProofreadService.AiProvider.OPENAI))
+        assertTrue(ProofreadService.defaultVoiceModels(ProofreadService.AiProvider.GROQ).contains("whisper-large-v3-turbo"))
+    }
 }

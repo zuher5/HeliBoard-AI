@@ -36,6 +36,7 @@ import helium314.keyboard.settings.preferences.SliderPreference
 
 private const val KEY_AI_API_KEY = "ai_api_key"
 private const val KEY_AI_MODEL = "ai_model"
+private const val KEY_AI_VOICE_MODEL = "ai_voice_model"
 private const val KEY_AI_ENDPOINT = "ai_endpoint"
 
 @Composable
@@ -65,6 +66,7 @@ fun AIIntegrationScreen(
         Settings.PREF_AI_PROVIDER,
         KEY_AI_API_KEY,
         KEY_AI_MODEL,
+        KEY_AI_VOICE_MODEL,
         if (isOpenAI) KEY_AI_ENDPOINT else null,
         Settings.PREF_TRANSLATION_TARGET_LANGUAGE,
         Settings.PREF_CLOUD_AI_MAX_TOKENS,
@@ -124,6 +126,24 @@ fun createAISettings(context: Context) = listOf(
             onGet = { service.getModelName(service.getProvider()) },
             onSet = { service.setModelName(service.getProvider(), it) },
             onReset = { service.setModelName(service.getProvider(), "") },
+            info = hint,
+        )
+    },
+    Setting(context, KEY_AI_VOICE_MODEL, R.string.voice_model_title) { setting ->
+        val service = remember { ProofreadService(context) }
+        val provider = service.getProvider()
+        val hint = when (provider) {
+            ProofreadService.AiProvider.GEMINI -> "e.g. gemini-2.0-flash, gemini-2.5-flash"
+            ProofreadService.AiProvider.GROQ -> "e.g. whisper-large-v3-turbo, whisper-large-v3"
+            ProofreadService.AiProvider.OPENAI -> "e.g. whisper-1"
+        }
+        SecureTextInputPreference(
+            title = setting.title,
+            description = service.getVoiceModel(provider).takeIf { it.isNotBlank() }
+                ?: stringResource(R.string.ai_model_default, ProofreadService.defaultVoiceModel(provider)),
+            onGet = { service.getVoiceModel(service.getProvider()) },
+            onSet = { service.setVoiceModel(service.getProvider(), it) },
+            onReset = { service.setVoiceModel(service.getProvider(), "") },
             info = hint,
         )
     },
