@@ -1451,5 +1451,5 @@ New dictionary:
     <!-- App theme -->
     <string name="app_theme">App theme</string>
     <string name="app_theme_default">Default</string>
-    <string name="app_theme_catppuccin">Catppuccin</string>
+    <string name="app_theme_catppuccin">Catppuccin Dark</string>
 </resources>

@@ -440,5 +440,5 @@
     <string name="spell_check_suggestions">Tampilkan saran pengecekan ejaan</string>
     <string name="app_theme">Tema aplikasi</string>
     <string name="app_theme_default">Bawaan</string>
-    <string name="app_theme_catppuccin">Catppuccin</string>
+    <string name="app_theme_catppuccin">Catppuccin Dark</string>
 </resources>

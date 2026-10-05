@@ -85,8 +85,7 @@ fun Theme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
     val appTheme = context.prefs().getString(Settings.PREF_APP_THEME, Defaults.PREF_APP_THEME) ?: Defaults.PREF_APP_THEME
 
     val colorScheme = if (appTheme == Defaults.APP_THEME_CATPPUCCIN) {
-        if (dark) CatppuccinMochaColorScheme
-        else CatppuccinLatteColorScheme
+        CatppuccinMochaColorScheme
     } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (dark) dynamicDarkColorScheme(context)
