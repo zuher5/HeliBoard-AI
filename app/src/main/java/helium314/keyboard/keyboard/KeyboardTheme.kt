@@ -178,10 +178,12 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     "#1e1e2e".toColorInt(),
                     "#313244".toColorInt(),
                     "#45475a".toColorInt(),
-                    "#181825".toColorInt(),
+                    "#313244".toColorInt(),
                     "#cdd6f4".toColorInt(),
                     "#a6adc8".toColorInt(),
-                    keyboardBackground = backgroundImage
+                    keyboardBackground = backgroundImage,
+                    actionKeyIcon = "#11111b".toColorInt(),
+                    keepFunctionalKeyWithoutBorders = true
                 )
                 THEME_CLOUDY -> DefaultColors(
                     themeStyle,

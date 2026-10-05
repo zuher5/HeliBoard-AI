@@ -48,7 +48,7 @@ class GboardThemeTest {
         assertEquals("#1e1e2e".toColorInt(), map[KeyboardTheme.COLOR_BACKGROUND])
         assertEquals("#313244".toColorInt(), map[KeyboardTheme.COLOR_KEYS])
         assertEquals("#45475a".toColorInt(), map[KeyboardTheme.COLOR_FUNCTIONAL_KEYS])
-        assertEquals("#181825".toColorInt(), map[KeyboardTheme.COLOR_SPACEBAR])
+        assertEquals("#313244".toColorInt(), map[KeyboardTheme.COLOR_SPACEBAR])
         assertEquals("#cdd6f4".toColorInt(), map[KeyboardTheme.COLOR_TEXT])
         assertEquals("#a6adc8".toColorInt(), map[KeyboardTheme.COLOR_HINT_TEXT])
     }
