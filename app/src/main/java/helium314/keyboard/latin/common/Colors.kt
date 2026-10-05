@@ -461,11 +461,7 @@ class DefaultColors (
             // need to set color to background if key borders are disabled, or there will be ugly keys
             backgroundStateList = pressedStateList(brightenOrDarken(background, true), background)
             keyStateList = pressedStateList(keyBackground, Color.TRANSPARENT)
-            functionalKeyStateList = if (keepFunctionalKeyWithoutBorders) {
-                pressedStateList(brightenOrDarken(functionalKey, true), functionalKey)
-            } else {
-                keyStateList
-            }
+            functionalKeyStateList = keyStateList
             actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
                 else pressedStateList(brightenOrDarken(accent, true), accent)
             spaceBarStateList = pressedStateList(brightenOrDarken(spaceBar, true), spaceBar)
