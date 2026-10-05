@@ -441,4 +441,6 @@
     <string name="app_theme">Tema aplikasi</string>
     <string name="app_theme_default">Bawaan</string>
     <string name="app_theme_catppuccin">Catppuccin Dark</string>
+    <string name="app_theme_catppuccin_dark">Catppuccin Dark</string>
+    <string name="app_theme_catppuccin_light">Catppuccin Light</string>
 </resources>

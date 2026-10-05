@@ -82,7 +82,8 @@ fun createAboutSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_APP_THEME, R.string.app_theme) { setting ->
         val items = listOf(
             stringResource(R.string.app_theme_default) to Defaults.APP_THEME_DEFAULT,
-            stringResource(R.string.app_theme_catppuccin) to Defaults.APP_THEME_CATPPUCCIN
+            stringResource(R.string.app_theme_catppuccin_dark) to Defaults.APP_THEME_CATPPUCCIN_DARK,
+            stringResource(R.string.app_theme_catppuccin_light) to Defaults.APP_THEME_CATPPUCCIN_LIGHT,
         )
         ListPreference(
             setting = setting,

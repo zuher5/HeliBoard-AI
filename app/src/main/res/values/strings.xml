@@ -1452,4 +1452,6 @@ New dictionary:
     <string name="app_theme">App theme</string>
     <string name="app_theme_default">Default</string>
     <string name="app_theme_catppuccin">Catppuccin Dark</string>
+    <string name="app_theme_catppuccin_dark">Catppuccin Dark</string>
+    <string name="app_theme_catppuccin_light">Catppuccin Light</string>
 </resources>

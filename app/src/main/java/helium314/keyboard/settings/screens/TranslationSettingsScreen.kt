@@ -117,6 +117,16 @@ fun TranslationSettingsScreen(
                                         provider = provider,
                                         onDismissRequest = { showModelsDialog = false }
                                     )
+                                } else {
+                                    LaunchedEffect(Unit) {
+                                        val err = TranslationLoader.lastErrorMessage
+                                        android.widget.Toast.makeText(
+                                            context,
+                                            if (err != null) "Failed to load translation provider: $err" else "Failed to load translation provider",
+                                            android.widget.Toast.LENGTH_LONG
+                                        ).show()
+                                        showModelsDialog = false
+                                    }
                                 }
                             }
                         }

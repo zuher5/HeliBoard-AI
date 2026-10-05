@@ -84,20 +84,23 @@ fun Theme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
         Log.v("irrelevant", "recomposition trigger")
     val appTheme = context.prefs().getString(Settings.PREF_APP_THEME, Defaults.PREF_APP_THEME) ?: Defaults.PREF_APP_THEME
 
-    val colorScheme = if (appTheme == Defaults.APP_THEME_CATPPUCCIN) {
-        CatppuccinMochaColorScheme
-    } else {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (dark) dynamicDarkColorScheme(context)
-            else dynamicLightColorScheme(context)
-        } else {
-            // todo (later): more colors
-            if (dark) darkColorScheme(
-                primary = colorResource(R.color.accent),
-            )
-            else lightColorScheme(
-                primary = colorResource(R.color.accent)
-            )
+    val colorScheme = when (appTheme) {
+        Defaults.APP_THEME_CATPPUCCIN_DARK -> CatppuccinMochaColorScheme
+        Defaults.APP_THEME_CATPPUCCIN_LIGHT -> CatppuccinLatteColorScheme
+        Defaults.APP_THEME_CATPPUCCIN -> if (dark) CatppuccinMochaColorScheme else CatppuccinLatteColorScheme
+        else -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (dark) dynamicDarkColorScheme(context)
+                else dynamicLightColorScheme(context)
+            } else {
+                // todo (later): more colors
+                if (dark) darkColorScheme(
+                    primary = colorResource(R.color.accent),
+                )
+                else lightColorScheme(
+                    primary = colorResource(R.color.accent)
+                )
+            }
         }
     }
     val material3 = Typography()

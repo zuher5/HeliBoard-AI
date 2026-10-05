@@ -63,12 +63,15 @@ object TranslationLoader {
                 var redirectConn = conn
                 var status = redirectConn.responseCode
                 var redirectCount = 0
-                while ((status == java.net.HttpURLConnection.HTTP_MOVED_TEMP || status == java.net.HttpURLConnection.HTTP_MOVED_PERM || status == java.net.HttpURLConnection.HTTP_SEE_OTHER) && redirectCount < 5) {
+                while (status in 300..399 && redirectCount < 5) {
                     val newUrl = redirectConn.getHeaderField("Location")
                     redirectConn.disconnect()
+                    if (newUrl == null) break
                     val nextUrl = java.net.URL(newUrl)
                     redirectConn = nextUrl.openConnection() as java.net.HttpURLConnection
                     redirectConn.setRequestProperty("User-Agent", "HeliboardL")
+                    redirectConn.connectTimeout = 15000
+                    redirectConn.readTimeout = 30000
                     redirectConn.connect()
                     status = redirectConn.responseCode
                     redirectCount++
@@ -114,11 +117,10 @@ object TranslationLoader {
 
     private fun getNativeLibDir(context: Context, apkFile: File): File {
         val baseDir = File(context.filesDir, "plugin_libs")
-        if (!baseDir.exists()) baseDir.mkdirs()
-        val targetName = "translation_${apkFile.lastModified()}"
-        val targetDir = File(baseDir, targetName)
+        val targetDir = File(baseDir, "translation")
+        if (!targetDir.exists()) targetDir.mkdirs()
         baseDir.listFiles()?.forEach { f ->
-            if (f.isDirectory && (f.name.startsWith("translation_") || f.name == "translation") && f.name != targetName) {
+            if (f.isDirectory && f.name.startsWith("translation_")) {
                 try {
                     f.deleteRecursively()
                 } catch (_: Exception) {}
@@ -134,7 +136,7 @@ object TranslationLoader {
 
         val apkFile = File(context.filesDir, PLUGIN_FILENAME)
         if (!apkFile.exists()) {
-            context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).apply()
+            context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).commit()
             return null
         }
         apkFile.setReadOnly()
@@ -144,13 +146,14 @@ object TranslationLoader {
             ensureWorkManagerInitialized(context)
             val nativeLibDir = getNativeLibDir(context, apkFile)
             extractNativeLibs(apkFile, nativeLibDir)
+            val optDir = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) null else context.codeCacheDir.apply { mkdirs() }.absolutePath
             val cachedLoader = cachedClassLoader
             val classLoader = if (cachedLoader != null && cachedApkModified == apkFile.lastModified()) {
                 cachedLoader
             } else {
                 val cl = PluginClassLoader(
                     apkFile.absolutePath,
-                    context.codeCacheDir.absolutePath,
+                    optDir,
                     nativeLibDir.absolutePath,
                     context.classLoader
                 )
@@ -162,7 +165,9 @@ object TranslationLoader {
             val provider = clazz.getDeclaredConstructor().newInstance() as ITranslationProvider
             
             if (provider.getInterfaceVersion() > CURRENT_INTERFACE_VERSION) {
-                Log.w(TAG, "Plugin version newer than supported interface!")
+                val msg = "Plugin version newer than supported interface: ${provider.getInterfaceVersion()} > $CURRENT_INTERFACE_VERSION"
+                Log.w(TAG, msg)
+                lastErrorMessage = msg
                 return null
             }
 
@@ -177,7 +182,10 @@ object TranslationLoader {
             activeProvider = provider
             provider
         } catch (e: Throwable) {
-            Log.e(TAG, "Failed to load translation plugin", e)
+            val causeMsg = e.cause?.let { "${it::class.java.simpleName}: ${it.message}" }
+            val rootMsg = "${e::class.java.simpleName}: ${e.message}"
+            lastErrorMessage = if (causeMsg != null) "$rootMsg ($causeMsg)" else rootMsg
+            Log.e(TAG, "Failed to load translation plugin: $lastErrorMessage", e)
             null
         }
     }
@@ -200,6 +208,9 @@ object TranslationLoader {
                         if (entry.name.startsWith(prefix) && entry.name.endsWith(".so")) {
                             val fileName = entry.name.substring(prefix.length)
                             val outFile = File(outputDir, fileName)
+                            if (outFile.exists()) {
+                                outFile.setWritable(true)
+                            }
                             if (!outFile.exists() || outFile.length() != entry.size) {
                                 zip.getInputStream(entry).use { input ->
                                     outFile.outputStream().use { output ->
@@ -240,9 +251,7 @@ object TranslationLoader {
     fun importPlugin(context: Context, sourceFile: File): Boolean {
         try {
             lastErrorMessage = null
-            try {
-                context.codeCacheDir.deleteRecursively()
-            } catch (_: Exception) {}
+            context.codeCacheDir.mkdirs()
 
             val apkFile = File(context.filesDir, PLUGIN_FILENAME)
             if (apkFile.exists()) {
@@ -256,8 +265,10 @@ object TranslationLoader {
             }
             return verifyAndInitPlugin(context, apkFile)
         } catch (e: Throwable) {
-            Log.e(TAG, "Failed to import translation plugin from file", e)
-            lastErrorMessage = e.message ?: "Failed to import plugin"
+            val causeMsg = e.cause?.let { "${it::class.java.simpleName}: ${it.message}" }
+            val rootMsg = "${e::class.java.simpleName}: ${e.message}"
+            lastErrorMessage = if (causeMsg != null) "$rootMsg ($causeMsg)" else rootMsg
+            Log.e(TAG, "Failed to import translation plugin from file: $lastErrorMessage", e)
             cleanupFailedImport(context)
             return false
         }
@@ -272,9 +283,7 @@ object TranslationLoader {
         }
         try {
             lastErrorMessage = null
-            try {
-                context.codeCacheDir.deleteRecursively()
-            } catch (_: Exception) {}
+            context.codeCacheDir.mkdirs()
 
             val apkFile = File(context.filesDir, PLUGIN_FILENAME)
             if (apkFile.exists()) {
@@ -290,50 +299,62 @@ object TranslationLoader {
             }
             return verifyAndInitPlugin(context, apkFile)
         } catch (e: Throwable) {
-            Log.e(TAG, "Failed to import translation plugin APK from URI", e)
-            lastErrorMessage = e.message ?: "Failed to import plugin"
+            val causeMsg = e.cause?.let { "${it::class.java.simpleName}: ${it.message}" }
+            val rootMsg = "${e::class.java.simpleName}: ${e.message}"
+            lastErrorMessage = if (causeMsg != null) "$rootMsg ($causeMsg)" else rootMsg
+            Log.e(TAG, "Failed to import translation plugin APK from URI: $lastErrorMessage", e)
             cleanupFailedImport(context)
             return false
         }
     }
 
     private fun verifyAndInitPlugin(context: Context, apkFile: File): Boolean {
-        apkFile.setReadOnly()
+        return try {
+            apkFile.setReadOnly()
 
-        // Verify the plugin loads successfully
-        ensureWorkManagerInitialized(context)
-        val nativeLibDir = getNativeLibDir(context, apkFile)
-        extractNativeLibs(apkFile, nativeLibDir)
-        val classLoader = PluginClassLoader(
-            apkFile.absolutePath,
-            context.codeCacheDir.absolutePath,
-            nativeLibDir.absolutePath,
-            context.classLoader
-        )
-        val clazz = classLoader.loadClass(PLUGIN_CLASS_NAME)
-        val provider = clazz.getDeclaredConstructor().newInstance() as ITranslationProvider
+            // Verify the plugin loads successfully
+            ensureWorkManagerInitialized(context)
+            val nativeLibDir = getNativeLibDir(context, apkFile)
+            extractNativeLibs(apkFile, nativeLibDir)
+            val optDir = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) null else context.codeCacheDir.apply { mkdirs() }.absolutePath
+            val classLoader = PluginClassLoader(
+                apkFile.absolutePath,
+                optDir,
+                nativeLibDir.absolutePath,
+                context.classLoader
+            )
+            val clazz = classLoader.loadClass(PLUGIN_CLASS_NAME)
+            val provider = clazz.getDeclaredConstructor().newInstance() as ITranslationProvider
 
-        if (provider.getInterfaceVersion() > CURRENT_INTERFACE_VERSION) {
-            val msg = "Incompatible plugin interface version: ${provider.getInterfaceVersion()} > $CURRENT_INTERFACE_VERSION"
-            Log.w(TAG, msg)
-            lastErrorMessage = msg
+            if (provider.getInterfaceVersion() > CURRENT_INTERFACE_VERSION) {
+                val msg = "Incompatible plugin interface version: ${provider.getInterfaceVersion()} > $CURRENT_INTERFACE_VERSION"
+                Log.w(TAG, msg)
+                lastErrorMessage = msg
+                cleanupFailedImport(context)
+                return false
+            }
+
+            val mergedContext = createMergedContext(context.applicationContext, apkFile)
+            val pluginRuntime = helium314.keyboard.latin.work.PluginRuntime(
+                classLoader = classLoader,
+                workerContext = mergedContext
+            )
+            helium314.keyboard.latin.App.pluginWorkerFactory.pluginRuntime = pluginRuntime
+
+            provider.init(mergedContext)
+            context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, true).commit()
+            cachedClassLoader = classLoader
+            cachedApkModified = apkFile.lastModified()
+            activeProvider = provider
+            true
+        } catch (e: Throwable) {
+            val causeMsg = e.cause?.let { "${it::class.java.simpleName}: ${it.message}" }
+            val rootMsg = "${e::class.java.simpleName}: ${e.message}"
+            lastErrorMessage = if (causeMsg != null) "$rootMsg ($causeMsg)" else rootMsg
+            Log.e(TAG, "Failed to verify and initialize plugin: $lastErrorMessage", e)
             cleanupFailedImport(context)
-            return false
+            false
         }
-
-        val mergedContext = createMergedContext(context.applicationContext, apkFile)
-        val pluginRuntime = helium314.keyboard.latin.work.PluginRuntime(
-            classLoader = classLoader,
-            workerContext = mergedContext
-        )
-        helium314.keyboard.latin.App.pluginWorkerFactory.pluginRuntime = pluginRuntime
-
-        provider.init(mergedContext)
-        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, true).apply()
-        cachedClassLoader = classLoader
-        cachedApkModified = apkFile.lastModified()
-        activeProvider = provider
-        return true
     }
 
     private fun cleanupFailedImport(context: Context) {
@@ -353,7 +374,7 @@ object TranslationLoader {
                 }
             }
         } catch (_: Exception) {}
-        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).apply()
+        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).commit()
         activeProvider = null
     }
 
@@ -409,7 +430,7 @@ object TranslationLoader {
                 }
             }
         } catch (_: Exception) {}
-        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).apply()
+        context.prefs().edit().putBoolean(PREF_HAS_PLUGIN, false).commit()
     }
 
     private fun createMergedContext(host: Context, pluginApk: File): Context {
@@ -485,7 +506,7 @@ object TranslationLoader {
                 if (loaded != null) return loaded
                 try {
                     return findClass(name)
-                } catch (_: ClassNotFoundException) {
+                } catch (_: Throwable) {
                     // fallback to parent
                 }
             }
