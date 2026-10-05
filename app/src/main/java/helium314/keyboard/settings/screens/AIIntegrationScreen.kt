@@ -114,38 +114,52 @@ fun createAISettings(context: Context) = listOf(
     Setting(context, KEY_AI_MODEL, R.string.ai_model_name) { setting ->
         val service = remember { ProofreadService(context) }
         val provider = service.getProvider()
-        val hint = when (provider) {
-            ProofreadService.AiProvider.GEMINI -> "e.g. gemini-2.5-flash, gemini-2.0-flash"
-            ProofreadService.AiProvider.GROQ -> "e.g. llama-3.3-70b-versatile, llama-3.1-8b-instant"
-            ProofreadService.AiProvider.OPENAI -> "e.g. Qwen/Qwen2.5-72B-Instruct, gpt-4o-mini"
-        }
-        SecureTextInputPreference(
-            title = setting.title,
+        val models = ProofreadService.defaultModels(provider)
+        var showDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+        Preference(
+            name = setting.title,
             description = service.getModelName(provider).takeIf { it.isNotBlank() }
                 ?: stringResource(R.string.ai_model_default, ProofreadService.defaultModel(provider)),
-            onGet = { service.getModelName(service.getProvider()) },
-            onSet = { service.setModelName(service.getProvider(), it) },
-            onReset = { service.setModelName(service.getProvider(), "") },
-            info = hint,
+            onClick = { showDialog = true }
         )
+        if (showDialog) {
+            helium314.keyboard.settings.dialogs.ListPickerDialog(
+                onDismissRequest = { showDialog = false },
+                items = models,
+                selectedItem = service.getModelName(provider).takeIf { it in models } ?: ProofreadService.defaultModel(provider),
+                title = { androidx.compose.material3.Text(setting.title) },
+                onItemSelected = {
+                    service.setModelName(service.getProvider(), it)
+                    showDialog = false
+                },
+                onDefault = { service.setModelName(service.getProvider(), "") }
+            )
+        }
     },
     Setting(context, KEY_AI_VOICE_MODEL, R.string.voice_model_title) { setting ->
         val service = remember { ProofreadService(context) }
         val provider = service.getProvider()
-        val hint = when (provider) {
-            ProofreadService.AiProvider.GEMINI -> "e.g. gemini-2.0-flash, gemini-2.5-flash"
-            ProofreadService.AiProvider.GROQ -> "e.g. whisper-large-v3-turbo, whisper-large-v3"
-            ProofreadService.AiProvider.OPENAI -> "e.g. whisper-1"
-        }
-        SecureTextInputPreference(
-            title = setting.title,
+        val models = ProofreadService.defaultVoiceModels(provider)
+        var showDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+        Preference(
+            name = setting.title,
             description = service.getVoiceModel(provider).takeIf { it.isNotBlank() }
                 ?: stringResource(R.string.ai_model_default, ProofreadService.defaultVoiceModel(provider)),
-            onGet = { service.getVoiceModel(service.getProvider()) },
-            onSet = { service.setVoiceModel(service.getProvider(), it) },
-            onReset = { service.setVoiceModel(service.getProvider(), "") },
-            info = hint,
+            onClick = { showDialog = true }
         )
+        if (showDialog) {
+            helium314.keyboard.settings.dialogs.ListPickerDialog(
+                onDismissRequest = { showDialog = false },
+                items = models,
+                selectedItem = service.getVoiceModel(provider).takeIf { it in models } ?: ProofreadService.defaultVoiceModel(provider),
+                title = { androidx.compose.material3.Text(setting.title) },
+                onItemSelected = {
+                    service.setVoiceModel(service.getProvider(), it)
+                    showDialog = false
+                },
+                onDefault = { service.setVoiceModel(service.getProvider(), "") }
+            )
+        }
     },
     Setting(context, KEY_AI_ENDPOINT, R.string.ai_openai_endpoint, R.string.ai_openai_endpoint_summary) { setting ->
         val service = remember { ProofreadService(context) }

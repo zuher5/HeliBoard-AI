@@ -49,7 +49,6 @@ fun MainSettingsScreen(
     onClickDictionaries: () -> Unit,
     onClickAI: () -> Unit,
     onClickVoice: () -> Unit,
-    onClickTranslation: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     SearchSettingsScreen(
@@ -99,11 +98,6 @@ fun MainSettingsScreen(
                             name = stringResource(R.string.voice_settings_title),
                             onClick = onClickVoice,
                             icon = R.drawable.sym_keyboard_voice_rounded
-                        ) { NextScreenIcon() }
-                        Preference(
-                            name = stringResource(R.string.translation_settings_title),
-                            onClick = onClickTranslation,
-                            icon = R.drawable.ic_translate
                         ) { NextScreenIcon() }
                         Preference(
                             name = stringResource(R.string.settings_screen_appearance),

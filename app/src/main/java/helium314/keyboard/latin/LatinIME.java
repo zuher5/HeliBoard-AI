@@ -1636,6 +1636,13 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         if (!mVoiceInputManager.canStartVoice()) {
+            if (android.content.pm.PackageManager.PERMISSION_GRANTED !=
+                androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)) {
+                final android.content.Intent intent = new android.content.Intent(this, helium314.keyboard.latin.voice.VoicePermissionActivity.class);
+                intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                return;
+            }
             android.widget.Toast.makeText(this,
                     getString(R.string.voice_error_permission), android.widget.Toast.LENGTH_LONG).show();
             return;

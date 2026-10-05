@@ -10,8 +10,6 @@ import android.os.Handler
 import android.os.Looper
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.translation.TranslationLoader
-import helium314.keyboard.latin.translation.TranslationModelImporter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -81,131 +79,11 @@ object ProofreadHelper {
 
     @JvmStatic
     fun translateAsync(context: Context, text: String, callback: AiCallback) {
-        val prefs = context.prefs()
-        val translationEngine = prefs.getString("translation_engine", "plugin") ?: "plugin"
-        val isOfflineOnly = translationEngine == "plugin"
-        val isOnlineOnly = translationEngine == "ai"
-
-        val hasPlugin = TranslationLoader.hasPlugin(context)
-        val usePlugin = !isOnlineOnly && hasPlugin
-
         performAsyncOperation(
             context = context,
             text = text,
             noTextErrorResId = R.string.translate_no_text,
-            skipApiKeyCheck = usePlugin || isOfflineOnly,
-            apiCall = { service ->
-                val pluginProvider = if (usePlugin) TranslationLoader.getProvider(context) else null
-                val targetLang = service.getTargetLanguage()
-                val targetLangCode = getLangCode(targetLang)
-                val configuredSourceLang = service.getSourceLanguage()
-                val sourceLangCode = if (configuredSourceLang.isNotBlank() && !configuredSourceLang.equals("auto", ignoreCase = true)) {
-                    getLangCode(configuredSourceLang)
-                } else {
-                    LanguageDetector.detect(context, text, targetLangCode)
-                }
-
-                val hasAiConfigured = service.hasApiKey()
-
-                if (pluginProvider != null && pluginProvider.isAvailable()) {
-                    val missingModels = mutableListOf<String>()
-                    if (sourceLangCode != "auto" && sourceLangCode != "en") {
-                        val isDownloaded = try {
-                            pluginProvider.isModelDownloaded(sourceLangCode)
-                        } catch (_: Throwable) {
-                            false
-                        } || TranslationModelImporter.isModelInstalled(context, sourceLangCode)
-                        if (!isDownloaded) {
-                            missingModels.add(sourceLangCode)
-                        }
-                    }
-                    if (targetLangCode != "en" && !missingModels.contains(targetLangCode)) {
-                        val isDownloaded = try {
-                            pluginProvider.isModelDownloaded(targetLangCode)
-                        } catch (_: Throwable) {
-                            false
-                        } || TranslationModelImporter.isModelInstalled(context, targetLangCode)
-                        if (!isDownloaded) {
-                            missingModels.add(targetLangCode)
-                        }
-                    }
-
-                    if (missingModels.isNotEmpty()) {
-                        val missingNames = missingModels.joinToString(", ") { getLanguageDisplayName(context, it) }
-                        val errorMsg = context.getString(R.string.translation_specific_model_not_downloaded, missingNames)
-                        if (isOfflineOnly || !hasAiConfigured) {
-                            mainHandler.post {
-                                KeyboardSwitcher.getInstance().showToast(errorMsg, true)
-                            }
-                            return@performAsyncOperation Result.failure(Exception(errorMsg))
-                        } else {
-                            mainHandler.post {
-                                KeyboardSwitcher.getInstance().showToast(
-                                    context.getString(R.string.translation_switching_to_ai, missingNames),
-                                    false
-                                )
-                            }
-                            Log.i(TAG, "Plugin model for $missingNames not downloaded, falling back to built-in AI")
-                            return@performAsyncOperation service.translate(text)
-                        }
-                    }
-
-                    try {
-                        Log.i(TAG, "Translating via Translation Plugin (source: $sourceLangCode, target: $targetLangCode)")
-                        val result = pluginProvider.translate(text, targetLangCode, sourceLangCode)
-                        if (result.isNotBlank()) {
-                            Result.success(result)
-                        } else if (isOfflineOnly || !hasAiConfigured) {
-                            Result.failure(Exception("Plugin translation returned empty result"))
-                        } else {
-                            mainHandler.post {
-                                KeyboardSwitcher.getInstance().showToast(
-                                    context.getString(R.string.translation_plugin_fallback_to_ai),
-                                    false
-                                )
-                            }
-                            service.translate(text)
-                        }
-                    } catch (e: Throwable) {
-                        val errorMsg = if (e.message?.contains("not installed for en", ignoreCase = true) == true) {
-                            val missingCode = if (sourceLangCode != "en") sourceLangCode else targetLangCode
-                            val missingName = getLanguageDisplayName(context, missingCode)
-                            context.getString(R.string.translation_specific_model_not_downloaded, missingName)
-                        } else {
-                            e.message ?: "Translation error"
-                        }
-                        if (isOfflineOnly || !hasAiConfigured) {
-                            Result.failure(Exception(errorMsg, e))
-                        } else {
-                            mainHandler.post {
-                                KeyboardSwitcher.getInstance().showToast(
-                                    context.getString(R.string.translation_plugin_fallback_to_ai),
-                                    false
-                                )
-                            }
-                            service.translate(text)
-                        }
-                    }
-                } else if (isOfflineOnly || !hasAiConfigured) {
-                    mainHandler.post {
-                        KeyboardSwitcher.getInstance().showToast(
-                            context.getString(R.string.translation_model_not_downloaded),
-                            true
-                        )
-                    }
-                    Result.failure(Exception("Translation plugin not available"))
-                } else {
-                    if (!isOnlineOnly) {
-                        mainHandler.post {
-                            KeyboardSwitcher.getInstance().showToast(
-                                context.getString(R.string.translation_plugin_fallback_to_ai),
-                                false
-                            )
-                        }
-                    }
-                    service.translate(text)
-                }
-            },
+            apiCall = { service -> service.translate(text) },
             onSuccess = { callback.onSuccess(it) },
             onError = { callback.onError(it) }
         )

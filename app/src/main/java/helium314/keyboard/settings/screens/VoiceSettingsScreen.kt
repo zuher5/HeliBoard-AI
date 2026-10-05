@@ -34,8 +34,6 @@ import helium314.keyboard.latin.voice.VoiceConstants
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.dialogs.ListPickerDialog
-import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.PreferenceCategory
@@ -116,73 +114,6 @@ fun VoiceSettingsScreen(
                         }
                     }
                     providerSetting.Preference()
-
-                    // Voice Model (Online only)
-                    if (isOnline) {
-                        val aiProvider = service.getProvider()
-                        val defaultModel = ProofreadService.defaultVoiceModel(aiProvider)
-                        val standardModels = ProofreadService.defaultVoiceModels(aiProvider)
-                        val currentModel = remember(aiProvider, secureRefreshToken) { service.getVoiceModel(aiProvider) }
-                        val customLabel = stringResource(R.string.voice_model_custom)
-                        val pickerItems = standardModels + listOf(customLabel)
-
-                        var showPickerDialog by remember { mutableStateOf(false) }
-                        var showCustomDialog by remember { mutableStateOf(false) }
-
-                        Preference(
-                            name = stringResource(R.string.voice_model_title),
-                            description = currentModel.takeIf { it.isNotBlank() } ?: defaultModel,
-                            onClick = { showPickerDialog = true }
-                        )
-
-                        if (showPickerDialog) {
-                            ListPickerDialog(
-                                onDismissRequest = { showPickerDialog = false },
-                                items = pickerItems,
-                                selectedItem = if (currentModel in standardModels) currentModel else customLabel,
-                                title = { Text(stringResource(R.string.voice_model_title)) },
-                                getItemName = { it },
-                                onItemSelected = { item ->
-                                    showPickerDialog = false
-                                    if (item == customLabel) {
-                                        showCustomDialog = true
-                                    } else {
-                                        service.setVoiceModel(aiProvider, item)
-                                        secureRefreshToken++
-                                    }
-                                },
-                                onDefault = {
-                                    showPickerDialog = false
-                                    service.setVoiceModel(aiProvider, "")
-                                    secureRefreshToken++
-                                }
-                            )
-                        }
-
-                        if (showCustomDialog) {
-                            TextInputDialog(
-                                onDismissRequest = { showCustomDialog = false },
-                                onConfirmed = { input ->
-                                    showCustomDialog = false
-                                    val trimmed = input.trim()
-                                    if (trimmed.isNotEmpty()) {
-                                        service.setVoiceModel(aiProvider, trimmed)
-                                        secureRefreshToken++
-                                    }
-                                },
-                                title = { Text(stringResource(R.string.voice_model_title)) },
-                                initialText = if (currentModel in standardModels) "" else currentModel,
-                                placeholder = { Text(defaultModel) },
-                                singleLine = true,
-                                neutralButtonText = stringResource(R.string.button_default),
-                                onNeutral = {
-                                    showCustomDialog = false
-                                    service.setVoiceModel(aiProvider, "")
-                                    secureRefreshToken++
-                                }
-                            )
-                        }
-                    }
 
                     // Language
                     val languageItems = listOf(

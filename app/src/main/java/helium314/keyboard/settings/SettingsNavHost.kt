@@ -19,7 +19,6 @@ import helium314.keyboard.latin.settings.getTransitionAnimationScale
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AIIntegrationScreen
-import helium314.keyboard.settings.screens.TranslationSettingsScreen
 import helium314.keyboard.settings.screens.VoiceSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
 import helium314.keyboard.settings.screens.ColorsScreen
@@ -85,7 +84,6 @@ fun SettingsNavHost(
                 onClickDictionaries = { navController.navigate(SettingsDestination.Dictionaries) },
                 onClickAI = { navController.navigate(SettingsDestination.AI) },
                 onClickVoice = { navController.navigate(SettingsDestination.Voice) },
-                onClickTranslation = { navController.navigate(SettingsDestination.Translation) },
                 onClickBack = ::goBack,
             )
         }
@@ -104,8 +102,6 @@ fun SettingsNavHost(
         composable(SettingsDestination.AI) {
             AIIntegrationScreen(onClickBack = ::goBack)
         }
-        composable(SettingsDestination.Translation) {
-            TranslationSettingsScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Voice) {
             VoiceSettingsScreen(onClickBack = ::goBack)
@@ -180,7 +176,6 @@ object SettingsDestination {
     const val Preferences = "preferences"
     const val Toolbar = "toolbar"
     const val AI = "ai"
-    const val Translation = "translation"
     const val Voice = "voice"
     const val CustomAIKeys = "custom_ai_keys"
     const val CustomAIKeyConfig = "custom_ai_key_config/"
