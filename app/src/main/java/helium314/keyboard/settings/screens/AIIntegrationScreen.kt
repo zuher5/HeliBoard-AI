@@ -115,24 +115,36 @@ fun createAISettings(context: Context) = listOf(
         val service = remember { ProofreadService(context) }
         val provider = service.getProvider()
         val models = ProofreadService.defaultModels(provider)
-        var showDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+        val currentModel = service.getModelName(provider)
+        val customItem = stringResource(R.string.voice_model_custom)
+        var showListDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+        var showCustomDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
         Preference(
             name = setting.title,
-            description = service.getModelName(provider).takeIf { it.isNotBlank() }
+            description = currentModel.takeIf { it.isNotBlank() }
                 ?: stringResource(R.string.ai_model_default, ProofreadService.defaultModel(provider)),
-            onClick = { showDialog = true }
+            onClick = { showListDialog = true }
         )
-        if (showDialog) {
+        if (showListDialog) {
             helium314.keyboard.settings.dialogs.ListPickerDialog(
-                onDismissRequest = { showDialog = false },
-                items = models,
-                selectedItem = service.getModelName(provider).takeIf { it in models } ?: ProofreadService.defaultModel(provider),
+                onDismissRequest = { showListDialog = false },
+                items = models + customItem,
+                selectedItem = currentModel.takeIf { it in models } ?: ProofreadService.defaultModel(provider),
                 title = { androidx.compose.material3.Text(setting.title) },
                 onItemSelected = {
-                    service.setModelName(service.getProvider(), it)
-                    showDialog = false
+                    showListDialog = false
+                    if (it == customItem) showCustomDialog = true
+                    else service.setModelName(service.getProvider(), it)
                 },
                 onDefault = { service.setModelName(service.getProvider(), "") }
+            )
+        }
+        if (showCustomDialog) {
+            TextInputDialog(
+                onDismissRequest = { showCustomDialog = false },
+                onConfirmed = { service.setModelName(service.getProvider(), it) },
+                title = { androidx.compose.material3.Text(setting.title) },
+                initialText = currentModel.takeIf { it !in models } ?: ""
             )
         }
     },
@@ -140,24 +152,36 @@ fun createAISettings(context: Context) = listOf(
         val service = remember { ProofreadService(context) }
         val provider = service.getProvider()
         val models = ProofreadService.defaultVoiceModels(provider)
-        var showDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+        val currentModel = service.getVoiceModel(provider)
+        val customItem = stringResource(R.string.voice_model_custom)
+        var showListDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+        var showCustomDialog by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
         Preference(
             name = setting.title,
-            description = service.getVoiceModel(provider).takeIf { it.isNotBlank() }
+            description = currentModel.takeIf { it.isNotBlank() }
                 ?: stringResource(R.string.ai_model_default, ProofreadService.defaultVoiceModel(provider)),
-            onClick = { showDialog = true }
+            onClick = { showListDialog = true }
         )
-        if (showDialog) {
+        if (showListDialog) {
             helium314.keyboard.settings.dialogs.ListPickerDialog(
-                onDismissRequest = { showDialog = false },
-                items = models,
-                selectedItem = service.getVoiceModel(provider).takeIf { it in models } ?: ProofreadService.defaultVoiceModel(provider),
+                onDismissRequest = { showListDialog = false },
+                items = models + customItem,
+                selectedItem = currentModel.takeIf { it in models } ?: ProofreadService.defaultVoiceModel(provider),
                 title = { androidx.compose.material3.Text(setting.title) },
                 onItemSelected = {
-                    service.setVoiceModel(service.getProvider(), it)
-                    showDialog = false
+                    showListDialog = false
+                    if (it == customItem) showCustomDialog = true
+                    else service.setVoiceModel(service.getProvider(), it)
                 },
                 onDefault = { service.setVoiceModel(service.getProvider(), "") }
+            )
+        }
+        if (showCustomDialog) {
+            TextInputDialog(
+                onDismissRequest = { showCustomDialog = false },
+                onConfirmed = { service.setVoiceModel(service.getProvider(), it) },
+                title = { androidx.compose.material3.Text(setting.title) },
+                initialText = currentModel.takeIf { it !in models } ?: ""
             )
         }
     },
